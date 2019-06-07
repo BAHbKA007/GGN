@@ -1,0 +1,29 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Font Awesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+.myAlert-bottom{
+    text-align: center;
+    z-index: 100;
+    position: fixed;
+    bottom: 5px;
+    left:2%;
+    width: 96%;
+    margin:0;
+}
+
+.list-group-item {
+    padding-bottom: 4px;
+    padding-top: 4px;
+}

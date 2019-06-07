@@ -1,0 +1,3 @@
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Johann Schnedier', 'j.schneider@gemuesering.de', NULL, '$2y$10$laeaJhVVnesL9YKF6YFBAu/FUrkuClZ.oE8uLZjn8v8WUUoJWo8wm', 2, NULL, '2019-05-19 19:11:36', '2019-05-19 19:11:36'),
+(2, 'a', 'a@a.de', NULL, '$2y$10$r/6S2GaNQ9anp2rDiKBxmuDwz.7r7WHW1aIZCn3cXt0CvSzLbWPm.', 1, NULL, '2019-05-19 19:11:36', '2019-05-19 19:11:36');
