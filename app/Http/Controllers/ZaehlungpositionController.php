@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Zaehlungposition;
+use App\Artikel;
+use App\Ggn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -61,7 +63,7 @@ class ZaehlungpositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
@@ -72,13 +74,34 @@ class ZaehlungpositionController extends Controller
      */
     public function show($zaehlung_id, $kunde_id, $artikel_id)
     {
-        $artikel = DB::select('SELECT * FROM artikels JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ?',[$artikel_id]);
+        $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
+        $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
+        $ggns = DB::select('SELECT * FROM ggnsartikels WHERE ggnsartikels.artikel_id = ? ORDER BY ggn',[$artikel_id]);
+
+        $kunden = DB::select('SELECT
+                kundes.id,
+                kundes.name
+            FROM
+                programmkundes
+            JOIN kundes ON kundes.id = programmkundes.kun_id
+            WHERE
+                programmkundes.pro_id =(
+                SELECT
+                    pro_id
+                FROM
+                    zaehlungs
+                WHERE
+                    zaehlungs.id = ?)
+                AND kun_id = ?',[$zaehlung_id, $kunde_id])[0];
 
         return view('zaehlung.artikel')->with('var', [
             'artikel' => $artikel,
             'kunde_id' => $kunde_id,
             'artikel_id' => $artikel_id,
-            'zaehlung_id' => $zaehlung_id
+            'zaehlung_id ' => $zaehlung_id,
+            'zaehlung' => $zaehlung,
+            'kunden' => $kunden,
+            'ggns' => $ggns
         ]);
     }
 

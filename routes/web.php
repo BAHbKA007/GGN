@@ -63,3 +63,4 @@ Route::get('/zaehlung/{id}', 'ZaehlungController@show')->middleware('checkrole')
 
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}', 'ZaehlungpositionController@index')->middleware('checkrole');
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}/artikel/{artikel}', 'ZaehlungpositionController@show')->middleware('checkrole');
+Route::post('/zaehlung/artikel', 'ZaehlungpositionController@store')->middleware('checkrole');

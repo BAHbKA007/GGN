@@ -16,7 +16,7 @@ $wochentag = [
 @include('flash-message')
 
 <div class="container">
-    <p><a href="/zaehlung/{{$var['zaehlung']->id}}">{{$wochentag[strftime("%u", strtotime($var['zaehlung']->created_at))]}}</a> / <a href="">{{$var['kunde']->name}}</a></p>
+    <p><a href="/zaehlung/{{$var['zaehlung']->id}}">{{$wochentag[strftime("%u", strtotime($var['zaehlung']->created_at))]}}</a> / <a href=""><b>{{$var['kunde']->name}}</b></a></p>
     <div class="list-group">
         @foreach ($var['artikel'] as $item)
             <a href="/zaehlung/{{$var['zaehlung']->id}}/kunde/{{$var['kunde']->id}}/artikel/{{$item->id}}" class="list-group-item list-group-item-action">
