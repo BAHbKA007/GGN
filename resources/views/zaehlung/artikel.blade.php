@@ -68,7 +68,7 @@ $wochentag = [
                 
                 <div class="card-body">
 
-                    <form method="POST" action="/zaehlung/artikel" autocomplete="off" >
+                    <form method="POST" action="/zaehlung/artikel" autocomplete="off">
                         @csrf
                         <div class="form-row">
                             <div class="col-6">
