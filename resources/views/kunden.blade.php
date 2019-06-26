@@ -17,7 +17,7 @@
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-10">
-                                    <input @if (isset($var['kunden_edit'])) value="{{$var['kunden_edit']->name}}" @endif type="text" class="form-control form-control-sm" name="name" placeholder="Kunde" required>
+                                    <input id="focus" @if (isset($var['kunden_edit'])) value="{{$var['kunden_edit']->name}}" @endif type="text" class="form-control form-control-sm" name="name" placeholder="Kunde" required>
                                 </div>
                                 <div class="col-md-2" style="text-align:right">
                                     <button type="submit" class="btn btn-primary btn-sm"> @if (isset($var['kunden_edit'])) aktualisieren @else hinzufügen @endif </button>

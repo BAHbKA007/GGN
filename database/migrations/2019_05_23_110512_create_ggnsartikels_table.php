@@ -19,6 +19,14 @@ class CreateGgnsArtikelsTable extends Migration
             $table->unsignedBigInteger('artikel_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('artikel_id')
+            ->references('id')->on('artikels')
+            ->onDelete('cascade');
+            
+            $table->foreign('ggn')
+            ->references('ggn')->on('ggns')
+            ->onDelete('cascade');
         });
     }
 

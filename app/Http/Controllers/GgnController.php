@@ -52,18 +52,16 @@ class GgnController extends Controller
         $ggn->ggn = $request->ggn;
         $ggn->erzeuger = $request->erzeuger;
         $ggn->user_id = Auth::user()->id;
-
-        try {
+        
+        if (Ggn::find($request->ggn) == NULL) {
             $ggn->save();
             return redirect('/ggn')->with('status', ['success' => 'GGN '.$request->ggn.' vom Erzeuger '.$request->erzeuger.' erfolgreich hinzugefügt']);
-        }
-            //catch exception
-            catch(Exception $e) {
+        } else {
+
             return redirect('/ggn')->with('status', [
-                'error' => 'Hat leider nicht geklappt, evtl. existiert die GGN bereits.',
-                'message' => $e->getMessage()
+                'error' => 'Hat leider nicht geklappt, die GGN existiert bereits.'
                 ]);
-        }
+            }
     }
 
     /**

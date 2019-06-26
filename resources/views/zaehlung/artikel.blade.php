@@ -65,11 +65,12 @@ $wochentag = [
         <div class="col-md-12">
 
             <div class="card" style="margin-bottom:20px">
-                
                 <div class="card-body">
-
                     <form method="POST" action="/zaehlung/artikel" autocomplete="off">
                         @csrf
+                        <input name="artikel_id" value="{{$var['artikel_id']}}" hidden>
+                        <input name="kunde_id" value="{{$var['kunde_id']}}" hidden>
+                        <input name="zaehlung_id" value="{{$var['zaehlung_id']}}" hidden>
                         <div class="form-row">
                             <div class="col-6">
                                 <input id="myInput" class="form-control" type="number" name="ggn" placeholder="GGN" required>
@@ -82,10 +83,15 @@ $wochentag = [
                             </div>
                         </div>
                     </form>
-
                 </div>
-                
             </div>
+
+            <ul class="list-group">
+                @foreach ($var['gezaehlte'] as $item)
+                    <li class="list-group-item"><span style="width: 60px;float: left;"><strong>{{$item->menge}}x</strong></span> {{$item->ggn}}<span style="float: right;"><a href="" onclick="del_gezaehlt({{$item->zaehlpos_id}},{{$var['zaehlung_id']}},{{$var['kunde_id']}}),{{$var['artikel_id']}}">L</a></span></li>
+                @endforeach
+            </ul>
+
         </div>
     </div>
 </div>

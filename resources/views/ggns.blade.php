@@ -17,10 +17,10 @@
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-5">
-                                    <input @if (isset($var['ggn_edit'])) value="{{$var['ggn_edit']->ggn}}" @endif type="number" min="1" maxlength="3" class="form-control form-control-sm" name="ggn" placeholder="GGN" required>
+                                    <input id="focus" min="1" max="9999999999999" @if (isset($var['ggn_edit'])) value="{{$var['ggn_edit']->ggn}}" @endif type="number"  class="form-control form-control-sm" name="ggn" placeholder="GGN" required>
                                 </div>
                                 <div class="col-md-5">
-                                    <input @if (isset($var['ggn_edit'])) value="{{$var['ggn_edit']->erzeuger}}" @endif type="text" class="form-control form-control-sm" name="erzeuger" placeholder="Erzeuger" required>
+                                    <input @if (isset($var['ggn_edit'])) value="{{$var['ggn_edit']->erzeuger}}" @endif type="text" class="form-control form-control-sm" name="erzeuger" placeholder="Erzeuger">
                                 </div>
                                 <div class="col-md-2" style="text-align:right">
                                     <button type="submit" class="btn btn-primary btn-sm"> @if (isset($var['ggn_edit'])) aktualisieren @else hinzufügen @endif </button>
@@ -62,4 +62,12 @@
         </div>
     </div>
 </div>
+
+<script>
+window.onload = function() {
+  document.getElementById("focus").focus();
+  console.log('asdasd');
+};
+</script>
+
 @endsection

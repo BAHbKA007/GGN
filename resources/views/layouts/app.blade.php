@@ -74,6 +74,15 @@
                                 <a class="nav-link" href="/zaehlung">Zählungen</a>
                             </li>
                         </ul>
+                    @else
+
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav mr-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/zaehlung">Zählungen</a>
+                            </li>
+                        </ul>
                     @endif
 
                     <!-- Right Side Of Navbar -->

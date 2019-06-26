@@ -15,7 +15,7 @@ class CreateGgnsTable extends Migration
     {
         Schema::create('ggns', function (Blueprint $table) {
             $table->unsignedBigInteger('ggn')->primary()->unique();
-            $table->string('erzeuger');
+            $table->string('erzeuger')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
