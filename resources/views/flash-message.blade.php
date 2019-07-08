@@ -1,7 +1,7 @@
 @if (isset(session('status')['success']) && session('status')['success'] != NULL)
 <div class="alert alert-success alert-block fade show myAlert-bottom">
 	<button type="button" class="close" data-dismiss="alert">×</button>	
-    {{ session('status')['success'] }}
+    {!! session('status')['success'] !!}
 </div>
 @endif
 

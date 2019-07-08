@@ -58,7 +58,7 @@ class KundeController extends Controller
 
         try {
             $kunde->save();
-            return redirect('/kunden')->with('status', ['success' => 'Kunde '.$request->name.' erfolgreich hinzugefügt']);
+            return redirect('/kunden')->with('status', ['success' => 'Kunde <strong>'.$request->name.'</strong> erfolgreich hinzugefügt']);
         }
             //catch exception
             catch(Exception $e) {
@@ -110,7 +110,7 @@ class KundeController extends Controller
 
         try {
             $kunde->save();
-            return redirect('/kunden')->with('status', ['success' => 'Kunde '.$request->name.' erfolgreich aktualiesiert']);
+            return redirect('/kunden')->with('status', ['success' => 'Kunde <strong>'.$request->name.'</strong> erfolgreich aktualiesiert']);
         }
             //catch exception
             catch(Exception $e) {

@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/soap', 'SoapController');
+
 Auth::routes(['register' => false]);
 
 Route::get('/', 'HomeController@index');

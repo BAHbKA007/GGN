@@ -55,7 +55,7 @@ class GgnController extends Controller
         
         if (Ggn::find($request->ggn) == NULL) {
             $ggn->save();
-            return redirect('/ggn')->with('status', ['success' => 'GGN '.$request->ggn.' vom Erzeuger '.$request->erzeuger.' erfolgreich hinzugefügt']);
+            return redirect('/ggn')->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> vom Erzeuger <strong>'.$request->erzeuger.'</strong> erfolgreich hinzugefügt']);
         } else {
 
             return redirect('/ggn')->with('status', [
@@ -97,7 +97,7 @@ class GgnController extends Controller
 
         try {
             $ggn->save();
-            return redirect('/ggn')->with('status', ['success' => 'GGN '.$request->ggn.' erfolgreich aktualiesiert']);
+            return redirect('/ggn')->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich aktualiesiert']);
         }
             //catch exception
             catch(Exception $e) {

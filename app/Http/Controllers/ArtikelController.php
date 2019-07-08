@@ -59,7 +59,7 @@ class ArtikelController extends Controller
 
         try {
             $artikel->save();
-            return redirect('/artikel')->with('status', ['success' => 'Artikel '.$request->bezeichnung.' erfolgreich hinzugefügt']);
+            return redirect('/artikel')->with('status', ['success' => 'Artikel <strong>'.$request->bezeichnung.'</strong> erfolgreich hinzugefügt']);
         }
             //catch exception
             catch(Exception $e) {
@@ -111,7 +111,7 @@ class ArtikelController extends Controller
 
         try {
             $artikel->save();
-            return redirect('/artikel')->with('status', ['success' => 'Artikel '.$request->bezeichnung.' erfolgreich aktualiesiert']);
+            return redirect('/artikel')->with('status', ['success' => 'Artikel <strong>'.$request->bezeichnung.'</strong> erfolgreich aktualiesiert']);
         }
             //catch exception
             catch(Exception $e) {
