@@ -20,9 +20,12 @@ $wochentag = [
     <div class="list-group">
         @foreach ($var['artikel'] as $item)
             <a href="/zaehlung/{{$var['zaehlung']->id}}/kunde/{{$var['kunde']->id}}/artikel/{{$item->id}}" class="list-group-item list-group-item-action">
-                {{$item->bezeichnung}} @if ($item->summe > 0) <span class="badge badge-primary" style="margin-left:10px">{{$item->summe}}</span> @endif
+                {{$item->bezeichnung}} @if ($item->summe > 0) <span class="badge badge-primary" style="margin-left:10px">{{$item->summe}} Kolli</span> @endif
             </a>
         @endforeach
     </div>
 </div>
+
+@include('layouts.kommentare_modal')
+
 @endsection

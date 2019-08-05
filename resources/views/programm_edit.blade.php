@@ -33,7 +33,7 @@
                 <div href="{{$item->id}}" class="list-group-item list-group-item-action">
                     <div class="custom-control custom-checkbox">
                         <a href="/programm/{{$var['programm_edit']->id}}/{{$item->id}}">{{$item->name}}</a>@if ($item->art_count > 0) <span class="badge badge-primary" style="margin-left:10px">{{$item->art_count}} Artikel</span>@endif
-                        <div class="float-right"><a href="" onclick="del_data('programmkunde', '{{$item->id}}', '{{$item->name}}', '{{$var['programm_edit']->id}}', '{{$var['pro_id']}}')">L</a></div>
+                        <div class="float-right"><a href="" onclick="del_data('programmkunde', '{{$item->id}}', '{{$item->name}}', '{{$var['programm_edit']->id}}', '{{$var['pro_id']}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a></div>
                     </div>
                 </div>
                 @endforeach

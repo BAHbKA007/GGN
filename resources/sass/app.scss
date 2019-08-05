@@ -8,10 +8,7 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Font Awesome
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
+@import 'material-icons/iconfont/material-icons.scss';
 
 .myAlert-bottom{
     text-align: center;
@@ -26,4 +23,10 @@
 .list-group-item {
     padding-bottom: 4px;
     padding-top: 4px;
+}
+
+.unten_rechts {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

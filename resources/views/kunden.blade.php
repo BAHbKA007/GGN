@@ -43,7 +43,7 @@
                                 @foreach ($var['kunden'] as $kunde)
                                 <tr>
                                     <td>{{$kunde->name}}</td>
-                                    <td style="text-align:right"><a href="/kunden/{{$kunde->id}}/edit">B</a> <a href="#" onclick="del_data('kunden', '{{$kunde->id}}', '{{$kunde->name}}')">L</a></td>
+                                    <td style="text-align:right"><a href="/kunden/{{$kunde->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a> <a href="#" onclick="del_data('kunden', '{{$kunde->id}}', '{{$kunde->name}}')"><i class="material-icons" style="font-size:16px;">delete_outline</i></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

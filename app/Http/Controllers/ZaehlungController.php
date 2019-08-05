@@ -79,19 +79,20 @@ class ZaehlungController extends Controller
     public function show($id)
     {
         $kunden = DB::select('SELECT
-            kundes.id,
-            kundes.name
+        kundes.id,
+        kundes.name,
+        (SELECT SUM(menge) FROM zaehlungpositions WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = kundes.id ) AS summe
+    FROM
+        programmkundes
+    JOIN kundes ON kundes.id = programmkundes.kun_id
+    WHERE
+        programmkundes.pro_id =(
+        SELECT
+            pro_id
         FROM
-            programmkundes
-        JOIN kundes ON kundes.id = programmkundes.kun_id
+            zaehlungs
         WHERE
-            programmkundes.pro_id =(
-            SELECT
-                pro_id
-            FROM
-                zaehlungs
-            WHERE
-                zaehlungs.id = ?)',[$id]);
+            zaehlungs.id = ?)',[$id,$id]);
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$id])[0];
         return view('zaehlung.zaehlung')->with('var', [
             'zaehlung' => $zaehlung,

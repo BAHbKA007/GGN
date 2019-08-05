@@ -49,8 +49,8 @@
                                     <td>{{$ggn->ggn}}</td>
                                     <td>{{$ggn->erzeuger}}</td>
                                     <td style="text-align:right">
-                                        <a href="/ggn/{{$ggn->ggn}}/edit">B</a>
-                                        <a href="#" onclick="del_data('ggn', '{{$ggn->ggn}}', '{{$ggn->erzeuger}}')">L</a>
+                                        <a href="/ggn/{{$ggn->ggn}}/edit"><i class="material-icons" style="font-size:16px">create</i></a>
+                                        <a href="#" onclick="del_data('ggn', '{{$ggn->ggn}}', '{{$ggn->erzeuger}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
                                     </td>
                                 </tr>
                                 @endforeach

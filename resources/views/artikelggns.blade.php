@@ -30,7 +30,7 @@
                     <div href="#" class="list-group-item list-group-item-action">
                         <div class="custom-control custom-checkbox">
                             {{$item->ggn}} <small>{{$item->erzeuger}}</small>
-                            <div class="float-right"><a href="" >L</a></div>
+                            <div class="float-right"><a href="" ><i class="material-icons" style="font-size:16px">delete_outline</i></a></div>
                         </div>
                     </div>
                 @endforeach

@@ -20,7 +20,9 @@ $wochentag = [
     <div class="list-group">
         @foreach ($var['kunden'] as $item)
             <a href="/zaehlung/{{$var['zaehlung']->id}}/kunde/{{$item->id}}" class="list-group-item list-group-item-action">
-                {{$item->name}}
+                {{$item->name}} @if ($item->summe > 0)
+                    <span class="badge badge-primary" style="margin-left:10px">{{$item->summe}} Kolli</span>
+                @endif 
             </a>
         @endforeach
     </div>

@@ -30,6 +30,7 @@ class ZaehlungpositionController extends Controller
     public function index($zaehlung_id, $kunde_id)
     {
         $kunde = DB::select('SELECT * FROM kundes WHERE kundes.id = ?',[$kunde_id])[0];
+        $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
         $artikel = DB::select('SELECT
             bezeichnung,
@@ -60,7 +61,8 @@ class ZaehlungpositionController extends Controller
         return view('zaehlung.zaehlung_artikel')->with('var', [
             'zaehlung' => $zaehlung,
             'kunde' => $kunde,
-            'artikel' => $artikel
+            'artikel' => $artikel,
+            'comment' => $comment
         ]);
     }
 
@@ -101,6 +103,7 @@ class ZaehlungpositionController extends Controller
      */
     public function show($zaehlung_id, $kunde_id, $artikel_id)
     {
+        $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
         $ggns = DB::select('SELECT * FROM ggnsartikels WHERE ggnsartikels.artikel_id = ? ORDER BY ggn',[$artikel_id]);
@@ -108,7 +111,7 @@ class ZaehlungpositionController extends Controller
                     JOIN artikels on artikels.id = zaehlungpositions.art_id
                     WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = ? AND zaehlungpositions.art_id = ?',[$zaehlung_id, $kunde_id, $artikel_id]);
 
-        $kunden = DB::select('SELECT
+        $kunde = DB::select('SELECT
                 kundes.id,
                 kundes.name
             FROM
@@ -130,9 +133,10 @@ class ZaehlungpositionController extends Controller
             'artikel_id' => $artikel_id,
             'zaehlung_id' => $zaehlung_id,
             'zaehlung' => $zaehlung,
-            'kunden' => $kunden,
+            'kunde' => $kunde,
             'ggns' => $ggns,
-            'gezaehlte' => $gezaehlte
+            'gezaehlte' => $gezaehlte,
+            'comment' => $comment
         ]);
     }
 

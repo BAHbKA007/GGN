@@ -58,7 +58,7 @@ $wochentag = [
 <div class="container">
     <p>
         <a href="/zaehlung/{{$var['zaehlung']->id}}">{{$wochentag[strftime("%u", strtotime($var['zaehlung']->created_at))]}}</a>
-            / <a href="/zaehlung/{{$var['zaehlung']->id}}/kunde/{{$var['kunde_id']}}">{{$var['kunden']->name}}</a>
+            / <a href="/zaehlung/{{$var['zaehlung']->id}}/kunde/{{$var['kunde_id']}}">{{$var['kunde']->name}}</a>
             / <a href=""><b>{{$var['artikel'][0]->bezeichnung}}</b></a>
     </p>
     <div class="row justify-content-center">
@@ -88,13 +88,15 @@ $wochentag = [
 
             <ul class="list-group">
                 @foreach ($var['gezaehlte'] as $item)
-                    <li class="list-group-item"><span style="width: 60px;float: left;"><strong>{{$item->menge}}x</strong></span> {{$item->ggn}}<span style="float: right;"><a href="" onclick="del_gezaehlt({{$item->zaehlpos_id}},{{$var['zaehlung_id']}},{{$var['kunde_id']}}),{{$var['artikel_id']}}">L</a></span></li>
+                    <li class="list-group-item"><span style="width: 60px;float: left;"><strong>{{$item->menge}}x</strong></span> {{$item->ggn}}<span style="float: right;"><a href="" onclick="del_gezaehlt({{$item->zaehlpos_id}},{{$var['zaehlung_id']}},{{$var['kunde_id']}}),{{$var['artikel_id']}}"><i class="material-icons" style="font-size:16px">delete_outline</i></a></span></li>
                 @endforeach
             </ul>
 
         </div>
     </div>
 </div>
+
+@include('layouts.kommentare_modal')
 
 <script>
     function autocomplete(inp, arr) {

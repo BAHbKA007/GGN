@@ -60,7 +60,7 @@
                                     <td>{{$benutzer->name}}</td>
                                     <td>{{$benutzer->email}}</td>
                                     <td>{{$benutzer->rolesname}}</td>
-                                    <td style="text-align:right"> <a href="/benutzer/{{$benutzer->id}}/edit">B</a> <a href="#" onclick="del_data('benutzer', '{{$benutzer->id}}', '{{$benutzer->name}}')">L</a> </td>
+                                    <td style="text-align:right"> <a href="/benutzer/{{$benutzer->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a> <a href="#" onclick="del_data('benutzer', '{{$benutzer->id}}', '{{$benutzer->name}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a> </td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -47,8 +47,8 @@
                                     <a href="/artikel/{{$artikel->id}}/ggn">{{$artikel->bezeichnung}}</a>@if ($artikel->art_count > 0) <span class="badge badge-primary" style="margin-left:10px">{{$artikel->art_count}} GGNs</span>@endif
                                 </td>
                                 <td style="text-align:right">
-                                    <a href="/artikel/{{$artikel->id}}/edit">B</a>
-                                    <a href="#" onclick="del_data('artikel', '{{$artikel->id}}', '{{$artikel->bezeichnung}}')">L</a>
+                                    <a href="/artikel/{{$artikel->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a>
+                                    <a href="#" onclick="del_data('artikel', '{{$artikel->id}}', '{{$artikel->bezeichnung}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
                                 </td>
                             </tr>
                             @endforeach
