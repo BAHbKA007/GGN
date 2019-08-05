@@ -8,6 +8,7 @@ use SoapVar;
 class MySoap   {
 
     function __construct() {
+        $this->bookmarkListId = '58064';
         $this->client = new SoapClient('https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [
             'stream_context' => stream_context_create([
                 'ssl' => [
@@ -69,7 +70,7 @@ class MySoap   {
                             <ggn>'.$ggn.'</ggn>
                         </bookmarkItemData>
                         <bookmarkListIdList>
-                            <bookmarkId>57087</bookmarkId>
+                            <bookmarkId>'.$this->bookmarkListId.'</bookmarkId>
                         </bookmarkListIdList> 
                     </ns2:bookmarkItemInsertRequest>
                 ]]></request>';
@@ -87,7 +88,7 @@ class MySoap   {
         $xml = '<request xsi:type="xsd:string"><![CDATA[
                     <ns2:getBookmarkRequest xmlns:ns2="http://www.globalgap.org/">
                         <bookmarkListIdList>
-                            <bookmarkId>57087</bookmarkId>
+                            <bookmarkId>'.$this->bookmarkListId.'</bookmarkId>
                         </bookmarkListIdList> 
                     </ns2:getBookmarkRequest>
                 ]]></request>';
