@@ -18,8 +18,11 @@ class SoapController extends Controller
      */
     public function __invoke()
     {
+
+        // Erzeugergruppe: 4049929641372
+        // Einzelerzeuger: 4049929943810
         $soap = new MySoap;
-        return var_dump($soap->bookmarkItemInsert('4056186251794'));
+        return var_dump($soap->getBookmark());
 
         // global $client;
         // $client = new SoapClient('https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [

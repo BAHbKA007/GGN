@@ -4,11 +4,14 @@ namespace App\CustomClass;
 use SoapClient;
 use SoapHeader;
 use SoapVar;
+use Illuminate\Support\Facades\DB;
+use App\Setting;
 
 class MySoap   {
 
     function __construct() {
-        $this->bookmarkListId = '58064';
+        $this->bookmarkListId = Setting::where('setting', 'listid')->get()[0]->value;
+        $this->okey = Setting::where('setting', 'okey')->get()[0]->value;
         $this->client = new SoapClient('https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [
             'stream_context' => stream_context_create([
                 'ssl' => [
@@ -24,6 +27,10 @@ class MySoap   {
             'soap_version' => SOAP_1_2,
             'encoding' => 'UTF-8'
         ]);
+    }
+
+    function test() {
+        return $this->bookmarkListId;
     }
 
     function getBookmarkLists() {
@@ -47,8 +54,8 @@ class MySoap   {
                         <bookmarkListData>
                             <listName>Johanns Testliste</listName>
                             <listDescription>Johanns Testliste</listDescription>
-                            <editorOkey>OKEY-08cmr-5bw7-wmoo</editorOkey>
-                            <followerOkey>OKEY-08cmr-5bw7-wmoo</followerOkey>
+                            <editorOkey>'.$this->okey.'</editorOkey>
+                            <followerOkey>'.$this->okey.'</followerOkey>
                         </bookmarkListData>
                     </ns2:bookmarkListInsertRequest>
                     ]]>

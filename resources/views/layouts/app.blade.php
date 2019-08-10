@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'QM') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -47,11 +47,11 @@
                                 v-pre>Stammdaten<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/benutzer">Benutzer</a>
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/artikel">Artikel</a>
                                     <a class="dropdown-item" href="/kunden">Kunden</a>
-                                   <a class="dropdown-item" href="/ggn">GGNs</a>
+                                    <a class="dropdown-item" href="/ggn">GGNs</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/benutzer">Benutzer</a>
                                </div>
                            </li>
                            <li class="nav-item dropdown">
