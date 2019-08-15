@@ -102,7 +102,7 @@ class MySoap   {
         
         $params = new SoapVar($xml, XSD_ANYXML);
         
-        $response = $this->client->doRequest('getBookmark','2.1', $params);
+        $response = $this->client->doRequest('getBookmark','2.4', $params);
         $xml = simplexml_load_string($response);
         $json = json_encode($xml);
         $array = json_decode($json,TRUE);
