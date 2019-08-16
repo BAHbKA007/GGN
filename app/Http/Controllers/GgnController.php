@@ -122,36 +122,7 @@ class GgnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $soap = new MySoap;
-        $resp = $soap->bookmarkItemInsert($request->ggn);
-        global $responseprop;
 
-        return 'asdsad';
-        // if ($responsprop->result == 'ok') {
-        //     return redirect('/ggn')->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich aktualiesiert']);
-        // } else {
-        //     return redirect('/ggn')->with('status', [
-        //         'error' => 'Hat leider nicht geklappt, evtl. existiert die GGN bereits.',
-        //         'message' => $responsprop->desc
-        //     ]);
-        // }
-        
-        
-        // $ggn = Ggn::find($id);
-        // $ggn->ggn = $request->ggn;
-        // $ggn->erzeuger = $request->erzeuger;
-
-        // try {
-        //     $ggn->save();
-        //     return redirect('/ggn')->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich aktualiesiert']);
-        // }
-        //     //catch exception
-        //     catch(Exception $e) {
-        //     return redirect('/ggn')->with('status', [
-        //         'error' => 'Hat leider nicht geklappt, evtl. existiert die GGN bereits.',
-        //         'message' => $e->getMessage()
-        //         ]);
-        // }
     }
 
     /**

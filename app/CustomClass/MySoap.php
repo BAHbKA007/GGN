@@ -116,10 +116,28 @@ class MySoap   {
         $params = new SoapVar($xml, XSD_ANYXML);
         
         $response = $this->client->doRequest('getBookmark','2.4', $params);
-        $xml = simplexml_load_string($response);
-        $json = json_encode($xml);
-        $array = json_decode($json,TRUE);
-        return $array;
+        try {
+            $xml = simplexml_load_string($response);
+        } catch ( \Exception $e ) {
+            Storage::disk('soap_logs')->put('simplexml_load_string.ERROR', $e);
+            return $responsprop->result = NULL;
+        }
+        // $json = json_encode($xml);
+        // $array = json_decode($json,TRUE);
+
+        // XML Requst in in Datei speichern
+        $filename = "getBookmark_".date("Ymd_His").".xml";
+        Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
+        Storage::disk('soap_logs')->append($filename, html_entity_decode(htmlspecialchars_decode($this->client->__getLastResponse())));
+        
+        $responsprop = new ResponseProperties;
+        
+        // $responsprop->bookmarkItemId = (isset($xml->bookmarkIdentityList->bookmarkIdentity->bookmarkItemId)) ? $xml->bookmarkIdentityList->bookmarkIdentity->bookmarkItemId->__toString() : NULL;
+        // $responsprop->desc = (isset($xml->responseheader->resultMsgList->resultMsg->desc)) ? $xml->responseheader->resultMsgList->resultMsg->desc->__toString() : NULL;
+        $responsprop->result = (isset($xml->responseheader->resultstate)) ? $xml->responseheader->resultstate->__toString() : NULL;
+        $responsprop->bookmarkItemList = (isset($xml->bookmarkListQueryList->bookmarkListQuery->bookmarkListQuery->bookmarkItemList)) ? $xml->bookmarkListQueryList->bookmarkListQuery->bookmarkListQuery->bookmarkItemList : NULL;
+
+        return $responsprop;
     }
 
     function bookmarkItemDelete($id) {

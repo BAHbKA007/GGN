@@ -73,6 +73,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/zaehlung">Zählungen</a>
                             </li>
+                            <a href="/sync" class="btn btn-light" role="button">GLOBALG.A.P. Sync.</a>
                         </ul>
                     @else
 

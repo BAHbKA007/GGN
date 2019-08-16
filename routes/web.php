@@ -68,3 +68,6 @@ Route::post('/zaehlung/artikel', 'ZaehlungpositionController@store');
 Route::delete('/zaehlposition/{id}', 'ZaehlungpositionController@destroy');
 
 Route::post('/comment', 'CommentController@store');
+
+Route::get('/sync', 'Synch');
+
