@@ -1,31 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
+  
+<!-- Modal -->
+<div class="modal animated fadeIn" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Löschen bestätigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Soll die GGN: <span id="modal-ggn"></span> wirklich gelöscht werden?
+            </div>
+            <form action="/ggn/del" method="post">
+                @csrf
+                <input id="id" type="hidden" name="id" value="">
+                <input id="ggn" type="hidden" name="ggn" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
+                    <button type="submit" class="btn btn-danger">löschen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card" style="margin-bottom:20px">
             
                     <div class="card-body">
-    
-                        @if (isset($var['ggn_edit']))
-                            <form method="POST" action="/ggn/{{$var['ggn_edit']->ggn}}" > @method('put')
-                        @else
-                            <form method="POST" action="/ggn">
-                        @endif
-    
+                        <form method="POST" action="/ggn">
                             @csrf
-                            <div class="form-row">
-                                <div class="col-md-5">
-                                    <input id="focus" min="1" max="9999999999999" @if (isset($var['ggn_edit'])) value="{{$var['ggn_edit']->ggn}}" @endif type="number"  class="form-control form-control-sm" name="ggn" placeholder="GGN" required>
-                                </div>
-                                <div class="col-md-5">
-                                    <input @if (isset($var['ggn_edit'])) value="{{$var['ggn_edit']->erzeuger}}" @endif type="text" class="form-control form-control-sm" name="erzeuger" placeholder="Erzeuger">
-                                </div>
-                                <div class="col-md-2" style="text-align:right">
-                                    <button type="submit" class="btn btn-primary btn-sm"> @if (isset($var['ggn_edit'])) aktualisieren @else hinzufügen @endif </button>
-                                </div>
+
+                            <div class="form-group">
+                                <input id="focus" min="1000000000000" max="9999999999999" type="number" class="form-control form-control-sm" name="ggn" placeholder="GGN" required>
                             </div>
+                            <button type="submit" class="btn btn-primary btn-sm">speichern</button>
                         </form>
                     </div>
                     
@@ -49,8 +64,7 @@
                                     <td>{{$ggn->ggn}}</td>
                                     <td>{{$ggn->erzeuger}}</td>
                                     <td style="text-align:right">
-                                        <a href="/ggn/{{$ggn->ggn}}/edit"><i class="material-icons" style="font-size:16px">create</i></a>
-                                        <a href="#" onclick="del_data('ggn', '{{$ggn->ggn}}', '{{$ggn->erzeuger}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
+                                        <a href="#Modal" data-toggle="modal" onclick="del({{$ggn->ggn}},{{$ggn->id}})" data-target="#Modal"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -65,8 +79,13 @@
 
 <script>
 window.onload = function() {
-  document.getElementById("focus").focus();
-  console.log('asdasd');
+    document.getElementById("focus").focus();
+};
+
+function del(ggn,id) {
+    $("#id").attr('value', id);
+    $("#ggn").attr('value', ggn);
+    $("#modal-ggn").text(ggn);
 };
 </script>
 

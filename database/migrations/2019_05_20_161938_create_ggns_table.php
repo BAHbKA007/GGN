@@ -14,9 +14,10 @@ class CreateGgnsTable extends Migration
     public function up()
     {
         Schema::create('ggns', function (Blueprint $table) {
-            $table->unsignedBigInteger('ggn')->primary()->unique();
+            $table->unsignedBigInteger('id')->index()->primary();
+            $table->unsignedBigInteger('ggn')->index();
             $table->string('erzeuger')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->string('user_name');
             $table->timestamps();
         });
     }

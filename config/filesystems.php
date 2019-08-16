@@ -43,9 +43,14 @@ return [
 
     'disks' => [
 
+        'soap_logs' => [
+            'driver' => 'local',
+            'root' => storage_path('app/soap_logs'),
+        ],
+
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/'),
         ],
 
         'public' => [
@@ -53,6 +58,11 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+        ],
+
+        'soap_log' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/soap_logs'),
         ],
 
         's3' => [

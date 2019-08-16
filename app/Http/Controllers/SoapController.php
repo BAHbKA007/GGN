@@ -21,8 +21,9 @@ class SoapController extends Controller
 
         // Erzeugergruppe: 4049929641372
         // Einzelerzeuger: 4049929943810
-        $soap = new MySoap;
-        return var_dump($soap->getBookmark());
+        $routine = new GgnInsertRoutine;
+        $routine->run();
+        //return var_dump($soap->getBookmark());
 
         // global $client;
         // $client = new SoapClient('https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [

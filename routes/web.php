@@ -38,9 +38,8 @@ Route::delete('/kunden/{id}', 'KundeController@destroy');
 
 Route::get('/ggn', 'GgnController@index');
 Route::get('/ggn/{id}/edit', 'GgnController@edit');
-Route::put('/ggn/{id}', 'GgnController@update');
 Route::post('/ggn', 'GgnController@store');
-Route::delete('/ggn/{id}', 'GgnController@destroy');
+Route::post('/ggn/del', 'GgnController@destroy');
 
 Route::get('/programm', 'ProgrammController@index');
 Route::get('/programm/create', 'ProgrammController@create');
