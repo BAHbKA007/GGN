@@ -8,6 +8,7 @@ use App\ggnsartikel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\CustomClass\MySoap;
+use App\CustomClass\SoapRoutines;
 use Illuminate\Support\Facades\Storage;
 
 class GgnController extends Controller
@@ -24,7 +25,20 @@ class GgnController extends Controller
 
     public function index()
     {
-        $ggns = DB::select('select * from ggns order by ggn asc');
+        $ggns = DB::select('SELECT
+                                ggns.*,
+                                (
+                                SELECT
+                                    COUNT(*)
+                                FROM
+                                    soap_artikels
+                                WHERE
+                                    soap_artikels.ggn_id = ggns.id
+                                ) AS artikel_count
+                            FROM
+                                ggns
+                            ORDER BY
+                                groupggn ASC');
 
         return view('ggns')->with('var', [
             'ggns' => $ggns
@@ -50,6 +64,7 @@ class GgnController extends Controller
      */
     public function store(Request $request)
     {
+        global $responsprop;
         $mysql_ggn_count = GGN::where('ggn', $request->ggn)->count();
 
         // wenn die eingegebene GGN in der lokalen Datenbank bereits vorhanden
@@ -60,18 +75,8 @@ class GgnController extends Controller
         // wenn die eingegebene GGN nicht in der lokalen Datenbank auftaucht
         } else {
 
-            // Soap insert
-            $soap = new MySoap;
-            $responsprop = $soap->bookmarkItemInsert($request->ggn);
-            
-            // wenn respons ok
-            if ($responsprop->result == 'ok') {
-                $ggn = new Ggn;
-                $ggn->ggn = $request->ggn;
-                $ggn->user_name = Auth::user()->name;
-                $ggn->id = $responsprop->bookmarkItemId;
-                $ggn->save();
-
+            $insertRoutine = new SoapRoutines;
+            if ( $insertRoutine->ItemInsert($request->ggn) ) {
                 return back()->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt']);
             } else {
                 return back()->with('status', [
@@ -79,20 +84,6 @@ class GgnController extends Controller
                 ]);
             }  
         }
-        // $ggn = new Ggn;
-        // $ggn->ggn = $request->ggn;
-        // $ggn->erzeuger = $request->erzeuger;
-        // $ggn->user_id = Auth::user()->id;
-        
-        // if (Ggn::find($request->ggn) == NULL) {
-        //     $ggn->save();
-        //     return redirect('/ggn')->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> vom Erzeuger <strong>'.$request->erzeuger.'</strong> erfolgreich hinzugefügt']);
-        // } else {
-
-        //     return redirect('/ggn')->with('status', [
-        //         'error' => 'Hat leider nicht geklappt, die GGN existiert bereits.'
-        //         ]);
-        // }
     }
 
     /**
@@ -133,8 +124,10 @@ class GgnController extends Controller
      */
     public function destroy(Request $request)
     {
+
         // Soap delete
         $soap = new MySoap;
+        global $responsprop;
         $responsprop = $soap->bookmarkItemDelete($request->id);
         
         // wenn respons ok

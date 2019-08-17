@@ -12,7 +12,7 @@ class MySoap   {
     function __construct() {
         $this->bookmarkListId = Setting::where('setting', 'listid')->get()[0]->value;
         $this->okey = Setting::where('setting', 'okey')->get()[0]->value;
-        $this->client = new SoapClient('https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [
+        $this->client = new SoapClient('https://test.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [
             'stream_context' => stream_context_create([
                 'ssl' => [
                 // set some SSL/TLS specific options
@@ -91,9 +91,9 @@ class MySoap   {
         // $array = json_decode($json,TRUE);
 
         // XML Requst in in Datei speichern
-        $filename = "ItemInsert_".date("Ymd_His").".xml";
-        Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
-        Storage::disk('soap_logs')->append($filename, htmlspecialchars_decode($this->client->__getLastResponse()));
+        // $filename = "ItemInsert_".date("Ymd_His").".xml";
+        // Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
+        // Storage::disk('soap_logs')->append($filename, htmlspecialchars_decode($this->client->__getLastResponse()));
         
         $responsprop = new ResponseProperties;
         
@@ -142,6 +142,7 @@ class MySoap   {
     }
 
     function bookmarkItemDelete($id) {
+
         $xml = '<request xsi:type="xsd:string"><![CDATA[
                     <ns2:bookmarkItemDeleteRequest xmlns:ns2="http://www.globalgap.org/">
                         <bookmarkItemId>'.$id.'</bookmarkItemId> 
@@ -151,14 +152,15 @@ class MySoap   {
         $params = new SoapVar($xml, XSD_ANYXML);
         
         $response = $this->client->doRequest('bookmarkItemDelete','2.1', $params);
+
         $xml = simplexml_load_string($response);
         // $json = json_encode($xml);
         // $array = json_decode($json,TRUE);
 
         // XML Requst in in Datei speichern
-        $filename = "ItemDelete_".date("Ymd_His").".xml";
-        Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
-        Storage::disk('soap_logs')->append($filename, htmlspecialchars_decode($this->client->__getLastResponse()));
+        // $filename = "ItemDelete_".date("Ymd_His").".xml";
+        // Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
+        // Storage::disk('soap_logs')->append($filename, htmlspecialchars_decode($this->client->__getLastResponse()));
         
         $responsprop = new ResponseProperties;
         

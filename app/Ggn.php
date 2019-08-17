@@ -12,4 +12,9 @@ class Ggn extends Model
     {
         return $this->hasMany('App\Artikel');
     }
+
+    public function soap_artikels()
+    {
+        return $this->hasMany('App\SoapArtikel');
+    }
 }

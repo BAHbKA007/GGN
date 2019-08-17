@@ -54,15 +54,21 @@
                             <thead>
                                 <tr>
                                     <th scope="col">GGN</th>
+                                    <th scope="col">Gruppen GGN</th>
                                     <th scope="col">Erzeuger</th>
-                                    <th scope="col" style="text-align:right">Aktionen</th>
+                                    <th scope="col">Artikel</th>
+                                    <th scope="col">Land</th>
+                                    <th scope="col" style="text-align:right"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($var['ggns'] as $ggn)
                                 <tr>
                                     <td>{{$ggn->ggn}}</td>
+                                    <td>{{$ggn->groupggn}}</td>
                                     <td>{{$ggn->erzeuger}}</td>
+                                    <td>{{$ggn->artikel_count}}</td>
+                                    <td>{{$ggn->country}}</td>
                                     <td style="text-align:right">
                                         <a href="#Modal" data-toggle="modal" onclick="del({{$ggn->ggn}},{{$ggn->id}})" data-target="#Modal"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
                                     </td>
