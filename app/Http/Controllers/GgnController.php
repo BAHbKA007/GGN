@@ -140,7 +140,7 @@ class GgnController extends Controller
         // wenn respons ok
         if ($responsprop->result == 'ok') {
             Ggn::destroy($request->id);
-            return back()->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt']);
+            return back()->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich gelöscht']);
         } else {
             return back()->with('status', [
                 'error' => 'GlobalGap-Datenbank: '.$responsprop->desc

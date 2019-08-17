@@ -131,11 +131,12 @@ class MySoap   {
         Storage::disk('soap_logs')->append($filename, html_entity_decode(htmlspecialchars_decode($this->client->__getLastResponse())));
         
         $responsprop = new ResponseProperties;
-        
-        // $responsprop->bookmarkItemId = (isset($xml->bookmarkIdentityList->bookmarkIdentity->bookmarkItemId)) ? $xml->bookmarkIdentityList->bookmarkIdentity->bookmarkItemId->__toString() : NULL;
-        // $responsprop->desc = (isset($xml->responseheader->resultMsgList->resultMsg->desc)) ? $xml->responseheader->resultMsgList->resultMsg->desc->__toString() : NULL;
+
+        // Status der Antwort (ok/error)
         $responsprop->result = (isset($xml->responseheader->resultstate)) ? $xml->responseheader->resultstate->__toString() : NULL;
-        $responsprop->bookmarkItemList = (isset($xml->bookmarkListQueryList->bookmarkListQuery->bookmarkListQuery->bookmarkItemList)) ? $xml->bookmarkListQueryList->bookmarkListQuery->bookmarkListQuery->bookmarkItemList : NULL;
+
+        // Liste mit den GGNs
+        $responsprop->bookmarkItemList = (isset($xml->bookmarkListQueryList->bookmarkListQuery->bookmarkItemList)) ? $xml->bookmarkListQueryList->bookmarkListQuery->bookmarkItemList : NULL;
 
         return $responsprop;
     }

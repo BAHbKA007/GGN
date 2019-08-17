@@ -21,7 +21,8 @@ class CreateGgnsTable extends Migration
             $table->string('country')->nullable();
             $table->string('company_type')->nullable();
             $table->string('grasp_status')->nullable();
-            $table->date('grasp_valid_to')->nullable();
+            $table->date('grasp_valid_to_current')->nullable();
+            $table->date('grasp_valid_to_next')->nullable();
             $table->string('user_name');
             $table->timestamps();
         });
