@@ -44,7 +44,7 @@
                             @foreach ($var['artikel'] as $artikel)
                             <tr>
                                 <td>
-                                    <a href="/artikel/{{$artikel->id}}/ggn">{{$artikel->bezeichnung}}</a>@if ($artikel->art_count > 0) <span class="badge badge-primary" style="margin-left:10px">{{$artikel->art_count}} GGNs</span>@endif
+                                    {{$artikel->bezeichnung}}
                                 </td>
                                 <td style="text-align:right">
                                     <a href="/artikel/{{$artikel->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a>

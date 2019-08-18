@@ -8,6 +8,8 @@ use App\Ggn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use App\CustomClass\MySoap;
+use App\CustomClass\SoapRoutines;
 
 class ZaehlungpositionController extends Controller
 {
@@ -84,15 +86,43 @@ class ZaehlungpositionController extends Controller
      */
     public function store(Request $request)
     {
-        $Zaehlungposition = new Zaehlungposition;
-        $Zaehlungposition->zaehlung_id = $request->zaehlung_id;
-        $Zaehlungposition->kunde_id = $request->kunde_id;
-        $Zaehlungposition->art_id = $request->artikel_id;
-        $Zaehlungposition->ggn = $request->ggn;
-        $Zaehlungposition->menge = $request->menge;
-        $Zaehlungposition->save();
-        
-        return redirect('zaehlung/'.$request->zaehlung_id."/kunde/".$request->kunde_id);
+
+        global $responsprop;
+
+        // Checken ob schon in der Datenbank
+        if (Ggn::where('ggn', $request->ggn)->count() == 0) {
+
+            $insertRoutine = new SoapRoutines;
+            if ( $insertRoutine->ItemInsert($request->ggn) ) {
+
+                $Zaehlungposition = new Zaehlungposition;
+                $Zaehlungposition->zaehlung_id = $request->zaehlung_id;
+                $Zaehlungposition->kunde_id = $request->kunde_id;
+                $Zaehlungposition->art_id = $request->artikel_id;
+                $Zaehlungposition->ggn = $request->ggn;
+                $Zaehlungposition->menge = $request->menge;
+                $Zaehlungposition->save();
+                
+                //return redirect('zaehlung/'.$request->zaehlung_id."/kunde/".$request->kunde_id);
+                return back()->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt (gespeichert)']);
+            } else {
+                return back()->with('status', [
+                    'error' => 'GlobalGap-Datenbank: '.$responsprop->desc
+                ]);
+            } 
+
+        } else {
+            $Zaehlungposition = new Zaehlungposition;
+            $Zaehlungposition->zaehlung_id = $request->zaehlung_id;
+            $Zaehlungposition->kunde_id = $request->kunde_id;
+            $Zaehlungposition->art_id = $request->artikel_id;
+            $Zaehlungposition->ggn = $request->ggn;
+            $Zaehlungposition->menge = $request->menge;
+            $Zaehlungposition->save();
+            return back()->with('status', [
+                'success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt'
+                ]);
+        }
     }
 
     /**
@@ -106,7 +136,7 @@ class ZaehlungpositionController extends Controller
         $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
-        $ggns = DB::select('SELECT * FROM ggnsartikels WHERE ggnsartikels.artikel_id = ? ORDER BY ggn',[$artikel_id]);
+        $ggns = DB::select('SELECT ggns.ggn FROM ggns ORDER BY ggn');
         $gezaehlte = DB::select('SELECT zaehlungpositions.ggn, artikels.id, zaehlungpositions.menge, zaehlungpositions.id AS zaehlpos_id FROM zaehlungpositions 
                     JOIN artikels on artikels.id = zaehlungpositions.art_id
                     WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = ? AND zaehlungpositions.art_id = ?',[$zaehlung_id, $kunde_id, $artikel_id]);

@@ -39,7 +39,7 @@ class Synch extends Controller
                     // nur bei Items die new oder changed sind
                     if ($item->attributes()->{'status'} == 'NEW' || $item->attributes()->{'status'} == 'CHANGED') {
 
-                        // GGNid abspeichern, wird bei SoapArtikel verwendet
+                        // GGN-id abspeichern, wird bei SoapArtikel verwendet
                         $soap_artikel_ggn_id = $item->organisationalData->bookmarkItemId;
 
                         // vermeiden von "Creating default object from empty value"
@@ -94,6 +94,9 @@ class Synch extends Controller
                                 $soap_artikel_table->product_status = new \stdClass();
                                 $soap_artikel_table->valid_to_current = new \stdClass();
                                 $soap_artikel_table->valid_to_next = new \stdClass();
+
+                                // falls es sich um eine Änderung handelt, ersmal alle Artikel für die GGN löschen und neu befüllen
+                                if ($item->attributes()->{'status'} == 'CHANGED') { SoapArtikel::where('ggn_id', $soap_artikel_ggn_id)->delete(); }
 
                                 $soap_artikel_table = new SoapArtikel;
                                 $soap_artikel_table->ggn_id = $soap_artikel_ggn_id;

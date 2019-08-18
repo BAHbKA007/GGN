@@ -73,7 +73,7 @@ $wochentag = [
                         <input name="zaehlung_id" value="{{$var['zaehlung_id']}}" hidden>
                         <div class="form-row">
                             <div class="col-6">
-                                <input id="myInput" class="form-control" type="number" name="ggn" placeholder="GGN" required>
+                                <input id="myInput" class="form-control" type="number" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
                             </div>
                             <div class="col">
                                 <input type="number" class="form-control" name="menge" placeholder="Menge" required>
