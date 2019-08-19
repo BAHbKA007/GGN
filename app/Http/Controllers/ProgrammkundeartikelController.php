@@ -59,7 +59,7 @@ class ProgrammkundeartikelController extends Controller
     {
         $programm = DB::select('SELECT * FROM programms WHERE programms.id = ?',[$pro_id])[0];
         $kunde = DB::select('SELECT kundes.name FROM programmkundes JOIN kundes ON programmkundes.kun_id = kundes.id WHERE programmkundes.id = ?',[$id])[0];
-        $artikel = DB::select('select * from artikels where artikels.id not in (select art_id from programmkundeartikels where prokun_id = ?) order by bezeichnung ASC',[$id]);
+        $artikel = DB::select('SELECT * FROM artikels WHERE artikels.id NOT IN (select art_id from programmkundeartikels where prokun_id = ?) AND artikels.sperre = 0 ORDER BY bezeichnung ASC',[$id]);
         $programmkundeartikel = DB::select('SELECT programmkundeartikels.*, artikels.bezeichnung, artikels.id AS art_id, (SELECT COUNT(*) FROM ggnsartikels WHERE ggnsartikels.artikel_id = artikels.id) AS art_count from programmkundeartikels join artikels on artikels.id = programmkundeartikels.art_id where prokun_id = ?',[$id]);
         
         return view('programmkundeartikel')->with('var', [

@@ -22,7 +22,7 @@ Route::get('/artikel', 'ArtikelController@index');
 Route::post('/artikel', 'ArtikelController@store');
 Route::get('/artikel/{id}/edit', 'ArtikelController@edit');
 Route::put('/artikel/{id}', 'ArtikelController@update');
-Route::delete('/artikel/{id}', 'ArtikelController@destroy');
+Route::delete('/artikel', 'ArtikelController@destroy');
 
 Route::get('/benutzer', 'BenutzerController@index');
 Route::post('/benutzer', 'BenutzerController@store');

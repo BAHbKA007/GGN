@@ -17,6 +17,7 @@ class CreateArtikelsTable extends Migration
             $table->bigIncrements('id');
             $table->string('bezeichnung')->unique();
             $table->unsignedBigInteger('user_id');
+            $table->boolean('sperre')->default(0);
             $table->timestamps();
         });
     }

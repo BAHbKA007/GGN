@@ -47,7 +47,7 @@
                 @foreach ($var['programmkundeartikel'] as $item)
                 <div href="{{$item->id}}" class="list-group-item list-group-item-action">
                     <div class="custom-control custom-checkbox">
-                        <a href="/artikel/{{$item->art_id}}/ggn">{{$item->bezeichnung}}</a>@if ($item->art_count > 0) <span class="badge badge-primary" style="margin-left:10px">{{$item->art_count}} GGNs</span> @endif
+                        {{$item->bezeichnung}}
                     <div class="float-right"><a href="" onclick="del_artikel('{{$item->id}}','{{$item->bezeichnung}}','{{$var['id']}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a></div>
                     </div>
                 </div>

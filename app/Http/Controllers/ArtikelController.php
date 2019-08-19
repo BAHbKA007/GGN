@@ -27,11 +27,14 @@ class ArtikelController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $artikel = DB::select('SELECT artikels.*, (SELECT COUNT(*) FROM ggnsartikels WHERE ggnsartikels.artikel_id = artikels.id) AS art_count, users.name from artikels join users on artikels.user_id = users.id order by artikels.bezeichnung asc');
+    {
+
+        $artikel = DB::select('SELECT artikels.*, (SELECT COUNT(*) FROM ggnsartikels WHERE ggnsartikels.artikel_id = artikels.id) AS art_count, users.name FROM artikels JOIN users ON artikels.user_id = users.id WHERE sperre = 0 ORDER BY artikels.bezeichnung ASC');
+        $artikel_gesperrt = DB::select('SELECT * FROM artikels WHERE sperre = 1 ORDER BY artikels.bezeichnung ASC');
 
         return view('artikel')->with('var', [
-                'artikel' => $artikel
+                'artikel' => $artikel,
+                'artikel_gesperrt' => $artikel_gesperrt
                 ]);
     }
 
@@ -57,16 +60,29 @@ class ArtikelController extends Controller
         $artikel->bezeichnung = $request->bezeichnung;
         $artikel->user_id = Auth::user()->id;
 
-        try {
+        // prüfen ob Artikelbezeichnung bereits existiert
+        if ( Artikel::where('bezeichnung', $request->bezeichnung)->count() > 0 ) {
+
+            // auf Sperre prüfen
+            if ( Artikel::where('bezeichnung', $request->bezeichnung)->first()->sperre == 0 ) {
+
+                // wenn nicht gespert User zurückschicken
+                return back()->with('status', ['error' => 'Artikel <strong>'.$request->bezeichnung.'</strong> ist bereits vorhanden']);
+
+            } else {
+                
+                // wenn gesperrt, Sperre wegmachen
+                $artikel = Artikel::where('bezeichnung', $request->bezeichnung)->first();
+                $artikel->sperre = 0;
+                $artikel->save();
+                return back()->with('status', ['success' => 'Artikel <strong>'.$request->bezeichnung.'</strong> erfolgreich entsperrt']);
+
+            }
+        } else {
+            
+            // wenn Artikel neu
             $artikel->save();
-            return redirect('/artikel')->with('status', ['success' => 'Artikel <strong>'.$request->bezeichnung.'</strong> erfolgreich hinzugefügt']);
-        }
-            //catch exception
-            catch(Exception $e) {
-            return redirect('/artikel')->with('status', [
-                'error' => 'Hat leider nicht geklappt, evtl. existiert der Artikel bereits.',
-                'message' => $e->getMessage()
-                ]);
+            return back()->with('status', ['success' => 'Artikel <strong>'.$request->bezeichnung.'</strong> erfolgreich hinzugefügt']);
         }
     }
 
@@ -91,9 +107,12 @@ class ArtikelController extends Controller
     {
         $artikel = DB::select('SELECT artikels.*, (SELECT COUNT(*) FROM ggnsartikels WHERE ggnsartikels.artikel_id = artikels.id) AS art_count, users.name from artikels join users on artikels.user_id = users.id order by artikels.bezeichnung asc');
         $artikel_edit = DB::select('select * from artikels where artikels.id = ?',[$id])[0];
+        $artikel_gesperrt = DB::select('SELECT * FROM artikels WHERE sperre = 1 ORDER BY artikels.bezeichnung ASC');
+
         return view('artikel')->with('var', [
                 'artikel' => $artikel,
-                'artikel_edit' => $artikel_edit
+                'artikel_edit' => $artikel_edit,
+                'artikel_gesperrt' => $artikel_gesperrt
                 ]);
     }
 
@@ -128,8 +147,12 @@ class ArtikelController extends Controller
      * @param  \App\Artikel  $artikel
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Artikel::destroy($id);
+        $artikel = Artikel::find($request->id);
+        $artikel->sperre = ($artikel->sperre == 1) ? 0 : 1;
+        $artikel->save();
+
+        return back()->with('status', ['success' => 'Artikel <strong>'.$artikel->bezeichnung.'</strong> erfolgreich gelöscht']);
     }
 }

@@ -116,19 +116,16 @@ class MySoap   {
         $params = new SoapVar($xml, XSD_ANYXML);
         
         $response = $this->client->doRequest('getBookmark','2.4', $params);
-        try {
-            $xml = simplexml_load_string($response);
-        } catch ( \Exception $e ) {
-            Storage::disk('soap_logs')->put('simplexml_load_string.ERROR', $e);
-            return $responsprop->result = NULL;
-        }
-        // $json = json_encode($xml);
-        // $array = json_decode($json,TRUE);
 
         // XML Requst in in Datei speichern
         $filename = "getBookmark_".date("Ymd_His").".xml";
         Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
         Storage::disk('soap_logs')->append($filename, html_entity_decode(htmlspecialchars_decode($this->client->__getLastResponse())));
+        
+        $xml = simplexml_load_string($response);
+
+        // $json = json_encode($xml);
+        // $array = json_decode($json,TRUE);
         
         $responsprop = new ResponseProperties;
 
