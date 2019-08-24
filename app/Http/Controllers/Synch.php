@@ -26,6 +26,11 @@ class Synch extends Controller
         // Soap Query
         $soap = new MySoap;
         $responsprop = $soap->getBookmark();
+
+        // Wenn leerer String zurückkommt als Antwort
+        if ($responsprop == 'leer') {
+            return back()->with('status', ['error' => 'Die Antwort der Global GAP Datenbank war leer :/']);
+        }
             
         // wenn respons mit result ok
         if ($responsprop->result == 'ok') {

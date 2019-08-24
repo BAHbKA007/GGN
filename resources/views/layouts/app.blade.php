@@ -22,7 +22,7 @@
 </head>
 <body>
     <div>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -74,18 +74,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/zaehlung">Zählungen</a>
                             </li>
-                            <a href="/sync" class="btn btn-light" role="button">GLOBALG.A.P. Sync.</a>
                         </ul>
-                    @else
-                        @if (Auth::user() != NULL)
-                            <ul class="navbar-nav mr-auto">
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/zaehlung">Zählungen</a>
-                                </li>
-                            </ul>
-                        @endif
                         <!-- Left Side Of Navbar -->
+
                     @endif
 
                     <!-- Right Side Of Navbar -->
@@ -96,6 +87,7 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a>
                             </li>
                         @else
+                            <a href="/sync" class="btn btn-light" role="button">GLOBALG.A.P. Sync.</a>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
