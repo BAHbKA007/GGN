@@ -77,14 +77,15 @@
                             <a href="/sync" class="btn btn-light" role="button">GLOBALG.A.P. Sync.</a>
                         </ul>
                     @else
+                        @if (Auth::user() != NULL)
+                            <ul class="navbar-nav mr-auto">
 
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/zaehlung">Zählungen</a>
+                                </li>
+                            </ul>
+                        @endif
                         <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav mr-auto">
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/zaehlung">Zählungen</a>
-                            </li>
-                        </ul>
                     @endif
 
                     <!-- Right Side Of Navbar -->
