@@ -117,15 +117,16 @@ class MySoap   {
         
         $response = $this->client->doRequest('getBookmark','2.4', $params);
 
-        // checken ob der Resoinse leer ist
-        if ($response == NULL || $response == '') {
-            return 'leer';
-        }
-
+        
         // XML Requst in in Datei speichern
         $filename = "getBookmark_".date("Ymd_His").".xml";
         Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
         Storage::disk('soap_logs')->append($filename, html_entity_decode(htmlspecialchars_decode($this->client->__getLastResponse())));
+        
+        // checken ob der Resoinse leer ist
+        if ($response == NULL || $response == '') {
+            return 'leer';
+        }
         
         $xml = simplexml_load_string($response);
 
