@@ -15,7 +15,27 @@ Route::get('/soap', 'SoapController');
 
 Auth::routes(['register' => false]);
 
-Route::get('/', 'HomeController@index');
+// Route::get('/', 'HomeController@index');
+
+Route::get('/', function () {
+
+    if (Auth::check()) {
+
+        if (Auth::user()->role == 1) {
+            return redirect()->action('ZaehlungController@index');
+        } else {
+            return view('home')->with('var',[
+                'user' => Auth::user()->name
+            ]);
+        }
+
+    } else {
+
+        return redirect('login');
+
+    }
+
+});
 Route::get('/aktivieren', 'AktivierenController');
 
 Route::get('/artikel', 'ArtikelController@index');
@@ -71,3 +91,4 @@ Route::post('/comment', 'CommentController@store');
 
 Route::get('/sync', 'Synch');
 
+Route::get('/export/{id}', 'ZaehlungController@export')->name('export');

@@ -121,7 +121,7 @@ class MySoap   {
         // XML Requst in in Datei speichern
         $filename = "getBookmark_".date("Ymd_His").".xml";
         Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
-        Storage::disk('soap_logs')->append($filename, html_entity_decode(htmlspecialchars_decode($this->client->__getLastResponse())));
+        Storage::disk('soap_logs')->append($filename, $response);
         
         // checken ob der Response leer ist
         if (strlen($response) < 20) {

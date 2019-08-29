@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Zaehlung;
+use App\Zaehlungposition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class ZaehlungController extends Controller
@@ -28,10 +30,12 @@ class ZaehlungController extends Controller
     public function index()
     {
         $zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE DATE(zaehlungs.created_at) = CURDATE()');
+        $alle_zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id != '.$zaehlungen[0]->id.' ORDER BY 1 DESC');
 
         if (count($zaehlungen) > 0) {
             return view('zaehlung.home')->with('var', [
-                'zaehlungen' => $zaehlungen
+                'zaehlungen' => $zaehlungen,
+                'alle_zaehlungen' => $alle_zaehlungen
             ]); 
         } else {
             return view('zaehlung.erstellen');
@@ -133,5 +137,10 @@ class ZaehlungController extends Controller
     public function destroy(Zaehlung $zaehlung)
     {
         //
+    }
+
+    public function export() 
+    {
+        return Excel::download(new Zaehlungposition, 'Zaehlung.xlsx');
     }
 }

@@ -27,5 +27,6 @@ class HomeController extends Controller
     {
         return view('home')->with('var',[
             'user' => Auth::user()->name
-        ]);    }
+        ]);    
+    }
 }

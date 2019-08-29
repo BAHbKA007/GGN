@@ -84,15 +84,15 @@
 </div>
 
 <script>
-window.onload = function() {
-    document.getElementById("focus").focus();
-};
+    window.onload = function() {
+        document.getElementById("focus").focus();
+    };
 
-function del(ggn,id) {
-    $("#id").attr('value', id);
-    $("#ggn").attr('value', ggn);
-    $("#modal-ggn").text(ggn);
-};
+    function del(ggn,id) {
+        $("#id").attr('value', id);
+        $("#ggn").attr('value', ggn);
+        $("#modal-ggn").text(ggn);
+    };
 </script>
 
 @endsection

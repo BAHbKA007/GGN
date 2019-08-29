@@ -19,11 +19,31 @@
 
     <div class="list-group">
         @foreach ($var['zaehlungen'] as $item)
-            <a href="zaehlung/{{$item->id}}" class="list-group-item list-group-item-action">
-                Zählung vom {{$wochentag[strftime("%u", strtotime($item->created_at))]}} den {{strftime("%d.%m.%Y", strtotime($item->created_at))}} 
+            <div class="list-group-item list-group-item-action">
+                <a href="zaehlung/{{$item->id}}">Zählung vom {{$wochentag[strftime("%u", strtotime($item->created_at))]}} den {{strftime("%d.%m.%Y", strtotime($item->created_at))}} </a>
+                    @if (Auth::user()->role > 1)
+                        <div class="float-right" style="padding-top: 3px">
+                            <button type="button" class="btn btn-secondary" style="padding-bottom:1px;z-index: 2"><i class="material-icons">cloud_download</i></button>
+                        </div>
+                    @endif
                 <p style="margin-bottom:0"><small>{{$item->name}}</small></p>
-            </a>
+            </div>
         @endforeach
+
+        @if (Auth::user()->role > 1)
+            @foreach ($var['alle_zaehlungen'] as $item)
+                <div class="list-group-item list-group-item-action">
+                    <a href="zaehlung/{{$item->id}}">Zählung vom {{$wochentag[strftime("%u", strtotime($item->created_at))]}} den {{strftime("%d.%m.%Y", strtotime($item->created_at))}} </a>
+                        @if (Auth::user()->role > 1)
+                            <div class="float-right" style="padding-top: 3px">
+                                <a href="export/2">asdsad</a>
+                                <button type="button" class="btn btn-secondary" style="padding-bottom:1px;z-index: 2"><i class="material-icons">cloud_download</i></button>
+                            </div>
+                        @endif
+                    <p style="margin-bottom:0"><small>{{$item->name}}</small></p>
+                </div>
+            @endforeach
+        @endif
     </div>
 </div>
 @endsection

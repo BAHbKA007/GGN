@@ -55,24 +55,14 @@
                                     <a class="dropdown-item" href="/benutzer">Benutzer</a>
                                </div>
                            </li>
-                           <li class="nav-item dropdown">
-                                <a 
-                                    id="navbarDropdown" 
-                                    class="nav-link dropdown-toggle" 
-                                    href="#" 
-                                    role="button" 
-                                    data-toggle="dropdown" 
-                                    aria-haspopup="true" 
-                                    aria-expanded="false" 
-                                    v-pre>Programm<span class="caret"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/programm">Übersicht</a>
-
-                                    </div>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/programm">Programme</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/zaehlung">Zählungen</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Suche</a>
                             </li>
                         </ul>
                         <!-- Left Side Of Navbar -->
@@ -87,7 +77,7 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a>
                             </li>
                         @else
-                            <a href="/sync" class="btn btn-light" role="button">GLOBALG.A.P. Sync.</a>
+                            {{-- <a href="/sync" class="btn btn-light" role="button">GLOBALG.A.P. Sync.</a> --}}
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

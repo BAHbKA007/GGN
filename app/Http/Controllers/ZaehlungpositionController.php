@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Zaehlungposition;
 use App\Artikel;
 use App\Ggn;
+use App\ggnsartikel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -87,6 +88,19 @@ class ZaehlungpositionController extends Controller
     public function store(Request $request)
     {
 
+        function verheiraten() {
+            global $request;
+            if ( ggnsartikel::where( [ ['ggn', '=', $request->ggn ],[ 'artikel_id', '=', $request->artikel_id ],] )->count() == 0 ) {
+                    
+                $ggnsartikel = new ggnsartikel;
+                $ggnsartikel->ggn = $request->ggn;
+                $ggnsartikel->artikel_id = $request->artikel_id;
+                $ggnsartikel->user_id = Auth::user()->id;
+                $ggnsartikel->save();
+
+            }
+        }
+
         global $responsprop;
 
         // Checken ob schon in der Datenbank
@@ -101,11 +115,17 @@ class ZaehlungpositionController extends Controller
                 $Zaehlungposition->art_id = $request->artikel_id;
                 $Zaehlungposition->ggn = $request->ggn;
                 $Zaehlungposition->menge = $request->menge;
+
+                // GGN mit artikel verheiraten
+                verheiraten();
+
                 $Zaehlungposition->save();
                 
                 //return redirect('zaehlung/'.$request->zaehlung_id."/kunde/".$request->kunde_id);
-                return back()->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt (gespeichert)']);
+                return back()->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt (neue GGN)']);
+
             } else {
+
                 return back()->with('status', [
                     'error' => 'GlobalGap-Datenbank: '.$responsprop->desc
                 ]);
@@ -118,7 +138,12 @@ class ZaehlungpositionController extends Controller
             $Zaehlungposition->art_id = $request->artikel_id;
             $Zaehlungposition->ggn = $request->ggn;
             $Zaehlungposition->menge = $request->menge;
+
+            // GGN mit artikel verheiraten
+            verheiraten();
+
             $Zaehlungposition->save();
+
             return back()->with('status', [
                 'success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt'
                 ]);

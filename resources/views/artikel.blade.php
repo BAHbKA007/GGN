@@ -76,7 +76,7 @@
                             @foreach ($var['artikel'] as $artikel)
                             <tr>
                                 <td>
-                                    {{$artikel->bezeichnung}}
+                                    <a href="/artikel/{{$artikel->id}}/ggn/">{{$artikel->bezeichnung}}</a>
                                 </td>
                                 <td style="text-align:right">
                                     <a href="/artikel/{{$artikel->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a>
