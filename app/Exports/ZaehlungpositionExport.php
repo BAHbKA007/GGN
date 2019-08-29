@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Zaehlungposition;
+use App\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ZaehlungpositionExport implements FromCollection
@@ -12,6 +13,6 @@ class ZaehlungpositionExport implements FromCollection
     */
     public function collection()
     {
-        return Zaehlungposition::all();
+        return User::all();
     }
 }
