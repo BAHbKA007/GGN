@@ -30,9 +30,11 @@ class ZaehlungController extends Controller
     public function index()
     {
         $zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE DATE(zaehlungs.created_at) = CURDATE()');
-        $alle_zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id != '.$zaehlungen[0]->id.' ORDER BY 1 DESC');
-
+        
         if (count($zaehlungen) > 0) {
+
+            $alle_zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id != '.$zaehlungen[0]->id.' ORDER BY 1 DESC');
+
             return view('zaehlung.home')->with('var', [
                 'zaehlungen' => $zaehlungen,
                 'alle_zaehlungen' => $alle_zaehlungen
