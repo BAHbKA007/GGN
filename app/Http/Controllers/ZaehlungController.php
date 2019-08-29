@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Zaehlung;
-use App\Zaehlungposition;
+use App\Exports\ZaehlungpositionExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -40,6 +40,8 @@ class ZaehlungController extends Controller
                 'alle_zaehlungen' => $alle_zaehlungen
             ]); 
         } else {
+
+            // TODO view bearbeiten weil keine anzeige
             return view('zaehlung.erstellen');
         }
     }
@@ -143,6 +145,6 @@ class ZaehlungController extends Controller
 
     public function export() 
     {
-        return Excel::download(new Zaehlungposition, 'Zaehlung.xlsx');
+        return Excel::download(new ZaehlungpositionExport, 'Zaehlung.xlsx');
     }
 }
