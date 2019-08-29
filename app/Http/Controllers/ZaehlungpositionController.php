@@ -161,7 +161,7 @@ class ZaehlungpositionController extends Controller
         $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
-        $ggns = DB::select('SELECT ggn FROM ggnsartikels ORDER BY ggn WHERE artikel_id = ?', [$artikel_id]);
+        $ggns = DB::select('SELECT ggn FROM ggnsartikels WHERE artikel_id = ? ORDER BY ggn', [$artikel_id]);
         $gezaehlte = DB::select('SELECT zaehlungpositions.ggn, artikels.id, zaehlungpositions.menge, zaehlungpositions.id AS zaehlpos_id FROM zaehlungpositions 
                     JOIN artikels on artikels.id = zaehlungpositions.art_id
                     WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = ? AND zaehlungpositions.art_id = ?',[$zaehlung_id, $kunde_id, $artikel_id]);
