@@ -23,10 +23,11 @@
                 <a href="zaehlung/{{$item->id}}">Zählung vom {{$wochentag[strftime("%u", strtotime($item->created_at))]}} den {{strftime("%d.%m.%Y", strtotime($item->created_at))}} </a>
                     @if (Auth::user()->role > 1)
                         <div class="float-right" style="padding-top: 3px">
-                            <button type="button" class="btn btn-secondary" style="padding-bottom:1px;z-index: 2"><i class="material-icons">cloud_download</i></button>
+                            <a class="btn btn-primary btn-sm" href="export/{{$item->id}}" role="button" style="padding-bottom:0px"><i class="material-icons">description</i></a>
+                            <a class="btn btn-success btn-sm" href="#" role="button" style="padding-bottom:0px"><i class="material-icons">info</i></a>
                         </div>
                     @endif
-                <p style="margin-bottom:0"><small>{{$item->name}}</small></p>
+                <p style="margin-bottom:0;font-style:italic"><small>{{$item->name}}</small></p>
             </div>
         @endforeach
 
@@ -34,13 +35,11 @@
             @foreach ($var['alle_zaehlungen'] as $item)
                 <div class="list-group-item list-group-item-action">
                     <a href="zaehlung/{{$item->id}}">Zählung vom {{$wochentag[strftime("%u", strtotime($item->created_at))]}} den {{strftime("%d.%m.%Y", strtotime($item->created_at))}} </a>
-                        @if (Auth::user()->role > 1)
-                            <div class="float-right" style="padding-top: 3px">
-                                <a href="export/2">asdsad</a>
-                                <button type="button" class="btn btn-secondary" style="padding-bottom:1px;z-index: 2"><i class="material-icons">cloud_download</i></button>
-                            </div>
-                        @endif
-                    <p style="margin-bottom:0"><small>{{$item->name}}</small></p>
+                        <div class="float-right" style="padding-top: 3px">
+                            <a class="btn btn-primary btn-sm" href="export/{{$item->id}}" role="button" style="padding-bottom:0px"><i class="material-icons">description</i></a>
+                            <a class="btn btn-success btn-sm" href="#" role="button" style="padding-bottom:0px"><i class="material-icons">info</i></a>
+                        </div>
+                    <p style="margin-bottom:0;font-style:italic"><small>{{$item->name}}</small></p>
                 </div>
             @endforeach
         @endif
