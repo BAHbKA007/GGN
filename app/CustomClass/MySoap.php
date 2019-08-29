@@ -123,8 +123,8 @@ class MySoap   {
         Storage::disk('soap_logs')->put($filename, $this->client->__getLastRequest());
         Storage::disk('soap_logs')->append($filename, html_entity_decode(htmlspecialchars_decode($this->client->__getLastResponse())));
         
-        // checken ob der Resoinse leer ist
-        if ($response == NULL || $response == '') {
+        // checken ob der Response leer ist
+        if (strlen($response) < 20) {
             return 'leer';
         }
         

@@ -199,9 +199,11 @@ class ZaehlungpositionController extends Controller
      * @param  \App\Zaehlungposition  $zaehlungposition
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Zaehlungposition::destroy($id);
-        return $id;
+        Zaehlungposition::destroy($request->id);
+        return back()->with('status', [
+            'success' => 'Position erfolgreich gelöscht'
+            ]);
     }
 }

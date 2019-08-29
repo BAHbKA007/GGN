@@ -55,6 +55,32 @@ $wochentag = [
 @section('content')
 @include('flash-message')
 
+<!-- Modal -->
+<div class="modal animated fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Löschen bestätigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Soll die Position wirklich gelöscht werden?
+            </div>
+            <form action="/zaehlposition" method="post">
+                @method('delete')
+                @csrf
+                <input id="id" type="hidden" name="id" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
+                    <button type="submit" class="btn btn-danger">löschen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <p>
         <a href="/zaehlung/{{$var['zaehlung']->id}}">{{$wochentag[strftime("%u", strtotime($var['zaehlung']->created_at))]}}</a>
@@ -72,7 +98,7 @@ $wochentag = [
                         <input name="zaehlung_id" value="{{$var['zaehlung_id']}}" hidden>
                         <div class="form-row">
                             <div class="col-6">
-                                <input id="myInput" class="form-control" type="number" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
+                                <input id="focus" class="form-control" type="number" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
                             </div>
                             <div class="col">
                                 <input type="number" class="form-control" name="menge" placeholder="Menge" required>
@@ -87,7 +113,11 @@ $wochentag = [
 
             <ul class="list-group">
                 @foreach ($var['gezaehlte'] as $item)
-                    <li class="list-group-item"><span style="width: 60px;float: left;"><strong>{{$item->menge}}x</strong></span> {{$item->ggn}}<span style="float: right;"><a href="" onclick="del_gezaehlt({{$item->zaehlpos_id}},{{$var['zaehlung_id']}},{{$var['kunde_id']}}),{{$var['artikel_id']}}"><i class="material-icons" style="font-size:16px">delete_outline</i></a></span></li>
+                    <li class="list-group-item"><span style="width: 60px;float: left;"><strong>{{$item->menge}}x</strong></span> {{$item->ggn}}<span style="float: right;">
+                        <a href="#Modal" data-toggle="modal" onclick="del('{{$item->zaehlpos_id}}')" data-target="#Modal">
+                            <i class="material-icons" style="font-size:16px">delete_outline</i>
+                        </a></span>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -97,6 +127,13 @@ $wochentag = [
 @include('layouts.kommentare_modal')
 
 <script>
+    
+    // Modal einblenden
+    function del(id) {
+        $("#id").attr('value', id);
+    };
+
+
     function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
@@ -198,8 +235,8 @@ $wochentag = [
 
     var countries = [<?php foreach ($var['ggns'] as $item) { echo '"'.$item->ggn.'",'; };?>];
     
-    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-    autocomplete(document.getElementById("myInput"), countries);
+    /*initiate the autocomplete function on the "focus" element, and pass along the countries array as possible autocomplete values:*/
+    autocomplete(document.getElementById("focus"), countries);
 </script>
 
 @endsection

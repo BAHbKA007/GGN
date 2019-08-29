@@ -65,7 +65,7 @@ Route::get('/zaehlung/{id}', 'ZaehlungController@show');
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}', 'ZaehlungpositionController@index');
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}/artikel/{artikel}', 'ZaehlungpositionController@show');
 Route::post('/zaehlung/artikel', 'ZaehlungpositionController@store');
-Route::delete('/zaehlposition/{id}', 'ZaehlungpositionController@destroy');
+Route::delete('/zaehlposition', 'ZaehlungpositionController@destroy');
 
 Route::post('/comment', 'CommentController@store');
 
