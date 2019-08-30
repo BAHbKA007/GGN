@@ -41,8 +41,11 @@ class ZaehlungController extends Controller
             ]); 
         } else {
 
-            // TODO view bearbeiten weil keine anzeige
-            return view('zaehlung.erstellen');
+            $alle_zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id ORDER BY 1 DESC');
+
+            return view('zaehlung.erstellen')->with('var', [
+                'alle_zaehlungen' => $alle_zaehlungen
+            ]);
         }
     }
 
@@ -143,8 +146,12 @@ class ZaehlungController extends Controller
         //
     }
 
-    public function export() 
+    public function export($id) 
     {
-        return Excel::download(new ZaehlungpositionExport, 'Zaehlung.xlsx');
+        $data = new ZaehlungpositionExport;
+        $data->id = $id;
+
+        return Excel::download($data, 'Zaehlung.csv');
+
     }
 }
