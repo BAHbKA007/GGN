@@ -29,11 +29,24 @@ class ZaehlungController extends Controller
      */
     public function index()
     {
-        $zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE DATE(zaehlungs.created_at) = CURDATE()');
+        $zaehlungen = DB::select('  SELECT  zaehlungs.*, 
+                                            users.name, 
+                                            (SELECT COUNT(*) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS anzahl_comments, 
+                                            (SELECT SUM(comments.erledigt) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS sum_erledigt
+                                    FROM zaehlungs 
+                                    JOIN users ON zaehlungs.bearbeiter_id = users.id 
+                                    WHERE DATE(zaehlungs.created_at) = CURDATE()');
         
         if (count($zaehlungen) > 0) {
 
-            $alle_zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id != '.$zaehlungen[0]->id.' ORDER BY 1 DESC');
+            $alle_zaehlungen = DB::select(' SELECT  zaehlungs.*, 
+                                                    users.name, 
+                                                    (SELECT COUNT(*) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS anzahl_comments,
+                                                    (SELECT SUM(comments.erledigt) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS sum_erledigt
+                                            FROM zaehlungs 
+                                            JOIN users ON zaehlungs.bearbeiter_id = users.id 
+                                            WHERE zaehlungs.id != '.$zaehlungen[0]->id.' 
+                                            ORDER BY 1 DESC');
 
             return view('zaehlung.home')->with('var', [
                 'zaehlungen' => $zaehlungen,
@@ -41,7 +54,13 @@ class ZaehlungController extends Controller
             ]); 
         } else {
 
-            $alle_zaehlungen = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id ORDER BY 1 DESC');
+            $alle_zaehlungen = DB::select(' SELECT  zaehlungs.*, 
+                                                    users.name, 
+                                                    (SELECT COUNT(*) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS anzahl_comments,
+                                                    (SELECT SUM(comments.erledigt) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS sum_erledigt
+                                            FROM zaehlungs 
+                                            JOIN users ON zaehlungs.bearbeiter_id = users.id 
+                                            ORDER BY 1 DESC');
 
             return view('zaehlung.erstellen')->with('var', [
                 'alle_zaehlungen' => $alle_zaehlungen
@@ -148,10 +167,11 @@ class ZaehlungController extends Controller
 
     public function export($id) 
     {
+        $wochentag = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+        $datum = DB::select('SELECT DATE_FORMAT(zaehlungs.created_at, "%d.%m.%Y") datum, DATE_FORMAT(zaehlungs.created_at, "%w") wochentag FROM zaehlungs WHERE zaehlungs.id = ?',[$id])[0];
         $data = new ZaehlungpositionExport;
         $data->id = $id;
 
-        return Excel::download($data, 'Zaehlung.csv');
-
+        return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".xlsx");
     }
 }

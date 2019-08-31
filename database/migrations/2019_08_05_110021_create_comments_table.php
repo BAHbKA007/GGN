@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('zaehlung_id');
             $table->unsignedBigInteger('kunde_id');
             $table->string('comment')->nullable();
+            $table->boolean('erledigt')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });

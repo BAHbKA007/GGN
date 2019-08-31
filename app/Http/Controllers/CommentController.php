@@ -14,9 +14,17 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $kommentare = DB::select('SELECT kundes.name AS kunde, comment, users.name, comments.updated_at, comments.id, erledigt
+        FROM comments 
+        JOIN kundes ON comments.kunde_id = kundes.id 
+        JOIN users ON users.id = comments.user_id
+        WHERE zaehlung_id = ?',[$id]);
+
+        return view('zaehlung.comments')->with('var', [
+            'kommentare' => $kommentare
+        ]);
     }
 
     /**
@@ -24,9 +32,19 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function erledigen(Request $request)
     {
-        //
+        $comment =  Comment::find($request->id);
+        
+        if ($comment->erledigt == 0) {
+            $comment->erledigt = 1;
+        } else {
+            $comment->erledigt = 0;
+        }
+
+        $comment->save();
+
+        return redirect()->back();
     }
 
     /**

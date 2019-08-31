@@ -36,6 +36,7 @@ Route::get('/', function () {
     }
 
 });
+
 Route::get('/aktivieren', 'AktivierenController');
 
 Route::get('/artikel', 'ArtikelController@index');
@@ -92,3 +93,6 @@ Route::post('/comment', 'CommentController@store');
 Route::get('/sync', 'Synch');
 
 Route::get('/export/{id}', 'ZaehlungController@export')->name('export');
+
+Route::get('/comment/{id}', 'CommentController@index');
+Route::post('/comment/erledigen', 'CommentController@erledigen');
