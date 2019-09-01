@@ -94,10 +94,7 @@
 </div>
 
 <script>
-    window.onload = function() {
-        document.getElementById("focus").focus();
-    };
-    
+   
     function del(bezeichnung,id) {
         $("#id").attr('value', id);
         $("#modal-artikel").text(bezeichnung);

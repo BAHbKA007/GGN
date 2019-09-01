@@ -10686,14 +10686,14 @@ a.text-dark:focus {
 }
 
 .list-group-item {
-  padding-bottom: 4px;
-  padding-top: 4px;
+  padding-bottom: 6px;
+  padding-top: 6px;
 }
 
 .unten_rechts {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 60px;
+  right: 12px;
 }
 
 .my_button_zaehlung {

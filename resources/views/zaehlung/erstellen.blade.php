@@ -17,9 +17,12 @@ $wochentag = [
 
 <div class="container">
     <div class="col-md-12 text-center"> 
-        <form action="/zaehlung/neu" method="post">
+        <form action="/zaehlung/neu" method="post" id="neue_zaehlung">
             @csrf
-            <button type="submit" class="btn btn-primary">Neue Zählung</button>
+            <button id="lodingButton" class="btn btn-primary" type="button" data-form="neue_zaehlung">
+                <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
+                <span id="btn-txt">Neue Zählung</span>
+            </button>
         </form>
     </div>
 
@@ -29,4 +32,5 @@ $wochentag = [
 
     </div>
 </div>
+
 @endsection

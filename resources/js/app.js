@@ -93,4 +93,5 @@ window.onload = function() {
         }, 6000);
     
     document.getElementById("focus").focus();
+
 };

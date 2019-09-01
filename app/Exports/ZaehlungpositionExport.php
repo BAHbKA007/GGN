@@ -32,9 +32,9 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
         $articles = DB::table('zaehlungpositions')
         ->select('kundes.name as AldiGesellschaft', 'artikels.bezeichnung as Artikel', DB::raw('DATE_FORMAT(zaehlungs.created_at, "%d.%m.%Y") as Tag'), 'zaehlungpositions.menge as Menge', 'zaehlungpositions.ggn as GGN')
         ->join('kundes', 'zaehlungpositions.kunde_id', '=', 'kundes.id')
-        ->join('artikels', 'artikels.id', '=', 'zaehlungpositions.id')
+        ->join('artikels', 'artikels.id', '=', 'zaehlungpositions.art_id')
         ->join('zaehlungs', 'zaehlungs.id', '=', 'zaehlungpositions.zaehlung_id')
-        ->where('zaehlungs.id', $this->id)
+        ->where('zaehlungs.id', '=', $this->id)
         ->orderBy('AldiGesellschaft', 'ASC')
 
         ->get();

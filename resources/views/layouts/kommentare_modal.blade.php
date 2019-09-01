@@ -15,18 +15,21 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action="/comment" > 
+            <form method="POST" action="/comment" id="comment"> 
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="hidden" name="zaehlung_id" value="{{$var['zaehlung']->id}}">
                         <input type="hidden" name="kunde_id" value="{{$var['kunde']->id}}">
-                        <textarea class="form-control" name="comment" rows="3">@if (count($var['comment']) > 0){{$var['comment'][0]->comment}}@endif</textarea>
+                        <textarea id="textarea" class="form-control" name="comment" rows="3">@if (count($var['comment']) > 0){{$var['comment'][0]->comment}}@endif</textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
-                    <button type="submit" class="btn btn-primary">speichern</button>
+                    <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
+                    <button class="btn btn-primary" id="lodingButton" type="submit" data-form="comment">
+                        <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
+                        <span id="btn-txt">speichern</span>
+                    </button>
                 </div>
             </form>
         </div>

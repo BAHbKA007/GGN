@@ -91,22 +91,25 @@ $wochentag = [
         <div class="col-md-12">
             <div class="card" style="margin-bottom:20px">
                 <div class="card-body">
-                    <form method="POST" action="/zaehlung/artikel" autocomplete="off">
+                    <form method="POST" action="/zaehlung/artikel" autocomplete="off" id="ggn">
                         @csrf
                         <input name="artikel_id" value="{{$var['artikel_id']}}" hidden>
                         <input name="kunde_id" value="{{$var['kunde_id']}}" hidden>
                         <input name="zaehlung_id" value="{{$var['zaehlung_id']}}" hidden>
                         <div class="form-row">
-                            <div class="col-6">
-                                <input id="focus" class="form-control" type="number" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
+                            <div class="form-group col-md-8">
+                                <label for="inputEmail4">GGN</label>
+                                <input id="focus" type="number" class="form-control" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
                             </div>
-                            <div class="col">
+                            <div class="form-group col-md-4">
+                                <label for="inputPassword4">Menge</label>
                                 <input type="number" class="form-control" name="menge" placeholder="Menge" required>
                             </div>
-                            <div class="col" style="text-align:right">
-                                <button type="submit" class="btn btn-primary mb-2">Bestätigen</button>
-                            </div>
                         </div>
+                        <button id="lodingButton" class="btn btn-primary" type="button" data-form="ggn">
+                            <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
+                            <span id="btn-txt">O.K.</span>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -114,7 +117,7 @@ $wochentag = [
             <ul class="list-group">
                 @foreach ($var['gezaehlte'] as $item)
                     <li class="list-group-item"><span style="width: 60px;float: left;"><strong>{{$item->menge}}x</strong></span> {{$item->ggn}}<span style="float: right;">
-                        <a href="#Modal" data-toggle="modal" onclick="del('{{$item->zaehlpos_id}}')" data-target="#Modal">
+                        <a id="modal_button" href="#Modal" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal">
                             <i class="material-icons" style="font-size:16px">delete_outline</i>
                         </a></span>
                     </li>
@@ -127,12 +130,10 @@ $wochentag = [
 @include('layouts.kommentare_modal')
 
 <script>
-    
-    // Modal einblenden
-    function del(id) {
-        $("#id").attr('value', id);
-    };
 
+    $('#modal_button').click(function () {
+        $("#id").attr('value', $('#modal_button').data('id'));
+    });
 
     function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
