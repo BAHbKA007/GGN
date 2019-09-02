@@ -12,7 +12,7 @@ class MySoap   {
     function __construct() {
         $this->bookmarkListId = Setting::where('setting', 'listid')->get()[0]->value;
         $this->okey = Setting::where('setting', 'okey')->get()[0]->value;
-        $this->client = new SoapClient('https://test.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [
+        $this->client = new SoapClient('https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [
             'stream_context' => stream_context_create([
                 'ssl' => [
                 // set some SSL/TLS specific options

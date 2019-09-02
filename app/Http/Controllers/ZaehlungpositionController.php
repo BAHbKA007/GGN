@@ -88,6 +88,14 @@ class ZaehlungpositionController extends Controller
     public function store(Request $request)
     {
 
+        if ($request->menge == NULL) {
+            return back()->with('status', ['error' => 'Das Feld "Menge" darf nicht leer sein!']);
+        } elseif ($request->ggn == NULL) {
+            return back()->with('status', ['error' => 'Das Feld "GGN" darf nicht leer sein!']);
+        } elseif (strlen($request->ggn) != 13) {
+            return back()->with('status', ['error' => 'Eine GGN muss immer 13-stellig sein!']);
+        }
+
         function verheiraten() {
             global $request;
             if ( ggnsartikel::where( [ ['ggn', '=', $request->ggn ],[ 'artikel_id', '=', $request->artikel_id ],] )->count() == 0 ) {
@@ -162,7 +170,7 @@ class ZaehlungpositionController extends Controller
         $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
         $ggns = DB::select('SELECT ggn FROM ggnsartikels WHERE artikel_id = ? ORDER BY ggn', [$artikel_id]);
-        $gezaehlte = DB::select('SELECT zaehlungpositions.ggn, artikels.id, zaehlungpositions.menge, zaehlungpositions.id AS zaehlpos_id FROM zaehlungpositions 
+        $gezaehlte = DB::select('SELECT zaehlungpositions.ggn, zaehlungpositions.id, zaehlungpositions.menge, zaehlungpositions.id AS zaehlpos_id FROM zaehlungpositions 
                     JOIN artikels on artikels.id = zaehlungpositions.art_id
                     WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = ? AND zaehlungpositions.art_id = ?',[$zaehlung_id, $kunde_id, $artikel_id]);
 
@@ -226,7 +234,13 @@ class ZaehlungpositionController extends Controller
      */
     public function destroy(Request $request)
     {
+
+        if ($request->id == NULL) {
+            return back()->with('status', ['error' => 'Javascript Error: übergeben id is NULL']);
+        }
+
         Zaehlungposition::destroy($request->id);
+        
         return back()->with('status', [
             'success' => 'Position erfolgreich gelöscht'
             ]);
