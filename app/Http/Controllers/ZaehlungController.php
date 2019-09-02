@@ -175,4 +175,16 @@ class ZaehlungController extends Controller
 
         return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".xlsx");
     }
+
+    public function info($id) 
+    {
+        $positionen = DB::select('  SELECT zaehlungpositions.id AS z_id, zaehlungpositions.menge, ggns.*, artikels.bezeichnung
+                                    FROM zaehlungpositions 
+                                    JOIN ggns ON ggns.ggn = zaehlungpositions.ggn
+                                    JOIN artikels on artikels.id = zaehlungpositions.art_id
+                                    WHERE zaehlungpositions.zaehlung_id = ?',[$id]);
+        return view('zaehlung.zaehlung_info')->with('var', [
+            'positionen' => $positionen
+        ]);
+    }
 }

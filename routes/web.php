@@ -82,6 +82,7 @@ Route::post('/artikel/{art_id}/ggn', 'ggnsartikelController@store');
 Route::get('/zaehlung', 'ZaehlungController@index');
 Route::post('/zaehlung/neu', 'ZaehlungController@store');
 Route::get('/zaehlung/{id}', 'ZaehlungController@show');
+Route::get('/zaehlung/info/{id}', 'ZaehlungController@info');
 
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}', 'ZaehlungpositionController@index');
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}/artikel/{artikel}', 'ZaehlungpositionController@show');
