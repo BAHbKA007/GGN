@@ -178,11 +178,24 @@ class ZaehlungController extends Controller
 
     public function info($id) 
     {
-        $positionen = DB::select('  SELECT zaehlungpositions.id AS z_id, zaehlungpositions.menge, ggns.*, artikels.bezeichnung
+        $positionen = DB::select('  SELECT 
+                                        zaehlungpositions.id AS z_id, 
+                                        zaehlungpositions.menge, 
+                                        ggns.*,
+                                        artikels.bezeichnung, 
+                                        kundes.name
                                     FROM zaehlungpositions 
                                     JOIN ggns ON ggns.ggn = zaehlungpositions.ggn
-                                    JOIN artikels on artikels.id = zaehlungpositions.art_id
-                                    WHERE zaehlungpositions.zaehlung_id = ?',[$id]);
+                                    JOIN artikels ON artikels.id = zaehlungpositions.art_id
+                                    JOIN kundes ON kundes.id = zaehlungpositions.kunde_id
+                                    WHERE zaehlungpositions.zaehlung_id = ?
+                                    ORDER BY name',[$id]);
+
+        foreach ($positionen as $item) {
+            $artikel = DB::select('SELECT * FROM soap_artikels WHERE soap_artikels.ggn_id = ?',[$item->id]);
+            $item->artikel = $artikel;
+        }
+        
         return view('zaehlung.zaehlung_info')->with('var', [
             'positionen' => $positionen
         ]);
