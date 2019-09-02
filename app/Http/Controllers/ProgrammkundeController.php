@@ -89,9 +89,9 @@ class ProgrammkundeController extends Controller
      * @param  \App\Programmkunde  $programmkunde
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Programmkunde::destroy($id);
-        return $id;
+        Programmkunde::destroy($request->id);
+        return redirect()->back()->with('status', ['success' => 'Kunde erfolgreich entfernt.']);
     }
 }

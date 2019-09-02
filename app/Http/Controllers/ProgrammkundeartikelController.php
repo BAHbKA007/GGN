@@ -100,8 +100,10 @@ class ProgrammkundeartikelController extends Controller
      * @param  \App\Programmkundeartikel  $programmkundeartikel
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Programmkundeartikel::destroy($id);
+        Programmkundeartikel::destroy($request->id);
+
+        return redirect()->back()->with('status', ['success' => 'Artikel erfolgreich entfernt.']);
     }
 }

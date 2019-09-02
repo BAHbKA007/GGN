@@ -2,7 +2,33 @@
 
 @section('content')
 @include('flash-message')
-//TODO Modal
+
+<!-- Modal -->
+<div class="modal animated fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Löschen bestätigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Soll der Artikel: <span id="modal-artikel"></span> wirklich aus dem Programm entfernt werden?
+            </div>
+            <form action="/programmkundeartikel" method="post">
+                @method('delete')
+                @csrf
+                <input id="id" type="hidden" name="id" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
+                    <button type="submit" class="btn btn-danger">löschen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -48,7 +74,11 @@
                 <div href="{{$item->id}}" class="list-group-item list-group-item-action">
                     <div class="custom-control custom-checkbox">
                         {{$item->bezeichnung}}
-                    <div class="float-right"><a href="" onclick="del_artikel('{{$item->id}}','{{$item->bezeichnung}}','{{$var['id']}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a></div>
+                        <div class="float-right">
+                            <a href="" onclick="delet('{{$item->bezeichnung}}',{{$item->id}})" href="#Modal" data-toggle="modal" data-target="#Modal">
+                                <i class="material-icons" style="font-size:16px">delete_outline</i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -56,4 +86,12 @@
         </div>
     </div>
 </div>
+<script>
+   
+    function delet(bezeichnung,id) {
+        $("#id").attr('value', id);
+        $("#modal-artikel").text(bezeichnung);
+    };
+
+</script>
 @endsection

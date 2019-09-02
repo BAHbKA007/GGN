@@ -70,11 +70,11 @@ Route::get('/programm/{id}', 'ProgrammController@show');
 Route::put('/programm/{id}', 'ProgrammController@update');
 
 Route::post('/programmkunde', 'ProgrammkundeController@store');
-Route::delete('/programmkunde/{id}', 'ProgrammkundeController@destroy');
+Route::delete('/programmkunde', 'ProgrammkundeController@destroy');
 
 Route::get('/programm/{pro_id}/{id}', 'ProgrammkundeartikelController@show');
 Route::post('/programmkundeartikel', 'ProgrammkundeartikelController@store');
-Route::delete('/programmkundeartikel/{id}', 'ProgrammkundeartikelController@destroy');
+Route::delete('/programmkundeartikel', 'ProgrammkundeartikelController@destroy');
 
 Route::get('/artikel/{art_id}/ggn/', 'ggnsartikelController@index');
 Route::post('/artikel/{art_id}/ggn', 'ggnsartikelController@store');
