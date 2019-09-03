@@ -49,7 +49,6 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
     */
     public function collection()
     {
-    
         $articles = DB::table('zaehlungpositions')
         ->select('kundes.name as AldiGesellschaft', 
                     'artikels.bezeichnung as Artikel', 
