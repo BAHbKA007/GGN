@@ -6,7 +6,7 @@ import io, os, requests
 from datetime import datetime
 import logging 
 
-logging.basicConfig(filename=os.path.abspath(os.curdir).replace("\\", "/") + "/python/SyncLog.txt",
+logging.basicConfig(filename=os.path.abspath(os.curdir).replace("\\", "/") + "/SyncLog.txt",
                             filemode='a',
                             format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                             datefmt='%H:%M:%S',
