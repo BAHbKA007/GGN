@@ -23,7 +23,7 @@ class SoapRoutines
         if ($responsprop->result == 'ok') {
             $ggn_db = new Ggn;
             $ggn_db->ggn = $ggn;
-            $ggn_db->user_name = Auth::user()->name;
+            $ggn_db->user_name = (Auth::check()) ? Auth::user()->name : 'PythonScript';
             $ggn_db->id = $responsprop->bookmarkItemId;
             
             $ggn_db->save();
