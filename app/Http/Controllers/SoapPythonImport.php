@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\App\Ggn;
+use App\Ggn;
 use App\SoapArtikel;
 use Illuminate\Support\Facades\DB;
 use App\CustomClass\MySoap;
@@ -42,17 +42,17 @@ class SoapPythonImport extends Controller
                     // nur bei Items die new oder changed sind
                     if ($item->attributes()->{'status'} == 'NEW' || $item->attributes()->{'status'} == 'CHANGED') {
 
-                        // App\Ggn-id abspeichern, wird bei SoapArtikel verwendet
+                        // GGN-id abspeichern, wird bei SoapArtikel verwendet
                         $soap_artikel_ggn_id = $item->organisationalData->bookmarkItemId;
 
-                        $ggn_table = App\Ggn::find($item->organisationalData->bookmarkItemId);
+                        $ggn_table = Ggn::find($item->organisationalData->bookmarkItemId);
                         $ggn_table->erzeuger = $item->producerData->name->lastName;
                         $ggn_table->country = $item->producerData->country;
                         $ggn_table->company_type = $item->producerData->companyType;
                         
                         // komische GGNs mit Zugriff nicht gewährt
                         if (!isset($item->productDataList->productData)) {
-                            $ggn_table->erzeuger = "Broken App\Ggn: ({$item->producerData->name->lastName})";
+                            $ggn_table->erzeuger = "Broken GGN: ({$item->producerData->name->lastName})";
                             $ggn_table->save();
                             continue;
                         }
@@ -68,8 +68,8 @@ class SoapPythonImport extends Controller
                                 $ggn_table->grasp_valid_to_current = (isset($product->currentCycle->certificateValidTo) && $product->currentCycle->certificateValidTo != '') ? substr($product->currentCycle->certificateValidTo, 0, 10) : NULL;
                                 $ggn_table->grasp_valid_to_next = (isset($product->nextCycle->certificateValidTo) && $product->nextCycle->certificateValidTo != '') ? substr($product->nextCycle->certificateValidTo, 0, 10) : NULL;
 
-                                // wenn Gruppen-App\Ggn vorhanden und noch nicht in der Datenbank -> Insert Routine
-                                if ($ggn_table->groupggn != NULL && App\Ggn::where('App\Ggn', $ggn_table->groupggn)->count() == 0) {
+                                // wenn Gruppen-GGN vorhanden und noch nicht in der Datenbank -> Insert Routine
+                                if ($ggn_table->groupggn != NULL && Ggn::where('ggn', $ggn_table->groupggn)->count() == 0) {
 
                                     $insertRoutine = new SoapRoutines;
                                     if ( !$insertRoutine->ItemInsert($ggn_table->groupggn) ) {
@@ -83,7 +83,7 @@ class SoapPythonImport extends Controller
                             // wenn nicht GRASP dann erzeuge einen neuen SoapArtikel    
                             } else {
                                 
-                                // falls es sich um eine Änderung handelt, ersmal alle Artikel für die App\Ggn löschen und neu befüllen
+                                // falls es sich um eine Änderung handelt, ersmal alle Artikel für die GGN löschen und neu befüllen
                                 if ($item->attributes()->{'status'} == 'CHANGED') { SoapArtikel::where('ggn_id', $soap_artikel_ggn_id)->delete(); }
 
                                 $soap_artikel_table = new SoapArtikel;
