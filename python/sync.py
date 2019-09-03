@@ -14,7 +14,7 @@ logging.basicConfig(filename=os.path.abspath(os.curdir).replace("\\", "/") + "/S
 
 try:
     time = datetime.now().strftime("%d.%m.%Y %H.%M.%S")
-    filename = os.path.abspath(os.curdir).replace("\\", "/") + "/python/responses/"+ time + ".xml"
+    filename = os.path.abspath(os.curdir).replace("\\", "/") + "/responses/"+ time + ".xml"
     wsdl = "https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl"
     session = Session()
     session.auth = HTTPBasicAuth('SP473600', 'GRST2015!')
@@ -22,20 +22,20 @@ try:
 
     requestData = {
         'action': 'getBookmark' ,
-        'version': '2.1' ,
+        'version': '2.4' ,
         'request': '<ns2:getBookmarkRequest xmlns:ns2="http://www.globalgap.org/"><bookmarkListIdList><bookmarkId>59025</bookmarkId></bookmarkListIdList></ns2:getBookmarkRequest>'
     }
 
     response = client.service.doRequest(**requestData)
-    print(os.path.abspath(os.curdir))
 
     
     # process Unicode text
     with io.open(filename, 'w', encoding='utf8') as f:
         f.write(response)
 
-    r = requests.post("https://qm.leichtbewaff.net/soap/python/import", data={'xml': response})
+    r = requests.post("https://qm.leichtbewaff.net/soap/python/import", data={'xml': response}, verify=False)
     print(r.text)
     print(r.status_code, r.reason)
+    input()
 except:
     logging.exception('')

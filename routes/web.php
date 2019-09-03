@@ -91,7 +91,7 @@ Route::delete('/zaehlposition', 'ZaehlungpositionController@destroy');
 
 Route::post('/comment', 'CommentController@store');
 
-Route::get('/sync', 'Synch');
+//Route::get('/sync', 'Synch');
 Route::post('/soap/python/import', 'SoapPythonImport');
 
 Route::get('/export/{id}', 'ZaehlungController@export')->name('export');

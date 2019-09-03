@@ -8,7 +8,7 @@ import logging
 
 
 datei = input('Welche Datei aus dem responses soll importiert werden? ')
-filename = os.path.abspath(os.curdir).replace("\\", "/") + "/python/responses/" + datei
+filename = os.path.abspath(os.curdir).replace("\\", "/") + "/responses/" + datei
 
 # process Unicode text
 with io.open(filename, 'r', encoding='utf8') as f:
