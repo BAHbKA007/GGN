@@ -35,8 +35,8 @@
                             <tr>
                                 <th scope="col">Artikel</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">aktueller Zyklus bis</th>
-                                <th scope="col">nächster Zyklus bis</th>
+                                <th scope="col">aktueller Zyklus</th>
+                                <th scope="col">nächster Zyklus</th>
                             </tr>
                         </thead>
                         <tbody>
