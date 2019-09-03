@@ -62,7 +62,7 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
                     'ggns.company_type as Typ',
                     'ggns.grasp_status as Status',
                     'ggns.grasp_valid_to_current',
-                    'ggns.grasp_valid_to_next',
+                    'ggns.grasp_valid_to_next'
                 )
         ->join('kundes', 'zaehlungpositions.kunde_id', '=', 'kundes.id')
         ->join('artikels', 'artikels.id', '=', 'zaehlungpositions.art_id')
