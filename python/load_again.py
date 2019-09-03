@@ -7,7 +7,7 @@ from datetime import datetime
 import logging 
 
 
-datei = input('Welche Datei aus dem responses soll importiert werden?')
+datei = input('Welche Datei aus dem responses soll importiert werden? ')
 filename = os.path.abspath(os.curdir).replace("\\", "/") + "/python/responses/" + datei
 
 # process Unicode text
