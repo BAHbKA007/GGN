@@ -173,7 +173,7 @@ class ZaehlungController extends Controller
         $data = new ZaehlungpositionExport;
         $data->id = $id;
 
-        return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".xlsx");
+        return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".csv");
     }
 
     public function info($id) 

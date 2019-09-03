@@ -23,6 +23,11 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
             'GGN',
             'Gruppen GGN',
             'Erzeuger',
+            'Land',
+            'Typ',
+            'GRASP Status',
+            'aktueller Zyklus',
+            'nächster Zyklus',
         ];
     }
 
@@ -52,7 +57,12 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
                     'zaehlungpositions.menge as Menge', 
                     'zaehlungpositions.ggn as GGN',
                     'ggns.groupggn as Gruppen GGN',
-                    'ggns.erzeuger as Erzeuger'
+                    'ggns.erzeuger as Erzeuger',
+                    'ggns.country as Land',
+                    'ggns.company_type as Typ',
+                    'ggns.grasp_status as Status',
+                    'ggns.grasp_valid_to_current',
+                    'ggns.grasp_valid_to_next',
                 )
         ->join('kundes', 'zaehlungpositions.kunde_id', '=', 'kundes.id')
         ->join('artikels', 'artikels.id', '=', 'zaehlungpositions.art_id')
