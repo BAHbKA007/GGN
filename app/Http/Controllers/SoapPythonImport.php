@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Ggn;
+use App\SoapArtikel;
+use Illuminate\Support\Facades\DB;
+use App\CustomClass\MySoap;
+use App\CustomClass\SoapRoutines;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class SoapPythonImport extends Controller

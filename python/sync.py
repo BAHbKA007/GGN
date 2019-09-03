@@ -28,11 +28,13 @@ try:
 
     response = client.service.doRequest(**requestData)
     print(os.path.abspath(os.curdir))
+
+    
     # process Unicode text
     with io.open(filename, 'w', encoding='utf8') as f:
         f.write(response)
 
-    r = requests.post("http://localhost/soap/python/import", data={'xml': response})
+    r = requests.post("https://qm.leichtbewaff.net/soap/python/import", data={'xml': response})
     print(r.text)
     print(r.status_code, r.reason)
 except:
