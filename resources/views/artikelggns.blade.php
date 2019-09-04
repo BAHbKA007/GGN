@@ -41,7 +41,7 @@
                         <form method="POST" action="/artikel/{{$var['art_id']}}/ggn" autocomplete="off">
                             @csrf
                             <div class="form-group">
-                                <input id="focus" class="form-control" list="ggns" maxlength="13" name="ggn" required>
+                                <input id="focus" class="form-control" list="ggns" maxlength="13" name="ggn" required autocomplete="off">
                                 <datalist id="ggns">
                                     @foreach ($var['ggns'] as $item)
                                         <option value="{{$item->ggn}}">{{$item->erzeuger}} <small>{{$item->ggn}}</small></option>

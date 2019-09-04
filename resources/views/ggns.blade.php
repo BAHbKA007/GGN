@@ -38,7 +38,7 @@
                             @csrf
 
                             <div class="form-group">
-                                <input id="focus" min="1000000000000" max="9999999999999" type="number" class="form-control form-control-sm" name="ggn" placeholder="GGN" required>
+                                <input id="focus" min="1000000000000" max="9999999999999" type="number" class="form-control form-control-sm" name="ggn" placeholder="GGN" required autocomplete="off">
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">speichern</button>
                         </form>

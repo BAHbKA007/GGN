@@ -9,6 +9,10 @@ use Auth;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,17 +60,23 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $comment_find = DB::select('SELECT id, comment FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$request->kunde_id,$request->zaehlung_id,]);
+        
         if (count($comment_find) != 0) {
+
             $comment = Comment::find($comment_find[0]->id);
             $comment->comment = $request->comment;
+            $comment->erledigt = 1;
             $comment->save();
+
         } else {
+
             $comment = new Comment;
             $comment->zaehlung_id = $request->zaehlung_id;
             $comment->kunde_id = $request->kunde_id;
             $comment->comment = $request->comment;
             $comment->user_id = Auth::user()->id;
             $comment->save();
+
         }
 
         return redirect("/zaehlung/$request->zaehlung_id/kunde/$request->kunde_id")->with('status', ['success' => 'Kommentar erfolgreich']);

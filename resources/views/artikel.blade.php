@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Soll der Artikel: <span id="modal-artikel"></span> wirklich gelöscht werden?
+                Soll der Artikel: <span id="modal-artikel"></span> wirklich gesperrt werden?
             </div>
             <form action="/artikel" method="post">
                 @method('delete')
@@ -21,7 +21,7 @@
                 <input id="id" type="hidden" name="id" value="">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
-                    <button type="submit" class="btn btn-danger">löschen</button>
+                    <button type="submit" class="btn btn-danger">sperren</button>
                 </div>
             </form>
         </div>
@@ -45,7 +45,7 @@
                         @csrf
                         <div class="form-row">
                             <div class="col-md-10">
-                                <input id="focus" list="gesperrte" @if (isset($var['artikel_edit'])) value="{{$var['artikel_edit']->bezeichnung}}" @endif type="text" class="form-control form-control-sm" name="bezeichnung" placeholder="Artikelbezeichnung" required>
+                                <input id="focus" list="gesperrte" @if (isset($var['artikel_edit'])) value="{{$var['artikel_edit']->bezeichnung}}" @endif type="text" class="form-control form-control-sm" name="bezeichnung" placeholder="Artikelbezeichnung" required autocomplete="off">
                                 <datalist id="gesperrte">
                                     @foreach ($var['artikel_gesperrt'] as $artikel)
                                         <option value="{{$artikel->bezeichnung}}">

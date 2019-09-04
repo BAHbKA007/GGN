@@ -2,31 +2,6 @@
 
 @section('content')
 
-<!-- Modal -->
-<div class="modal animated fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Löschen bestätigen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Soll der Artikel: <span id="modal-artikel"></span> wirklich gelöscht werden?
-            </div>
-            <form action="/artikel" method="post">
-                @method('delete')
-                @csrf
-                <input id="id" type="hidden" name="id" value="">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
-                    <button type="submit" class="btn btn-danger">löschen</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -35,60 +10,65 @@
             <div class="card" style="margin-bottom:20px">
                 
                 <div class="card-body">
-
-                    @if (isset($var['artikel_edit']))
-                        <form method="POST" action="/artikel/{{$var['artikel_edit']->id}}" > @method('put')
-                    @else
-                        <form method="POST" action="/artikel">
-                    @endif
-
+                    <form method="POST" action="/suche">
                         @csrf
-                        <div class="form-row">
-                            <div class="col-md-10">
-                                <input id="focus" list="gesperrte" @if (isset($var['artikel_edit'])) value="{{$var['artikel_edit']->bezeichnung}}" @endif type="text" class="form-control form-control-sm" name="bezeichnung" placeholder="Artikelbezeichnung" required>
-                                <datalist id="gesperrte">
-                                    @foreach ($var['artikel_gesperrt'] as $artikel)
-                                        <option value="{{$artikel->bezeichnung}}">
-                                    @endforeach
-                                </datalist>
-                            </div>
-                            <div class="col-md-2" style="text-align:right">
-                                <button type="submit" class="btn btn-primary btn-sm"> @if (isset($var['artikel_edit'])) aktualisieren @else hinzufügen @endif </button>
-                            </div>
+
+                        <div class="form-group">
+                            <input id="focus" type="text" class="form-control form-control-sm" name="suche" placeholder='GGN oder Namen oder nur Teile mit Leerzeichen dazwischen eingeben z.B. "40 290" ...' required autocomplete="off">
                         </div>
+                        <button type="submit" class="btn btn-primary btn-sm">suchen</button>
                     </form>
                 </div>
                 
             </div>
+            @if (isset($var['positionen']))
+                <ul class="list-group">
 
-            @include('flash-message')
+                    @foreach ($var['positionen'] as $item)
 
-            <div class="card">
-                <div class="card-body">
-                    <table class="table table-sm table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Artikel</th>
-                                <th scope="col" style="text-align:right">Aktionen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($var['artikel'] as $artikel)
-                            <tr>
-                                <td>
-                                    <a href="/artikel/{{$artikel->id}}/ggn/">{{$artikel->bezeichnung}}</a>
-                                </td>
-                                <td style="text-align:right">
-                                    <a href="/artikel/{{$artikel->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a>
-                                    <a href="#Modal" data-toggle="modal" onclick="del('{{$artikel->bezeichnung}}',{{$artikel->id}})" data-target="#Modal"><i class="material-icons" style="font-size:16px">check_circle_outline</i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+                        <li class="list-group-item">
+            
+                            @php
+                                if( $item->grasp_status == NULL ){
+                                    $farbe = 'warning';
+                                } elseif (strtotime($item->grasp_valid_to_current) < time() ) {
+                                    $farbe = 'danger';
+            
+                                } else {
+                                    $farbe = 'success';
+                                }
+                            @endphp
+            
+                            <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="false" aria-controls="collapse">
+                                {{$item->ggn}}
+                            </button>
+                            <span style="margin-left:10px">({{$item->erzeuger}})</span>
+                            <div class="collapse" id="collapse{{$item->id}}">
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Artikel</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">aktueller Zyklus</th>
+                                            <th scope="col">nächster Zyklus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($item->artikel as $artikel)
+                                            <tr @if ( ($artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) || $artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) style="background-color:#FF6347" @endif>
+                                                <td>{{$artikel->product_name}}</td>
+                                                <td>{{$artikel->product_status}}</td>
+                                                <td>@if ($artikel->valid_to_current != NULL) {{strftime("%d.%m.%Y", strtotime($artikel->valid_to_current))}} @endif</td>
+                                                <td>@if ($artikel->valid_to_next != NULL) {{strftime("%d.%m.%Y", strtotime($artikel->valid_to_next))}} @endif</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
 </div>
@@ -96,11 +76,6 @@
 <script>
     window.onload = function() {
         document.getElementById("focus").focus();
-    };
-    
-    function del(bezeichnung,id) {
-        $("#id").attr('value', id);
-        $("#modal-artikel").text(bezeichnung);
     };
 </script>
 @endsection

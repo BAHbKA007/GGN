@@ -90,7 +90,7 @@
                                 <a class="nav-link" href="/zaehlung">Zählungen</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Suche</a>
+                                <a class="nav-link" href="/suche">Suche</a>
                             </li>
                         </ul>
                         <!-- Left Side Of Navbar -->

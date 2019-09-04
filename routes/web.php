@@ -98,3 +98,6 @@ Route::get('/export/{id}', 'ZaehlungController@export')->name('export');
 
 Route::get('/comment/{id}', 'CommentController@index');
 Route::post('/comment/erledigen', 'CommentController@erledigen');
+
+Route::get('/suche', 'SucheController@suche');
+Route::post('/suche', 'SucheController@suchrgebnis');

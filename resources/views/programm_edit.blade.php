@@ -94,7 +94,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="bis">Bezeichnung:</label>
-                                    <input type="text" class="form-control form-control-sm" name="pro_name" placeholder="..." @if (isset($var['programm_edit'])) value="{{$var['programm_edit']->pro_name}}" @endif>
+                                    <input type="text" class="form-control form-control-sm" name="pro_name" placeholder="..." @if (isset($var['programm_edit'])) value="{{$var['programm_edit']->pro_name}}" @endif autocomplete="off">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">@if (isset($var['programm_edit'])) aktualisieren @else erstellen @endif</button>

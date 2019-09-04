@@ -153,6 +153,6 @@ class ArtikelController extends Controller
         $artikel->sperre = ($artikel->sperre == 1) ? 0 : 1;
         $artikel->save();
 
-        return back()->with('status', ['success' => 'Artikel <strong>'.$artikel->bezeichnung.'</strong> erfolgreich gelöscht']);
+        return back()->with('status', ['success' => 'Artikel <strong>'.$artikel->bezeichnung.'</strong> erfolgreich gesperrt']);
     }
 }
