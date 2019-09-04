@@ -36,6 +36,7 @@ Route::get('/', function () {
     }
 
 });
+Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/aktivieren', 'AktivierenController');
 
