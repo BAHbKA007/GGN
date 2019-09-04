@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=200, initial-scale=1.5, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-startup-image" href="/img/favicon-192.png">
     <meta name="apple-mobile-web-app-title" content="QM GGN">
 
