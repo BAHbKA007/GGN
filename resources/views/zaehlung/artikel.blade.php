@@ -118,7 +118,7 @@ $wochentag = [
                 @foreach ($var['gezaehlte'] as $item)
                     <li class="list-group-item"><span style="width: 60px;float: left;"><strong>{{$item->menge}}x</strong></span> {{$item->ggn}}<span style="float: right;">
                         <a id="modal_button" href="#Modal" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal">
-                            <i class="material-icons" style="font-size:16px">delete_outline</i>
+                            <i class="material-icons" onclick="del({{$item->id}})" style="font-size:16px">delete_outline</i>
                         </a></span>
                     </li>
                 @endforeach
@@ -131,9 +131,9 @@ $wochentag = [
 
 <script>
 
-    $('#modal_button').click(function () {
-        $("#id").attr('value', $('#modal_button').data('id'));
-    });
+    function del(id) {
+        $("#id").attr('value', id);
+    };
 
     function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
