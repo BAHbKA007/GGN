@@ -9,6 +9,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-startup-image" href="{{Request::root()}}/img/favicon-192.png">
     <meta name="apple-mobile-web-app-title" content="QM GGN">
+    <link
+        rel="apple-touch-startup-image"
+        media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+        href="{{Request::root()}}/img/splash.jpg"
+    />
 
     <!-- ****** faviconit.com Favicons ****** -->
 	<link rel="shortcut icon" href="{{Request::root()}}/img/favicon.ico">
