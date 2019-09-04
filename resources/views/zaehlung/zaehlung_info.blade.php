@@ -28,7 +28,7 @@
                 <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->z_id}}" aria-expanded="false" aria-controls="collapse">
                     {{$item->ggn}}
                 </button>
-                <span style="margin-left:10px"><small>( {{$item->erzeuger}} | GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}} @endif)</small></span>
+                <span style="margin-left:10px"><small>( {{$item->erzeuger}} | GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}} @else NEIN @endif)</small></span>
                 <div class="collapse" id="collapse{{$item->z_id}}">
                     <table class="table table-bordered table-sm">
                         <thead>
