@@ -10693,7 +10693,7 @@ a.text-dark:focus {
 .unten_rechts {
   position: fixed;
   bottom: 60px;
-  right: 12px;
+  right: 45%;
 }
 
 .my_button_zaehlung {

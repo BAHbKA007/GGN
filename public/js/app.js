@@ -49219,65 +49219,10 @@ var app = new Vue({
   el: '#app'
 });
 
-window.del_data = function del_data(link, id, name, redirect) {
-  if (confirm(name + " wirklich löschen?")) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/' + link + '/' + id,
-      type: 'DELETE',
-      success: function success(result) {
-        setTimeout(function () {
-          if (result == '') {
-            window.location.href = '/' + link;
-          } else {
-            window.location.href = '/programm/' + redirect;
-          }
-        }, 100);
-      }
-    });
-  }
-};
-
-window.del_gezaehlt = function del_gezaehlt(zaehlpos_id, zaehlung_id, kunde_id, artikel_id) {
-  if (confirm("wirklich löschen?")) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/zaehlposition/' + zaehlpos_id,
-      type: 'DELETE',
-      success: function success(result) {
-        setTimeout(function () {
-          window.location.href = '/zaehlung/' + zaehlung_id + '/kunde/' + kunde_id + '/artikel/' + artikel_id;
-        }, 100);
-      }
-    });
-  }
-};
-
-window.del_artikel = function del_artikel(id, name, redirect, pro_id) {
-  if (confirm(name + " wirklich löschen?")) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/programmkundeartikel/' + id,
-      type: 'DELETE',
-      success: function success(result) {
-        setTimeout(function () {
-          window.location.href = '/programm/' + pro_id + '/' + redirect;
-        }, 100);
-      }
-    });
-  }
-};
-
 window.onload = function () {
   setTimeout(function () {
     $(".myAlert-bottom").fadeOut();
-  }, 6000);
+  }, 4000);
   document.getElementById("focus").focus();
 };
 
