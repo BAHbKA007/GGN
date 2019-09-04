@@ -88,10 +88,10 @@ class ZaehlungpositionController extends Controller
     public function store(Request $request)
     {
 
-        if ($request->menge == NULL) {
-            return back()->with('status', ['error' => 'Das Feld "Menge" darf nicht leer sein!']);
-        } elseif ($request->ggn == NULL) {
+        if ($request->ggn == NULL) {
             return back()->with('status', ['error' => 'Das Feld "GGN" darf nicht leer sein!']);
+        } elseif ($request->menge == NULL) {
+            return back()->with('status', ['error' => 'Das Feld "Menge" darf nicht leer sein!']);
         } elseif (strlen($request->ggn) != 13) {
             return back()->with('status', ['error' => 'Eine GGN muss immer 13-stellig sein!']);
         }
