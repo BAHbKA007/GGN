@@ -45,14 +45,12 @@ class ProgrammController extends Controller
      */
     public function create()
     {
-        $kunden = Kunde::all();
-        $artikel = Artikel::all();
-        $dienstleistung = Dienstleistung::all();
+        $kunden = Kunde::where('sperre', 0)->get();
+        $artikel = Artikel::where('sperre', 0)->get();
 
         return view('programm_create')->with('var',[
             'kunden' => $kunden,
-            'artikel' => $artikel,
-            'dienstleistung' => $dienstleistung
+            'artikel' => $artikel
         ]);
     }
     
@@ -99,7 +97,7 @@ class ProgrammController extends Controller
 
         $programm = DB::select('select programms.*, users.name from programms join users on programms.user_id = users.id order by programms.von desc');
         $programm_edit = DB::select('select * from programms where programms.id = ?',[$id])[0];
-        $kunden = DB::select('select * from kundes where id not in (select kun_id from programmkundes where pro_id = ?) order by name asc', [$id]);
+        $kunden = DB::select('SELECT * from kundes where sperre = 0 AND id not in (select kun_id from programmkundes where pro_id = ?) order by name asc', [$id]);
         return view('programm_edit')->with('var', [
                 'programm' => $programm,
                 'programm_edit' => $programm_edit,
@@ -117,8 +115,8 @@ class ProgrammController extends Controller
      */
     public function edit(Programm $programm)
     {
-        $artikel = DB::select('select artikels.*, users.name from artikels join users on artikels.user_id = users.id order by artikels.bezeichnung asc');
-        $kunden = DB::select('select * from kundes order by name asc');
+        $artikel = DB::select('SELECT artikels.*, users.name from artikels join users on artikels.user_id = users.id WHERE artikels.sperre = 0 order by artikels.bezeichnung asc');
+        $kunden = DB::select('SELECT * from kundes WHERE kundes.sperre = 0 order by name asc');
         $artikel_edit = DB::select('select * from artikels where artikels.id = ?',[$id])[0];
         return view('artikel')->with('var', [
                 'artikel' => $artikel,

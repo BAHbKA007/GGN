@@ -28,11 +28,15 @@ class KundeController extends Controller
      */
     public function index()
     {
-        $kunden = DB::select('select kundes.* from kundes order by kundes.name asc');
+        $kunden = DB::select('SELECT * FROM kundes WHERE kundes.sperre = 0 ORDER BY kundes.name ASC');
+        $gesperrte = DB::select('SELECT * FROM kundes WHERE kundes.sperre = 1 ORDER BY kundes.name ASC');
 
         return view('kunden')->with('var', [
-                'kunden' => $kunden
-                ]);    }
+                'kunden' => $kunden,
+                'gesperrte' => $gesperrte
+                ]);    
+    
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -56,16 +60,29 @@ class KundeController extends Controller
         $kunde->name = $request->name;
         $kunde->user_id = Auth::user()->id;
 
-        try {
+        // prüfen ob Kundebezeichnung bereits existiert
+        if ( Kunde::where('name', $request->name)->count() > 0 ) {
+
+            // auf Sperre prüfen
+            if ( Kunde::where('name', $request->name)->first()->sperre == 0 ) {
+
+                // wenn nicht gespert User zurückschicken
+                return back()->with('status', ['error' => 'Kunde <strong>'.$request->name.'</strong> ist bereits vorhanden']);
+
+            } else {
+                
+                // wenn gesperrt, Sperre wegmachen
+                $kunde = Kunde::where('name', $request->name)->first();
+                $kunde->sperre = 0;
+                $kunde->save();
+                return back()->with('status', ['success' => 'Kunde <strong>'.$request->name.'</strong> erfolgreich entsperrt']);
+
+            }
+        } else {
+            
+            // wenn Kunde neu
             $kunde->save();
-            return redirect('/kunden')->with('status', ['success' => 'Kunde <strong>'.$request->name.'</strong> erfolgreich hinzugefügt']);
-        }
-            //catch exception
-            catch(Exception $e) {
-            return redirect('/kunden')->with('status', [
-                'error' => 'Hat leider nicht geklappt, evtl. Existiert der Kunde bereits.',
-                'message' => $e->getMessage()
-                ]);
+            return back()->with('status', ['success' => 'Kunde <strong>'.$request->name.'</strong> erfolgreich hinzugefügt']);
         }
     }
 
@@ -88,7 +105,7 @@ class KundeController extends Controller
      */
     public function edit($id)
     {
-        $kunden = DB::select('select * from kundes order by kundes.name asc');
+        $kunden = DB::select('SELECT * FROM kundes WHERE kundes.sperre = 0 ORDER BY kundes.name ASC');
         $kunden_edit = DB::select('select * from kundes where kundes.id = ?',[$id])[0];
         return view('kunden')->with('var', [
                 'kunden' => $kunden,
@@ -127,8 +144,13 @@ class KundeController extends Controller
      * @param  \App\Kunde  $kunde
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Kunde::destroy($id);
+        $kunde = Kunde::find($request->id);
+        $kunde->sperre = ($kunde->sperre == 1) ? 0 : 1;
+        $kunde->user_id = Auth::user()->id;
+        $kunde->save();
+
+        return back()->with('status', ['success' => 'Kunde <strong>'.$kunde->name.'</strong> erfolgreich gesperrt']);
     }
 }

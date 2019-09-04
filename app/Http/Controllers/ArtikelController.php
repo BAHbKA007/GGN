@@ -29,7 +29,7 @@ class ArtikelController extends Controller
     public function index()
     {
 
-        $artikel = DB::select('SELECT artikels.*, (SELECT COUNT(*) FROM ggnsartikels WHERE ggnsartikels.artikel_id = artikels.id) AS art_count, users.name FROM artikels JOIN users ON artikels.user_id = users.id WHERE sperre = 0 ORDER BY artikels.bezeichnung ASC');
+        $artikel = DB::select('SELECT artikels.*, (SELECT COUNT(*) FROM ggnsartikels WHERE ggnsartikels.artikel_id = artikels.id) AS art_count, users.name FROM artikels JOIN users ON artikels.user_id = users.id WHERE artikels.sperre = 0 ORDER BY artikels.bezeichnung ASC');
         $artikel_gesperrt = DB::select('SELECT * FROM artikels WHERE sperre = 1 ORDER BY artikels.bezeichnung ASC');
 
         return view('artikel')->with('var', [

@@ -80,7 +80,7 @@
                                 </td>
                                 <td style="text-align:right">
                                     <a href="/artikel/{{$artikel->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a>
-                                    <a href="#Modal" data-toggle="modal" data-target="#Modal" onclick="del('{{$artikel->bezeichnung}}',{{$artikel->id}})"><i class="material-icons" style="font-size:16px">check_circle_outline</i></a>
+                                    <a href="#Modal" data-toggle="modal" data-target="#Modal" onclick="del('{{$artikel->bezeichnung}}',{{$artikel->id}})"><i class="material-icons" style="font-size:16px">highlight_off</i></a>
                                 </td>
                             </tr>
                             @endforeach

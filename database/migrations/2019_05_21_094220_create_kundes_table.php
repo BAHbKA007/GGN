@@ -17,6 +17,7 @@ class CreateKundesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->unsignedBigInteger('user_id');
+            $table->boolean('sperre')->default(0);
             $table->timestamps();
         });
     }

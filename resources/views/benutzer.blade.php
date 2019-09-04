@@ -1,6 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
+
+<!-- Modal -->
+<div class="modal animated fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Löschen bestätigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Soll der Benutzer: <span id="modal-benutzer" style="font-weight: bold;"></span> wirklich gesperrt werden?
+            </div>
+            <form action="/benutzer" method="post">
+                @method('delete')
+                @csrf
+                <input id="id" type="hidden" name="id" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
+                    <button type="submit" class="btn btn-danger">sperren</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -60,7 +87,10 @@
                                     <td>{{$benutzer->name}}</td>
                                     <td>{{$benutzer->email}}</td>
                                     <td>{{$benutzer->rolesname}}</td>
-                                    <td style="text-align:right"> <a href="/benutzer/{{$benutzer->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a> <a href="#" onclick="del_data('benutzer', '{{$benutzer->id}}', '{{$benutzer->name}}')"><i class="material-icons" style="font-size:16px">delete_outline</i></a> </td>
+                                    <td style="text-align:right"> 
+                                        <a href="/benutzer/{{$benutzer->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a> 
+                                        <a href="#Modal" data-toggle="modal" data-target="#Modal" onclick="del('{{$benutzer->name}}',{{$benutzer->id}})"><i class="material-icons" style="font-size:16px">highlight_off</i></a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -71,5 +101,13 @@
             </div>
         </div>
     </div>
+<script>
+
+    function del(bezeichnung,id) {
+        $("#id").attr('value', id);
+        $("#modal-benutzer").text(bezeichnung);
+    };
+
+</script>
 @endsection
 

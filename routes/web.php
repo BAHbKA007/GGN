@@ -50,13 +50,13 @@ Route::get('/benutzer', 'BenutzerController@index');
 Route::post('/benutzer', 'BenutzerController@store');
 Route::get('/benutzer/{id}/edit', 'BenutzerController@edit');
 Route::put('/benutzer/{id}', 'BenutzerController@update');
-Route::delete('/benutzer/{id}', 'BenutzerController@destroy');
+Route::delete('/benutzer', 'BenutzerController@destroy');
 
 Route::get('/kunden', 'KundeController@index');
 Route::post('/kunden', 'KundeController@store');
 Route::get('/kunden/{id}/edit', 'KundeController@edit');
 Route::put('/kunden/{id}', 'KundeController@update');
-Route::delete('/kunden/{id}', 'KundeController@destroy');
+Route::delete('/kunden', 'KundeController@destroy');
 
 Route::get('/ggn', 'GgnController@index');
 Route::get('/ggn/{id}/edit', 'GgnController@edit');

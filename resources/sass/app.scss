@@ -27,8 +27,10 @@
 
 .unten_rechts {
     position: fixed;
-    bottom: 60px;
-    right: 45%;
+    top: 9px;
+    left: 50%;
+    margin-left: -70px;
+    z-index: 2000;
 }
 
 .my_button_zaehlung {

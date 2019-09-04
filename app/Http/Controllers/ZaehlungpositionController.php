@@ -136,7 +136,7 @@ class ZaehlungpositionController extends Controller
 
                 return back()->with('status', [
                     'error' => 'GlobalGap-Datenbank: '.$responsprop->desc
-                ]);
+                ])->withInput();
             } 
 
         } else {

@@ -28,8 +28,8 @@ class BenutzerController extends Controller
      */
     public function index()
     {
-        $benutzer = DB::select('select users.*, roles.name AS rolesname from users join roles on users.role = roles.id');
-        $roles = DB::select('select * from roles');
+        $benutzer = DB::select('SELECT users.*, roles.name AS rolesname from users join roles on users.role = roles.id WHERE users.sperre = 0');
+        $roles = DB::select('SELECT * from roles');
 
         return view('benutzer')->with('var', [
                 'benutzer' => $benutzer,
@@ -119,8 +119,12 @@ class BenutzerController extends Controller
      * @param  \App\Benutzer  $benutzer
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        User::destroy($id);
+        $user = User::find($request->id);
+        $user->sperre = ($user->sperre == 1) ? 0 : 1;
+        $user->save();
+
+        return back()->with('status', ['success' => 'Benutzer <strong>'.$user->name.'</strong> erfolgreich gesperrt']);
     }
 }

@@ -99,11 +99,11 @@ $wochentag = [
                         <div class="form-row">
                             <div class="form-group col-md-8">
                                 <label for="inputEmail4">GGN</label>
-                                <input id="focus" type="number" class="form-control" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
+                                <input id="focus" type="number" class="form-control" value="{{ old('ggn') }}" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputPassword4">Menge</label>
-                                <input type="number" class="form-control" name="menge" placeholder="Menge" required>
+                                <input type="number" class="form-control" value="{{ old('menge') }}" name="menge" placeholder="Menge" required>
                             </div>
                         </div>
                         <button id="lodingButton" class="btn btn-primary" type="button" data-form="ggn">
