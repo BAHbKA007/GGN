@@ -38,7 +38,7 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
             'B' => NumberFormat::FORMAT_TEXT,
             'C' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'D' => NumberFormat::FORMAT_NUMBER,
-            //'E' => NumberFormat::FORMAT_NUMBER,
+            'E' => NumberFormat::FORMAT_TEXT,
             'F' => NumberFormat::FORMAT_NUMBER,
             'G' => NumberFormat::FORMAT_TEXT,
             'H' => NumberFormat::FORMAT_TEXT,
