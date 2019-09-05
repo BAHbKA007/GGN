@@ -167,7 +167,7 @@ class ZaehlungController extends Controller
 
     public function export($id) 
     {
-
+        return 'asdasd';
         $wochentag = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
         $datum = DB::select('SELECT DATE_FORMAT(zaehlungs.created_at, "%d.%m.%Y") datum, DATE_FORMAT(zaehlungs.created_at, "%w") wochentag FROM zaehlungs WHERE zaehlungs.id = ?',[$id])[0];
         $data = new ZaehlungpositionExport;

@@ -38,7 +38,7 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
             'B' => NumberFormat::FORMAT_TEXT,
             'C' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'D' => NumberFormat::FORMAT_NUMBER,
-            'E' => NumberFormat::FORMAT_TEXT,
+            'E' => NumberFormat::FORMAT_NUMBER,
             'F' => NumberFormat::FORMAT_NUMBER,
             'G' => NumberFormat::FORMAT_TEXT,
             'H' => NumberFormat::FORMAT_TEXT,
@@ -54,6 +54,26 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
     */
     public function collection()
     {
+        // SELECT
+        // kundes.name AS AldiGesellschaft,
+        // artikels.bezeichnung AS Artikel,
+        // DATE_FORMAT(zaehlungs.created_at,"%d.%m.%Y") AS Tag,
+        // zaehlungpositions.menge as Menge,
+        // zaehlungpositions.ggn as GGN,
+        // ggns.groupggn as 'Gruppen GGN',
+        // ggns.erzeuger as Erzeuger,
+        // ggns.country as Land,
+        // ggns.company_type as Typ,
+        // ggns.grasp_status as Status,
+        // DATE_FORMAT(ggns.grasp_valid_to_current, "%d.%m.%Y") as Tag,
+        // DATE_FORMAT(ggns.grasp_valid_to_next, "%d.%m.%Y") as Tag
+        // FROM zaehlungpositions
+        // JOIN kundes ON zaehlungpositions.kunde_id = kundes.id
+        // JOIN artikels ON artikels.id = zaehlungpositions.art_id
+        // JOIN zaehlungs ON zaehlungs.id = zaehlungpositions.zaehlung_id
+        // JOIN ggns ON zaehlungpositions.ggn = ggns.ggn
+        // WHERE zaehlungs.id = 1
+        // ORDER BY 1 ASC
         $articles = DB::table('zaehlungpositions')
         ->select('kundes.name as AldiGesellschaft', 
                     'artikels.bezeichnung as Artikel', 
