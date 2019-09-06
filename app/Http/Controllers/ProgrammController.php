@@ -107,6 +107,16 @@ class ProgrammController extends Controller
                 ]);  
     }
         
+    public function programm_artikel($id)
+    {
+        $artikel = Artikel::where('sperre', 0)->get();
+
+        return view('programmartikelkunde')->with('var', [
+            'artikel' => $artikel,
+            'id' => $id
+        ]);  
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
