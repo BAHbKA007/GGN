@@ -94,6 +94,7 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
         ->join('ggns', 'zaehlungpositions.ggn', '=', 'ggns.ggn')
         ->where('zaehlungs.id', '=', $this->id)
         ->orderBy('AldiGesellschaft', 'ASC')
+        ->orderBy('Artikel', 'ASC')
 
         ->get();
         
