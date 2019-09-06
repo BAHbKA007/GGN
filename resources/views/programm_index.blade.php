@@ -47,8 +47,8 @@
                         <strong>{{$item->pro_name}}:</strong> {{date('d.m.Y', strtotime($item->von))}} - {{date('d.m.Y', strtotime($item->bis))}} 
                         <small>( {{$item->name}} )</small>
                         <span class="float-right">
-                            <a class="btn btn-primary btn-sm" href="programm/{{$item->id}}" role="button">Kunde</a>
-                            <a class="btn btn-primary btn-sm" href="programm_artikel/{{$item->id}}" role="button">Artikel</a>
+                            <a class="btn btn-success btn-sm" href="programm/{{$item->id}}" role="button">Kunde</a>
+                            <a class="btn btn-warning btn-sm" href="programm_artikel/{{$item->id}}" role="button">Artikel</a>
                         </span>
                     </li>
                 @endforeach

@@ -7,6 +7,7 @@ use App\Artikel;
 use App\Kunde;
 use App\Dienstleistung;
 use App\Programmkunde;
+use App\Programmkundeartikel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -109,12 +110,74 @@ class ProgrammController extends Controller
         
     public function programm_artikel($id)
     {
-        $artikel = Artikel::where('sperre', 0)->get();
+        $artikel = Artikel::where('sperre', 0)->orderby('bezeichnung','ASC')->get();
 
         return view('programmartikelkunde')->with('var', [
             'artikel' => $artikel,
             'id' => $id
         ]);  
+    }
+
+    
+    public function programm_artikel_kunde($id,$artikel)
+    {
+        $kunden = DB::select('  SELECT * FROM kundes WHERE kundes.id NOT IN  
+                                    ( SELECT
+                                        programmkundes.kun_id
+                                    FROM
+                                        programmkundeartikels
+                                    JOIN programmkundes ON programmkundes.id = programmkundeartikels.prokun_id
+                                    JOIN programms ON programms.id = programmkundes.pro_id
+                                    WHERE
+                                        programms.id = ? AND programmkundeartikels.art_id = ? )',[$id, $artikel]);
+
+        $artikel = Artikel::find($artikel);
+
+        return view('programmartikelkunde1')->with('var',[
+            'kunden' => $kunden,
+            'artikel' => $artikel,
+            'id' => $id
+        ]);
+    }
+
+    public function programm_artikel_kunde_store(Request $request)
+    {
+
+
+        foreach ($request->kunden as $kunde) {
+
+            // checken ob ein Eintrag für den Kunden in diesm Programm bereits existiert
+            $programmkunde_anzahl = Programmkunde::where([['pro_id', '=', $request->programm_id], ['kun_id', '=', $kunde]])->count();
+
+            if ($programmkunde_anzahl == 0) {
+                $programmkunde = new Programmkunde;
+                $programmkunde->pro_id = $request->programm_id;
+                $programmkunde->kun_id = $kunde;
+                $programmkunde->save();
+
+                $programmkunde_artikel = new Programmkundeartikel;
+                $programmkunde_artikel->prokun_id = $programmkunde->id;
+                $programmkunde_artikel->art_id = $request->artikel_id;
+                $programmkunde_artikel->save();
+
+            } elseif ($programmkunde_anzahl == 1) {
+
+                $programmkunde = Programmkunde::where([['pro_id', '=', $request->programm_id], ['kun_id', '=', $kunde]])->get()[0];
+                $programmkunde_artikel = new Programmkundeartikel;
+                $programmkunde_artikel->prokun_id = $programmkunde->id;
+                $programmkunde_artikel->art_id = $request->artikel_id;
+                $programmkunde_artikel->save();
+
+            } else {
+
+                $kunde = Kunde::find($kunde)->name;
+                return redirect()->back()->with('status', ['error' => "Der Kunde $kunde taucht mehrmals in dem Programm auf, da stimmt was nicht bitte checken!!!"]);
+
+            }
+
+        }
+
+        return redirect()->back()->with('status', ['success' => "Artikel erforlgreich hinzugefügt"]);
     }
 
     /**

@@ -19,6 +19,8 @@ class CreateProgrammkundesTable extends Migration
             $table->unsignedBigInteger('kun_id');
             $table->timestamps();
 
+            $table->unique(['pro_id', 'kun_id']);
+
             $table->foreign('pro_id')
                 ->references('id')->on('programms')
                 ->onDelete('cascade');

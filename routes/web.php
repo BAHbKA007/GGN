@@ -68,8 +68,11 @@ Route::get('/programm/create', 'ProgrammController@create');
 Route::post('/programm', 'ProgrammController@store');
 Route::get('/programm/{id}/edit', 'ProgrammController@edit');
 Route::get('/programm/{id}', 'ProgrammController@show');
-Route::get('/programm_artikel/{id}', 'ProgrammController@programm_artikel');
 Route::put('/programm/{id}', 'ProgrammController@update');
+
+Route::get('/programm_artikel/{id}', 'ProgrammController@programm_artikel');
+Route::get('/programm_artikel/{programm}/artikel/{artikel}', 'ProgrammController@programm_artikel_kunde');
+Route::post('/programm_artikel/artikel/store', 'ProgrammController@programm_artikel_kunde_store');
 
 Route::post('/programmkunde', 'ProgrammkundeController@store');
 Route::delete('/programmkunde', 'ProgrammkundeController@destroy');

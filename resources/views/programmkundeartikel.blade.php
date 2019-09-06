@@ -48,27 +48,27 @@
                 </div> --}}
 
                 <div class="list-group-item list-group-item-action active">
-                        @if (sizeof($var['artikel']) == 0)
-                            Artikel:
-                        @else
-                            Durch ziehen oder mit gedrückter STRG-Taste Artikel zum Kunden <strong>"{{$var['kunde']->name}}"</strong> hinzufügen:
-                            <div>
-                            <form method="POST" action="/programmkundeartikel">
-                                <input type="number" name="prokun_id" value="{{$var['id']}}" hidden>
-                                @csrf
-                                <div class="form-group">
-                                    <select multiple class="form-control" name="artikel[]" size="{{sizeof($var['artikel'])}}">
-                                        @foreach ($var['artikel'] as $item)
-                                            <option value="{{$item->id}}">{{$item->bezeichnung}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-light btn-sm">hinzufügen</button>
-                            </form>
-    
+                    @if (sizeof($var['artikel']) == 0)
+                        Artikel:
+                    @else
+                        Durch ziehen oder mit gedrückter STRG-Taste Artikel zum Kunden <strong>"{{$var['kunde']->name}}"</strong> hinzufügen:
+                        <div>
+                        <form method="POST" action="/programmkundeartikel">
+                            <input type="number" name="prokun_id" value="{{$var['id']}}" hidden>
+                            @csrf
+                            <div class="form-group">
+                                <select multiple class="form-control" name="artikel[]" size="{{sizeof($var['artikel'])}}">
+                                    @foreach ($var['artikel'] as $item)
+                                        <option value="{{$item->id}}">{{$item->bezeichnung}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                        @endif
-                    </div>
+                            <button type="submit" class="btn btn-light btn-sm">hinzufügen</button>
+                        </form>
+
+                        </div>
+                    @endif
+                </div>
 
                 @foreach ($var['programmkundeartikel'] as $item)
                 <div href="{{$item->id}}" class="list-group-item list-group-item-action">
