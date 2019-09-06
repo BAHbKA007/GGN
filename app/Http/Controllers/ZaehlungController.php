@@ -173,23 +173,36 @@ class ZaehlungController extends Controller
         $data->id = $id;
 
         // ACHTUNG !!! xlsx wird auf Alfahosting warum auch immer gerundet -> xls verwenden
-        return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".xls");
+        return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".csv");
     }
 
     public function info($id) 
     {
-        $positionen = DB::select('  SELECT 
-                                        zaehlungpositions.id AS z_id, 
-                                        zaehlungpositions.menge, 
+        $positionen = DB::select('  SELECT
+                                        zaehlungpositions.id AS z_id,
+                                        zaehlungpositions.menge,
                                         ggns.*,
-                                        artikels.bezeichnung, 
-                                        kundes.name
-                                    FROM zaehlungpositions 
+                                        artikels.bezeichnung,
+                                        kundes.name,
+                                        (
+                                        SELECT
+                                            valid_to_current
+                                        FROM
+                                            soap_artikels
+                                        WHERE
+                                            ggn_id = ggns.id AND valid_to_current IS NOT NULL
+                                        ORDER BY
+                                            soap_artikels.valid_to_current ASC
+                                        LIMIT 1
+                                    ) AS artikel_datum
+                                    FROM
+                                        zaehlungpositions
                                     JOIN ggns ON ggns.ggn = zaehlungpositions.ggn
                                     JOIN artikels ON artikels.id = zaehlungpositions.art_id
                                     JOIN kundes ON kundes.id = zaehlungpositions.kunde_id
-                                    WHERE zaehlungpositions.zaehlung_id = ?
-                                    ORDER BY name',[$id]);
+                                    WHERE
+                                        zaehlungpositions.zaehlung_id = ?
+                                    ORDER BY NAME',[$id]);
 
         foreach ($positionen as $item) {
             $artikel = DB::select('SELECT * FROM soap_artikels WHERE soap_artikels.ggn_id = ?',[$item->id]);

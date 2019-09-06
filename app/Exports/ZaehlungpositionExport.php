@@ -85,8 +85,8 @@ class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColu
                     'ggns.country as Land',
                     'ggns.company_type as Typ',
                     'ggns.grasp_status as Status',
-                    DB::raw('DATE_FORMAT(ggns.grasp_valid_to_current, "%d.%m.%Y") as Tag'),
-                    DB::raw('DATE_FORMAT(ggns.grasp_valid_to_next, "%d.%m.%Y") as Tag')
+                    DB::raw('DATE_FORMAT(ggns.grasp_valid_to_current, "%d.%m.%Y") as CurrentTag'),
+                    DB::raw('DATE_FORMAT(ggns.grasp_valid_to_next, "%d.%m.%Y") as NextTag')
                 )
         ->join('kundes', 'zaehlungpositions.kunde_id', '=', 'kundes.id')
         ->join('artikels', 'artikels.id', '=', 'zaehlungpositions.art_id')
