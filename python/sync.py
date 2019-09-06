@@ -31,7 +31,7 @@ while True:
             requestData = {
                 'action': 'getBookmark' ,
                 'version': '2.4' ,
-                'request': '<ns2:getBookmarkRequest xmlns:ns2="http://www.globalgap.org/"><bookmarkListIdList><bookmarkId>59025</bookmarkId></bookmarkListIdList></ns2:getBookmarkRequest>'
+                'request': '<ns2:getBookmarkRequest xmlns:ns2="http://www.globalgap.org/"><bookmarkListIdList><bookmarkId>59588</bookmarkId></bookmarkListIdList></ns2:getBookmarkRequest>'
             }
 
             response = client.service.doRequest(**requestData)
@@ -41,7 +41,7 @@ while True:
                 f.write(response)
 
             r = requests.post("https://qm.leichtbewaff.net/soap/python/import", data={'xml': response}, verify=False)
-            print(datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
+            print("\n\n" + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
             print(r.status_code, r.reason)
             print(r.text)
                         
