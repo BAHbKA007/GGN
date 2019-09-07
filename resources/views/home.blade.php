@@ -14,7 +14,6 @@
                 <div class="card-header">Hallo {{$var['user']}}</div>
 
                 <div class="card-body">
-                    {{var_dump($laender)}}
                     Am {{$wochentag[getdate(time())['wday']]}} den {{date("d.m.Y", time())}} um {{date("H:i", time())}} Uhr, KW: {{date('W')}}
                 </div>
             </div>
