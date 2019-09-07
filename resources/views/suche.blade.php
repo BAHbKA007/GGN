@@ -43,11 +43,14 @@
                                 {{$item->ggn}}
                             </button>
                             <span style="margin-left:10px">
-                                 ( {{$item->erzeuger}} 
+                                 {{$item->erzeuger}} 
                                  | {{$item->country}}
                                  | {{$item->company_type}} 
-                                 | GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}} @else NEIN @endif
-                                 @if (isset($item->groupggn)) | Gruppe: {{$item->groupggn}} @endif )
+                                 | GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} 
+                                 @if (isset($item->grasp_valid_to_current))
+                                 bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}}
+                                 @endif  @else NEIN @endif
+                                 @if (isset($item->groupggn)) | Gruppe: {{$item->groupggn}} @endif 
                             </span>
                             <div class="collapse" id="collapse{{$item->id}}">
                                 <table class="table table-bordered table-sm">
