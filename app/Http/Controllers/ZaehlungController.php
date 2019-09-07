@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
+use App\CustomClass\Flags;
 
 class ZaehlungController extends Controller
 {
@@ -208,7 +209,8 @@ class ZaehlungController extends Controller
             $artikel = DB::select('SELECT * FROM soap_artikels WHERE soap_artikels.ggn_id = ?',[$item->id]);
             $item->artikel = $artikel;
         }
-        
+
+       
         return view('zaehlung.zaehlung_info')->with('var', [
             'positionen' => $positionen
         ]);

@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@mdi/font": "^3.9.97",
+        "flag-icon-css": "^3.3.0",
         "font-awesome": "^4.7.0",
         "material-design-icons-iconfont": "^5.0.1",
         "material-icons": "^0.3.1",
