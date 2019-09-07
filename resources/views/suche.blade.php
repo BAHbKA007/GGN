@@ -31,7 +31,7 @@
                             @php
                                 if( $item->grasp_status == NULL ){
                                     $farbe = 'warning';
-                                } elseif (strtotime($item->grasp_valid_to_current) < time() ) {
+                                } elseif ( ( isset($item->grasp_valid_to_current) ) && ( strtotime($item->grasp_valid_to_current) < time() || strtotime($item->artikel_datum) < time() ) ) {
                                     $farbe = 'danger';
             
                                 } else {
@@ -42,7 +42,13 @@
                             <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="false" aria-controls="collapse">
                                 {{$item->ggn}}
                             </button>
-                            <span style="margin-left:10px">( {{$item->erzeuger}} | GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}} @else NEIN @endif)</span>
+                            <span style="margin-left:10px">
+                                 ( {{$item->erzeuger}} 
+                                 | {{$item->country}}
+                                 | {{$item->company_type}} 
+                                 | GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}} @else NEIN @endif
+                                 @if (isset($item->groupggn)) | Gruppe: {{$item->groupggn}} @endif )
+                            </span>
                             <div class="collapse" id="collapse{{$item->id}}">
                                 <table class="table table-bordered table-sm">
                                     <thead>
