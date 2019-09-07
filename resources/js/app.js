@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+//window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +19,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//ue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,17 +27,48 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });
 
 
 window.onload = function() {
 
+    // IOS PWA öffnen in einem neuen Fenster verhindern
+    // by https://github.com/irae
+    (function(document,navigator,standalone) {
+        // prevents links from apps from oppening in mobile safari
+        // this javascript must be the first script in your <head>
+        if ((standalone in navigator) && navigator[standalone]) {
+            var curnode, location=document.location, stop=/^(a|html)$/i;
+            document.addEventListener('click', function(e) {
+                curnode=e.target;
+                while (!(stop).test(curnode.nodeName)) {
+                    curnode=curnode.parentNode;
+                }
+                // Condidions to do this only on links to your own app
+                // if you want all links, use if('href' in curnode) instead.
+                if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) ) {
+                    e.preventDefault();
+                    location.href = curnode.href;
+                }
+            },false);
+        }
+    })(document,window.navigator,'standalone');
+    
     setTimeout(function(){
         $(".myAlert-bottom").fadeOut(); 
         }, 4000);
     
-    document.getElementById("focus").focus();
+    var focus = document.getElementById("focus");
+    if (focus != null) {
+        document.getElementById("focus").focus();
+    }
 
+    $('.hide').hide();
+
+    $(".my-list-spinner").click(function() {
+        $("#show"+$(this)[0].id).fadeIn(); 
+        console.log($(this)[0].id);
+    });
 };
