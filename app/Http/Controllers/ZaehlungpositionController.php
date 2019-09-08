@@ -170,9 +170,18 @@ class ZaehlungpositionController extends Controller
         $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
         $ggns = DB::select('SELECT ggn FROM ggnsartikels WHERE artikel_id = ? ORDER BY ggn', [$artikel_id]);
-        $gezaehlte = DB::select('SELECT zaehlungpositions.ggn, zaehlungpositions.id, zaehlungpositions.menge, zaehlungpositions.id AS zaehlpos_id FROM zaehlungpositions 
-                    JOIN artikels on artikels.id = zaehlungpositions.art_id
-                    WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = ? AND zaehlungpositions.art_id = ?',[$zaehlung_id, $kunde_id, $artikel_id]);
+        $gezaehlte = DB::select('SELECT
+                                        zaehlungpositions.ggn,
+                                        zaehlungpositions.id,
+                                        zaehlungpositions.menge,
+                                        zaehlungpositions.id AS zaehlpos_id,
+                                        ggns.country
+                                    FROM
+                                        zaehlungpositions
+                                    JOIN artikels ON artikels.id = zaehlungpositions.art_id
+                                    LEFT JOIN ggns ON ggns.ggn = zaehlungpositions.ggn
+                                    WHERE
+                                        zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = ? AND zaehlungpositions.art_id = ?',[$zaehlung_id, $kunde_id, $artikel_id]);
 
         $kunde = DB::select('SELECT
                 kundes.id,

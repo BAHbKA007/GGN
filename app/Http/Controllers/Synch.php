@@ -34,7 +34,6 @@ class Synch extends Controller
         // Wenn leerer String zurückkommt als Antwort
         if ($responsprop == 'leer') {
             return back()->with('status', ['error' => 'Die Antwort der Global GAP Datenbank war leer :/']);
-            //TODO E-Mail Versand als Fehlermeldung wenn Soap Response leer?
         }
             
         // wenn respons mit result ok
