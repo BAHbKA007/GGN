@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 <div class="unten_rechts">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        <i class="material-icons" style="font-size:16px;">comment</i> Kommentieren
+        <i class="material-icons" style="font-size:16px;">comment</i> Kommentar
     </button>
 </div>
 

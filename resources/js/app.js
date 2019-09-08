@@ -57,8 +57,9 @@ window.onload = function() {
         }
     })(document,window.navigator,'standalone');
     
+    $('.myAlert-bottom').slideDown();
     setTimeout(function(){
-        $(".myAlert-bottom").fadeOut(); 
+        $(".myAlert-bottom").slideUp(); 
         }, 4000);
     
     var focus = document.getElementById("focus");

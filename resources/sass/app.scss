@@ -12,12 +12,12 @@
 
 .myAlert-bottom{
     text-align: center;
-    z-index: 100;
-    position: fixed;
-    bottom: 5px;
-    left:2%;
-    width: 96%;
-    margin:0;
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    left:60px;
+    // right:60px;
+    width: 340px;
 }
 
 .list-group-item {
@@ -28,8 +28,8 @@
 .unten_rechts {
     position: fixed;
     bottom: 9px;
-    left: 50%;
-    margin-left: -70px;
+    left: 62%;
+    //margin-left: -70px;
 }
 
 .my_button_zaehlung {
