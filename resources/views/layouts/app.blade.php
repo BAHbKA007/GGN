@@ -15,6 +15,9 @@
         href="{{Request::root()}}/img/splash.jpg"
     />
 
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) --> 
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="{{Request::root()}}/img/splash_iphone.jpg">  
+
     <!-- ****** faviconit.com Favicons ****** -->
 	<link rel="shortcut icon" href="{{Request::root()}}/img/favicon.ico">
 	<link rel="icon" sizes="16x16 32x32 64x64" href="{{Request::root()}}/img/favicon.ico">
