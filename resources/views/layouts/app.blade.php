@@ -44,14 +44,14 @@
     <title>{{ config('app.name', 'QM') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?v=0.4"></script>
+    <script src="{{ asset('js/app.js') }}?v=0.5"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}?v=0.1" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}?v=0.2" rel="stylesheet">
 </head>
 <body>
     <div>
