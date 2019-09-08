@@ -182,6 +182,8 @@ class ZaehlungController extends Controller
         $positionen = DB::select('  SELECT
                                         zaehlungpositions.id AS z_id,
                                         zaehlungpositions.menge,
+                                        zaehlungpositions.user,
+                                        zaehlungpositions.created_at AS position_created_at,
                                         ggns.*,
                                         artikels.bezeichnung,
                                         kundes.name,

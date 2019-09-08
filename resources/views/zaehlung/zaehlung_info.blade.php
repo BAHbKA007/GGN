@@ -39,6 +39,7 @@
                         ( {{$item->erzeuger}} | {{$item->country}} |
                         GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} @if (isset($item->grasp_valid_to_current)) 
                         bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}} @endif @else NEIN @endif)
+                        <span class="float-right">( {{$item->user}} {{strftime("%d.%m.%Y %H:%M:%S", strtotime($item->position_created_at))}})</span>
                     </small>
                 </span>
                 <div class="collapse" id="collapse{{$item->z_id}}">

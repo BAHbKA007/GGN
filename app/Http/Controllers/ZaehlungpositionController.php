@@ -123,6 +123,7 @@ class ZaehlungpositionController extends Controller
                 $Zaehlungposition->art_id = $request->artikel_id;
                 $Zaehlungposition->ggn = $request->ggn;
                 $Zaehlungposition->menge = $request->menge;
+                $Zaehlungposition->user = Auth::user()->name;
 
                 // GGN mit artikel verheiraten
                 verheiraten();
@@ -146,6 +147,7 @@ class ZaehlungpositionController extends Controller
             $Zaehlungposition->art_id = $request->artikel_id;
             $Zaehlungposition->ggn = $request->ggn;
             $Zaehlungposition->menge = $request->menge;
+            $Zaehlungposition->user = Auth::user()->name;
 
             // GGN mit artikel verheiraten
             verheiraten();
