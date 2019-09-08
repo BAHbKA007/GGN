@@ -53,6 +53,7 @@ class SoapPythonImport extends Controller
                         // komische GGNs mit Zugriff nicht gewährt
                         if (!isset($item->productDataList->productData)) {
                             $ggn_table->erzeuger = "Broken GGN: ({$item->producerData->name->lastName})";
+                            $ggn_table->country = '';
                             $ggn_table->save();
                             continue;
                         }

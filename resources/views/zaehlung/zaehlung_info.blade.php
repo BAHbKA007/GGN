@@ -30,12 +30,12 @@
                 @endphp
 
                 <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->z_id}}" aria-expanded="false" aria-controls="collapse">
-                    <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span>  {{$item->ggn}}
+                    @if (strlen ($item->country) == 3) <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> @endif {{$item->ggn}}
                 </button>
                 <span style="margin-left:10px">
                     <span style="font-weight: bold;">{{$item->menge}} </span>{{$item->bezeichnung}} 
                     <small>
-                        ( {{$item->erzeuger}} 
+                        ( {{$item->erzeuger}} | {{$item->country}} |
                         GRASP: @if (isset($item->grasp_status)) {{$item->grasp_status}} @if (isset($item->grasp_valid_to_current)) 
                         bis {{strftime("%d.%m.%Y", strtotime($item->grasp_valid_to_current))}} @endif @else NEIN @endif)
                     </small>

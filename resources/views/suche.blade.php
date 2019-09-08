@@ -44,7 +44,7 @@
                             @endphp
             
                             <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="false" aria-controls="collapse">
-                                <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span>  {{$item->ggn}}
+                                @if (strlen ($item->country) == 3) <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> @endif {{$item->ggn}}
                             </button>
                             <span style="margin-left:10px">
                                  {{$item->erzeuger}} 

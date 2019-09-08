@@ -15,7 +15,7 @@ with io.open(filename, 'r', encoding='utf8') as f:
     xml = f.read()
 
 
-r = requests.post("https://qm.leichtbewaff.net/soap/python/import", data={'xml': xml}, verify=False)
+r = requests.post("http://localhost/soap/python/import", data={'xml': xml}, verify=False)
 print(r.text)
 print(r.status_code, r.reason)
 input()
