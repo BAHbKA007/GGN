@@ -42,7 +42,7 @@
                                     $farbe = 'success';
                                 }
                             @endphp
-            
+                            <button type="button" data-ggn="{{$item->ggn}}" class="btn btn-light copy float-left" style="margin-right: 10px"><i class="material-icons" style="font-size:16px;">file_copy</i></button>
                             <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="false" aria-controls="collapse">
                                 @if (strlen ($item->country) == 3) <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> @endif {{$item->ggn}}
                             </button>
@@ -90,5 +90,13 @@
     window.onload = function() {
         document.getElementById("focus").focus();
     };
+    $( ".copy" ).click(function() {
+        var text = $(this).data("ggn");
+        navigator.clipboard.writeText(text).then(function() {
+            console.log('Async: Copying to clipboard was successful! ' + text);
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    });
 </script>
 @endsection

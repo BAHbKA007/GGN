@@ -28,7 +28,8 @@
                         $farbe = 'success';
                     }
                 @endphp
-
+                
+                <button type="button" data-ggn="{{$item->ggn}}" class="btn btn-light copy float-left" style="margin-right: 10px"><i class="material-icons" style="font-size:16px;">file_copy</i></button>
                 <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->z_id}}" aria-expanded="false" aria-controls="collapse">
                     @if (strlen ($item->country) == 3) <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> @endif {{$item->ggn}}
                 </button>

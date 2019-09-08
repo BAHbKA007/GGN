@@ -72,4 +72,13 @@ window.onload = function() {
         $("#show"+$(this)[0].id).fadeIn(); 
         console.log($(this)[0].id);
     });
+
+    $( ".copy" ).click(function() {
+        var text = $(this).data("ggn");
+        navigator.clipboard.writeText(text).then(function() {
+            console.log('Async: Copying to clipboard was successful! ' + text);
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    });
 };
