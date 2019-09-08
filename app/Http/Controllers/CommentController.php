@@ -20,7 +20,7 @@ class CommentController extends Controller
      */
     public function index($id)
     {
-        $kommentare = DB::select('SELECT kundes.name AS kunde, comment, users.name, comments.updated_at, comments.id, erledigt
+        $kommentare = DB::select('SELECT kundes.name AS kunde, comment, users.name, comments.created_at, comments.id, erledigt
         FROM comments 
         JOIN kundes ON comments.kunde_id = kundes.id 
         JOIN users ON users.id = comments.user_id

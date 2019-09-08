@@ -30,7 +30,7 @@
                     <a class="list-group-item list-group-item-action flex-column align-items-start" @if ($item->erledigt == 1) style="background-color: #ffd7d7;" @endif>
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">{{$item->kunde}}</h4>
-                            <small>{{$item->name}} am {{strftime("%d.%m.%Y", strtotime($item->updated_at))}} um {{strftime("%H:%M", strtotime($item->updated_at))}}</small>
+                            <small>{{$item->name}} am {{strftime("%d.%m.%Y", strtotime($item->created_at))}} um {{strftime("%H:%M", strtotime($item->created_at))}}</small>
                         </div>
                         <p class="mb-1">{!! nl2br($item->comment)!!}</p>
                         <form action="/comment/erledigen" method="post">
