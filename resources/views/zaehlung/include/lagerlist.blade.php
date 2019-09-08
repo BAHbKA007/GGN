@@ -3,7 +3,7 @@
 
         @if (Auth::user()->role > 1)
             <div class="float-left" style="padding-top:3px;padding-right:10px">
-                <a class="btn btn-sm @if ($item->sum_erledigt > 0) btn-danger @endif my_button_zaehlung" href="" target="popup" onclick="window.open('/comment/{{$item->id}}','name','width=600,height=400')" role="button">
+                <a class="btn btn-sm @if ($item->sum_erledigt > 0) btn-danger @endif my_button_zaehlung" href="" target="popup" onclick="window.open('/comment/{{$item->id}}','name','width=600,height=900')" role="button">
                     <i class="material-icons">comment</i>
                 </a>
             </div>
