@@ -18,7 +18,7 @@ class PythonController extends Controller
      */
     public function check()
     {
-        $ggn = count(DB::select('SELECT count(*) FROM ggns WHERE created_at = updated_at'));
+        $ggn = DB::select('SELECT count(*) AS zahl FROM ggns WHERE created_at = updated_at')[0]->zahl;
         return $ggn;
     }
 }
