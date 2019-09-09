@@ -4,15 +4,21 @@ namespace App\CustomClass;
 use SoapClient;
 use SoapHeader;
 use SoapVar;
+use App;
 use Illuminate\Support\Facades\DB;
 use App\Setting;
 use Illuminate\Support\Facades\Storage;
 
 class MySoap   {
     function __construct() {
+        if (App::environment('production')) {
+            $wsdl = 'https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl';
+        } else {
+            $wsdl = 'https://test.globalgap.org/globalgapaxis/services/Globalgap?wsdl';
+        }
         $this->bookmarkListId = Setting::where('setting', 'listid')->get()[0]->value;
         $this->okey = Setting::where('setting', 'okey')->get()[0]->value;
-        $this->client = new SoapClient('https://database.globalgap.org/globalgapaxis/services/Globalgap?wsdl', [
+        $this->client = new SoapClient($wsdl, [
             'stream_context' => stream_context_create([
                 'ssl' => [
                 // set some SSL/TLS specific options

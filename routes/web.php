@@ -106,3 +106,5 @@ Route::post('/comment/erledigen', 'CommentController@erledigen');
 
 Route::get('/suche', 'SucheController@suche');
 Route::post('/suche', 'SucheController@suchrgebnis');
+
+Route::get('/python/check', 'PythonController@check');
