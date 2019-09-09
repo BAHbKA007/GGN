@@ -56,11 +56,11 @@ window.onload = function() {
             },false);
         }
     })(document,window.navigator,'standalone');
-    
+
     $('.myAlert-bottom').slideDown();
     setTimeout(function(){
         $(".myAlert-bottom").slideUp(); 
-        }, 4000);
+    }, 4000);
     
     var focus = document.getElementById("focus");
     if (focus != null) {
@@ -71,7 +71,6 @@ window.onload = function() {
 
     $(".my-list-spinner").click(function() {
         $("#show"+$(this)[0].id).fadeIn(); 
-        console.log($(this)[0].id);
     });
 
     $( ".copy" ).click(function() {

@@ -5,7 +5,9 @@
 @endphp
 
 @section('content')
-  
+
+@include('flash-message')
+
 <!-- Modal -->
 <div class="modal animated fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -50,7 +52,6 @@
                     
                 </div>
 
-            @include('flash-message')
 
                 <div class="card">
                     <div class="card-body">
@@ -88,10 +89,6 @@
 </div>
 
 <script>
-    window.onload = function() {
-        document.getElementById("focus").focus();
-    };
-
     function del(ggn,id) {
         $("#id").attr('value', id);
         $("#ggn").attr('value', ggn);
