@@ -24,7 +24,7 @@ while True:
     if time.strftime("%H:%M:%S") > '05:00:00' and time.strftime("%H:%M:%S") < '18:00:00':
 
         # checken ob unter qm. nicht aktuelle einträge existieren
-        r = requests.get("http://localhost/python/check", verify=False)
+        r = requests.get("https://qm.leichtbewaff.net/python/check", verify=False)
 
         if r.text != '0' or i >= 60:
         
