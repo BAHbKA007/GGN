@@ -205,7 +205,7 @@ class ZaehlungController extends Controller
                                     JOIN kundes ON kundes.id = zaehlungpositions.kunde_id
                                     WHERE
                                         zaehlungpositions.zaehlung_id = ?
-                                    ORDER BY NAME',[$id]);
+                                    ORDER BY name ASC, position_created_at DESC',[$id]);
 
         foreach ($positionen as $item) {
             $artikel = DB::select('SELECT * FROM soap_artikels WHERE soap_artikels.ggn_id = ?',[$item->id]);
