@@ -170,6 +170,7 @@ class ZaehlungpositionController extends Controller
     {
         $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
+        $kommentar_artikel = DB::select('SELECT * FROM artikels WHERE artikels.id = ?', [$artikel_id])[0];
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
         $ggns = DB::select('SELECT ggn FROM ggnsartikels WHERE artikel_id = ? ORDER BY ggn', [$artikel_id]);
         $gezaehlte = DB::select('SELECT
@@ -210,7 +211,8 @@ class ZaehlungpositionController extends Controller
             'kunde' => $kunde,
             'ggns' => $ggns,
             'gezaehlte' => $gezaehlte,
-            'comment' => $comment
+            'comment' => $comment,
+            'kommentar_artikel' => $kommentar_artikel
         ]);
     }
 

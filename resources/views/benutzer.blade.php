@@ -48,7 +48,7 @@
                                     <input type="email" class="form-control form-control-sm" @if (isset($var['edit_benutzer'])) value="{{$var['edit_benutzer']->email}}" @endif id="validationCustom04" name="email" placeholder="E-Mail" required autocomplete="off">
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                    <input class="form-control form-control-sm" id="validationCustom05" name="password" placeholder="Passwort" type="password" @if (!isset($var['edit_benutzer'])) required @endif autocomplete="off">
+                                    <input class="form-control form-control-sm" id="validationCustom05" name="password" placeholder="Passwort" type="password" @if (!isset($var['edit_benutzer'])) required @endif autocomplete="new-password">
                                 </div>
                                 <div class="col-md-1 mb-3">
                                     <select class="form-control form-control-sm" name="role" >

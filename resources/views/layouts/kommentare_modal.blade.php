@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <div class="unten_rechts">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="height:34px;">
         <i class="material-icons" style="font-size:20px;">comment</i> 
     </button>
 </div>
@@ -21,12 +21,12 @@
                     <div class="form-group">
                         <input type="hidden" name="zaehlung_id" value="{{$var['zaehlung']->id}}">
                         <input type="hidden" name="kunde_id" value="{{$var['kunde']->id}}">
-                        <textarea id="textarea" class="form-control" name="comment" rows="3">@if (count($var['comment']) > 0){{$var['comment'][0]->comment}}@endif</textarea>
+                        <textarea id="textarea" class="form-control" name="comment" rows="3" required>@if (count($var['comment']) > 0){{$var['comment'][0]->comment}}@endif</textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
-                    <button class="btn btn-primary" id="lodingButton" type="submit" data-form="comment">
+                    <button class="btn btn-primary commentButton" id="lodingButton" type="submit" data-form="comment" disabled>
                         <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
                         <span id="btn-txt">speichern</span>
                     </button>
@@ -35,3 +35,27 @@
         </div>
     </div>
 </div>
+@if (isset($var['kommentar_artikel']))
+<script>
+    $('.unten_rechts').on('click', function () {
+        var text = $('#textarea').val();
+        if (text.length > 0) {
+            text = text.concat("\n", "{{$var['kommentar_artikel']->bezeichnung}}: ")
+        } else {
+            text = text.concat("{{$var['kommentar_artikel']->bezeichnung}}: ")
+        }
+
+        $('#textarea').val(text);
+    })
+</script>
+@endif
+<script>
+$('#textarea').on('change', function () {
+
+    var text = $('#textarea').val();
+    if (text.length > 0) {
+        $('.commentButton').prop("disabled", false);
+    }
+
+})
+</script>

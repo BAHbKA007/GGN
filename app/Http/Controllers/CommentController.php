@@ -59,6 +59,11 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        // wenn Kommentar leer abgeschickt wurde (requered bring bei IOS nichts)
+        if ( strlen($request->comment) == 0 ) {
+            return back()->with('status', ['error' => 'Kommentar darf nicht leer sein!']);
+        }
+        
         $comment_find = DB::select('SELECT id, comment FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$request->kunde_id,$request->zaehlung_id,]);
         
         if (count($comment_find) != 0) {
