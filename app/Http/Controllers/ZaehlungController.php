@@ -40,31 +40,25 @@ class ZaehlungController extends Controller
         
         if (count($zaehlungen) > 0) {
 
-            $alle_zaehlungen = DB::select(' SELECT  zaehlungs.*, 
-                                                    users.name, 
-                                                    (SELECT COUNT(*) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS anzahl_comments,
-                                                    (SELECT SUM(comments.erledigt) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS sum_erledigt
-                                            FROM zaehlungs 
-                                            JOIN users ON zaehlungs.bearbeiter_id = users.id 
-                                            WHERE zaehlungs.id != '.$zaehlungen[0]->id.' 
-                                            ORDER BY 1 DESC');
+            $alle_zaehlungen = DB::table('zaehlungs')
+                ->select(DB::raw('zaehlungs.*, users.name, (SELECT COUNT(*) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS anzahl_comments, (SELECT SUM(comments.erledigt) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS sum_erledigt'))
+                ->join('users', 'zaehlungs.bearbeiter_id', '=', 'users.id')
+                ->where('zaehlungs.id', '<>', $zaehlungen[0]->id)
+                ->orderBy('id', 'desc');
 
             return view('zaehlung.home')->with('var', [
                 'zaehlungen' => $zaehlungen,
-                'alle_zaehlungen' => $alle_zaehlungen
+                'alle_zaehlungen' => $alle_zaehlungen->paginate(6)
             ]); 
         } else {
 
-            $alle_zaehlungen = DB::select(' SELECT  zaehlungs.*, 
-                                                    users.name, 
-                                                    (SELECT COUNT(*) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS anzahl_comments,
-                                                    (SELECT SUM(comments.erledigt) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS sum_erledigt
-                                            FROM zaehlungs 
-                                            JOIN users ON zaehlungs.bearbeiter_id = users.id 
-                                            ORDER BY 1 DESC');
+            $alle_zaehlungen = DB::table('zaehlungs')
+                ->select(DB::raw('zaehlungs.*, users.name, (SELECT COUNT(*) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS anzahl_comments, (SELECT SUM(comments.erledigt) FROM comments WHERE comments.zaehlung_id = zaehlungs.id) AS sum_erledigt'))
+                ->join('users', 'zaehlungs.bearbeiter_id', '=', 'users.id')
+                ->orderBy('id', 'desc');
 
             return view('zaehlung.erstellen')->with('var', [
-                'alle_zaehlungen' => $alle_zaehlungen
+                'alle_zaehlungen' => $alle_zaehlungen->paginate(6)
             ]);
         }
     }

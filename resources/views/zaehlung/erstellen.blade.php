@@ -30,6 +30,9 @@ $wochentag = [
 
         @include('zaehlung.include.qmlist')
 
+        @if (Auth::user()->role > 1)
+        {{ $var['alle_zaehlungen']->links() }}
+        @endif
     </div>
 </div>
 
