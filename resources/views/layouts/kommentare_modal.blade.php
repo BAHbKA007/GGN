@@ -37,11 +37,11 @@
 </div>
 @if (isset($var['kommentar_artikel']))
 <script>
-    var i = 0;
+    var my_i = 0;
     // falls Kommentar im Artikel erzeugt wird, die Artikelbezeichnung dem Text hinzufügen
     $('.unten_rechts').on('click', function () {
-
-        if (i == 0) {
+        console.log(my_i);
+        if (my_i == 0) {
             var text = $('#textarea').val();
             if (text.length > 0) {
                 text = text.concat("\n", "{{$var['kommentar_artikel']->bezeichnung}}: ")
@@ -52,7 +52,7 @@
             $('#textarea').val(text);
         };
 
-        i++;
+        my_i++;
     })
 </script>
 @endif
