@@ -9,7 +9,7 @@
             </div>
         @endif
 
-        <a href="zaehlung/{{$item->id}}">Heute: {{$wochentag[strftime("%u", strtotime($item->created_at))]}} den {{strftime("%d.%m.%Y", strtotime($item->created_at))}} </a>
+        <a href="zaehlung/{{$item->id}}">Heute: {{$wochentag[strftime("%u", strtotime($item->created_at))]}} {{strftime("%d.%m.%Y", strtotime($item->created_at))}} </a>
             @if (Auth::user()->role > 1)
                 <div class="float-right" style="padding-top: 3px">
                     <a class="btn btn-primary btn-sm my_button_zaehlung @if ($item->sum_erledigt > 0) disabled @endif" href="export/{{$item->id}}" role="button" @if ($item->sum_erledigt > 0) aria-disabled="true" @endif><i class="material-icons">description</i></a>
