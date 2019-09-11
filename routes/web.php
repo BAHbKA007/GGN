@@ -108,3 +108,7 @@ Route::get('/suche', 'SucheController@suche');
 Route::post('/suche', 'SucheController@suchrgebnis');
 
 Route::get('/python/check', 'PythonController@check');
+
+Route::get('419', function(){
+    return view('errors.419');
+});
