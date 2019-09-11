@@ -38,7 +38,12 @@ class GgnController extends Controller
                             FROM
                                 ggns
                             ORDER BY
-                                groupggn ASC');
+                                ggns.country ASC');
+
+        foreach ($ggns as $item) {
+            $artikel = DB::select('SELECT * FROM soap_artikels WHERE soap_artikels.ggn_id = ?',[$item->id]);
+            $item->artikel = $artikel;
+        }
 
         return view('ggns')->with('var', [
             'ggns' => $ggns

@@ -72,7 +72,25 @@
                                     <td>{{$ggn->ggn}}</td>
                                     <td>{{$ggn->groupggn}}</td>
                                     <td>{{$ggn->erzeuger}}</td>
-                                    <td>{{$ggn->artikel_count}}</td>
+                                    <td>
+                                        <a 
+                                            style="padding-top:0;padding-bottom:0"
+                                            tabindex="0"
+                                            data-placement="left" 
+                                            class="btn btn-lg btn-light btn-sm" 
+                                            role="button" 
+                                            data-toggle="popover" 
+                                            data-trigger="focus"
+                                            data-html="true"
+                                            title="{{$ggn->erzeuger}}" 
+                                            data-content="  @foreach($ggn->artikel as $artikel) 
+                                                                @if($artikel->valid_to_current) {{strftime("%d.%m.%Y", strtotime($artikel->valid_to_current))}} 
+                                                                @else &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                                @endif 
+                                                                {{$artikel->product_name}} <br> 
+                                                            @endforeach"
+                                        >{{$ggn->artikel_count}}</a>
+                                    </td>
                                     <td>@if (strlen ($ggn->country) == 3) <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$ggn->country]}}"></span> @endif {{$ggn->country}}</td>
                                     <td style="text-align:right">
                                         <a href="#Modal" data-toggle="modal" onclick="del({{$ggn->ggn}},{{$ggn->id}})" data-target="#Modal"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
@@ -94,6 +112,10 @@
         $("#ggn").attr('value', ggn);
         $("#modal-ggn").text(ggn);
     };
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
 </script>
 
 @endsection

@@ -47,7 +47,7 @@
     <title>{{ config('app.name', 'QM') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?v=0.6"></script>
+    <script src="{{ asset('js/app.js') }}?v=0.7"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
