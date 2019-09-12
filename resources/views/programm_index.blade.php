@@ -52,6 +52,9 @@
                         </span>
                     </li>
                 @endforeach
+
+                {{ $var['programm']->links() }}
+
             </div>
         </div>
     </div>

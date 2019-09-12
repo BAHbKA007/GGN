@@ -33,9 +33,15 @@ class ProgrammController extends Controller
      */
     public function index()
     {
-        $programm = DB::select('select programms.*, users.name from programms join users on users.id = programms.user_id order by programms.von desc');
+        // $programm = DB::select('SELECT programms.*, users.name FROM programms JOIN users ON users.id = programms.user_id ORDER BY programms.von DESC');
+        
+        $programm = DB::table('programms')
+            ->select(DB::raw('programms.*, users.name'))
+            ->join('users', 'programms.user_id', '=', 'users.id')
+            ->orderBy('programms.von', 'DESC');
+        
         return view('programm_index')->with('var',[
-            'programm' => $programm
+            'programm' => $programm->paginate(10)
         ]);
     }
 
