@@ -209,12 +209,12 @@ b.light-color{ color: #444; }
 				
                 <h1 class="title font-white"><b>419 Page expired...</b></h1><br>
                 <a class="notify-btn" href="{{Request::root()}}"><b> ( <span id="count">15s</span> ) zum Login</b></a>
-				<p class="desc font-white">Sie sehen die Seite weil Sie wohl versucht haben sich 2 mal mit dem selben Account anzumelden.
+				<p class="desc font-white">Sie sehen die Seite weil Sie wohl versucht haben sich 2 mal mit dem selben Account an- oder abzumelden.
                     Falls Sie nicht automatisch weitergeleitet werden, bitte den Browserverlauf löschen.
                 </p>
                 <p class="desc font-white">Bei Fragen:</p>
 				
-				<a class="notify-btn" href="mailto:j.schneider@gemuesering.de?subject=Fehler%20419%Page%20Expired"><b>E-Mail</b></a>
+				<a class="notify-btn" href="mailto:j.schneider@gemuesering.de?subject=Fehler%20419%20Page%20Expired"><b>E-Mail</b></a>
 				
 			</div><!-- display-table -->
 		</div><!-- display-table-cell -->
