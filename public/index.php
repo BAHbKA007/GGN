@@ -224,7 +224,7 @@ b.light-color{ color: #444; }
         if (i == 0) {
             location.reload();
         }
-        document.title = i + " Wartung..."
+        document.title = i + "s Wartung..."
         document.getElementById("count").innerHTML = i+"s";
         i--;
     }, 1000);
