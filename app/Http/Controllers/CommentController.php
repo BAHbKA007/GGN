@@ -38,6 +38,7 @@ class CommentController extends Controller
      */
     public function erledigen(Request $request)
     {
+        //TODO user_aenderung + view AUFPASSEN DATENBANK SICHERUNG MACHEN
         $comment =  Comment::find($request->id);
         
         if ($comment->erledigt == 0) {
