@@ -21,6 +21,7 @@ class CreateCommentsTable extends Migration
             $table->text('comment')->nullable();
             $table->boolean('erledigt')->default(1);
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_aenderung_id')->nullable();
             $table->timestamps();
 
             $table->foreign('zaehlung_id')
@@ -32,6 +33,10 @@ class CreateCommentsTable extends Migration
                 ->onDelete('cascade');
             
             $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+                
+            $table->foreign('user_aenderung_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
         });

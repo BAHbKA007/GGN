@@ -59,7 +59,7 @@ class ZaehlungpositionController extends Controller
                 zaehlungs
             WHERE
                 zaehlungs.id = ?
-        ) AND kun_id = ?',[$zaehlung_id, $zaehlung_id, $kunde_id]);
+        ) AND kun_id = ? ORDER BY bezeichnung ASC',[$zaehlung_id, $zaehlung_id, $kunde_id]);
 
         return view('zaehlung.zaehlung_artikel')->with('var', [
             'zaehlung' => $zaehlung,

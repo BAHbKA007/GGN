@@ -20,11 +20,24 @@ class CommentController extends Controller
      */
     public function index($id)
     {
-        $kommentare = DB::select('SELECT kundes.name AS kunde, comment, users.name, comments.created_at, comments.id, erledigt
-        FROM comments 
-        JOIN kundes ON comments.kunde_id = kundes.id 
-        JOIN users ON users.id = comments.user_id
-        WHERE zaehlung_id = ?',[$id]);
+        $kommentare = DB::select('  SELECT
+                                        kundes.name AS kunde,
+                                        comment,
+                                        created.name AS created_name,
+                                        comments.created_at,
+                                        comments.id,
+                                        erledigt,
+                                        edited.name AS edited_name,
+                                        comments.updated_at
+                                    FROM
+                                        comments
+                                    JOIN kundes ON comments.kunde_id = kundes.id
+                                    LEFT JOIN users created ON
+                                        created.id = comments.user_id
+                                    LEFT JOIN users edited ON
+                                        edited.id = comments.user_aenderung_id
+                                    WHERE
+                                        zaehlung_id = ?',[$id]);
 
         return view('zaehlung.comments')->with('var', [
             'kommentare' => $kommentare
@@ -43,8 +56,10 @@ class CommentController extends Controller
         
         if ($comment->erledigt == 0) {
             $comment->erledigt = 1;
+            $comment->user_aenderung_id = Auth::user()->id;
         } else {
             $comment->erledigt = 0;
+            $comment->user_aenderung_id = Auth::user()->id;
         }
 
         $comment->save();
