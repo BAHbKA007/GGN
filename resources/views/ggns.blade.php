@@ -78,6 +78,7 @@
                                             tabindex="0"
                                             data-placement="left" 
                                             class="btn btn-lg btn-light btn-sm" 
+                                            {{-- #TODO evtl. bug unter IOS wenn role button, autosobmit on click --}}
                                             role="button" 
                                             data-toggle="popover" 
                                             data-trigger="focus"
