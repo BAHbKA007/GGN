@@ -42,6 +42,9 @@ class SoapPythonImport extends Controller
                     // nur bei Items die new oder changed sind
                     if ($item->attributes()->{'status'} == 'NEW' || $item->attributes()->{'status'} == 'CHANGED') {
 
+                        // falls es sich um eine Änderung handelt, ersmal alle Artikel für die GGN löschen und neu befüllen
+                        if ($item->attributes()->{'status'} == 'CHANGED') { SoapArtikel::where('ggn_id', $soap_artikel_ggn_id)->delete(); }
+                        
                         // GGN-id abspeichern, wird bei SoapArtikel verwendet
                         $soap_artikel_ggn_id = $item->organisationalData->bookmarkItemId;
 
@@ -83,9 +86,6 @@ class SoapPythonImport extends Controller
 
                             // wenn nicht GRASP dann erzeuge einen neuen SoapArtikel    
                             } else {
-                                
-                                // falls es sich um eine Änderung handelt, ersmal alle Artikel für die GGN löschen und neu befüllen
-                                if ($item->attributes()->{'status'} == 'CHANGED') { SoapArtikel::where('ggn_id', $soap_artikel_ggn_id)->delete(); }
 
                                 $soap_artikel_table = new SoapArtikel;
                                 $soap_artikel_table->ggn_id = $soap_artikel_ggn_id;
