@@ -40,6 +40,11 @@ class ProgrammkundeController extends Controller
      */
     public function store(Request $request)
     {
+        // wenn kein Kunde ausgewählt wurde
+        if (!isset($request->kunden)) {
+            return redirect()->back()->with('status', ['error' => 'Sie haben keine(n) Kunden ausgewählt!']);
+        }
+
         $i = 0;
 
         foreach ($request->kunden as $kunde) {

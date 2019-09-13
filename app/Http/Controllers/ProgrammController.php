@@ -149,6 +149,10 @@ class ProgrammController extends Controller
     public function programm_artikel_kunde_store(Request $request)
     {
 
+        // wenn kein Kunde ausgewählt wurde
+        if (!isset($request->kunden)) {
+            return redirect()->back()->with('status', ['error' => 'Sie haben keine(n) Kunden ausgewählt!']);
+        }
 
         foreach ($request->kunden as $kunde) {
 

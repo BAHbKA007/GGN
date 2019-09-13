@@ -40,6 +40,11 @@ class ProgrammkundeartikelController extends Controller
      */
     public function store(Request $request)
     {
+        // wenn kein Kunde ausgewählt wurde
+        if (!isset($request->artikel)) {
+            return redirect()->back()->with('status', ['error' => 'Sie haben keine Artikel ausgewählt!']);
+        }
+
         $i = 0;
         foreach ($request->artikel as $artikel) {
             $i++;
