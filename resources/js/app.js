@@ -35,6 +35,8 @@ import 'flag-icon-css/css/flag-icon.css';
 
 window.onload = function() {
 
+    document.body.style.opacity='1';
+
     // IOS PWA öffnen in einem neuen Fenster verhindern
     // by https://github.com/irae
     (function(document,navigator,standalone) {

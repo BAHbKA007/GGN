@@ -47,14 +47,14 @@
     <title>{{ config('app.name', 'QM') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?v=0.7"></script>
+    <script src="{{ asset('js/app.js') }}?v=0.8"></script>
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}?v=0.7" rel="stylesheet">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}?v=0.6" rel="stylesheet">
 </head>
 <body>
     <div>
