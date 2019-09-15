@@ -112,3 +112,7 @@ Route::get('/python/check', 'PythonController@check');
 Route::get('419', function(){
     return view('errors.419');
 });
+
+Route::get('500', function(){
+    return view('errors.500');
+});
