@@ -69,10 +69,6 @@
 </div>
 
 <script>
-    window.onload = function() {
-        document.getElementById("focus").focus();
-    };
-
     function del(ggn,id) {
         $("#id").attr('value', id);
         $("#ggn").attr('value', ggn);

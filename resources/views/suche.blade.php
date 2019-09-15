@@ -87,9 +87,6 @@
 </div>
 
 <script>
-    window.onload = function() {
-        document.getElementById("focus").focus();
-    };
     $( ".copy" ).click(function() {
         var text = $(this).data("ggn");
         navigator.clipboard.writeText(text).then(function() {
