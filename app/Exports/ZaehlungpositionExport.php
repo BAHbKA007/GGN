@@ -10,9 +10,22 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColumnFormatting, WithHeadings
+class ZaehlungpositionExport implements FromCollection, ShouldAutoSize, WithColumnFormatting, WithHeadings, WithEvents
 {
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                // All headers - set font size to 14
+                $cellRange = 'A1:W1'; 
+                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
+            },
+        ];
+    }
+
     public function headings(): array
     {
         return [
