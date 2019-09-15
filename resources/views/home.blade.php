@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Hallo {{$var['user']}}</div>
-                <div class="card-body">
+                <div class="card-body">{{$var['blalba']}}
                     Am {{$wochentag[getdate(time())['wday']]}} den {{date("d.m.Y", time())}} um {{date("H:i", time())}} Uhr, KW: {{date('W')}}
                 </div>
             </div>
