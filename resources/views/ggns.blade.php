@@ -2,7 +2,6 @@
 
 @php
     $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','ALB' => 'al','ARM' => 'am','AGO' => 'ao','ATA' => 'aq','ARG' => 'ar','ASM' => 'as','AUT' => 'at','AUS' => 'au','ABW' => 'aw','ALA' => 'ax','AZE' => 'az','BIH' => 'ba','BRB' => 'bb','BGD' => 'bd','BEL' => 'be','BFA' => 'bf','BGR' => 'bg','BHR' => 'bh','BDI' => 'bi','BEN' => 'bj','BLM' => 'bl','BMU' => 'bm','BRN' => 'bn','BOL' => 'bo','BES' => 'bq','BRA' => 'br','BHS' => 'bs','BTN' => 'bt','BVT' => 'bv','BWA' => 'bw','BLR' => 'by','BLZ' => 'bz','CAN' => 'ca','CCK' => 'cc','COD' => 'cd','CAF' => 'cf','COG' => 'cg','CHE' => 'ch','CIV' => 'ci','COK' => 'ck','CHL' => 'cl','CMR' => 'cm','CHN' => 'cn','COL' => 'co','CRI' => 'cr','CUB' => 'cu','CPV' => 'cv','CUW' => 'cw','CXR' => 'cx','CYP' => 'cy','CZE' => 'cz','DEU' => 'de','DJI' => 'dj','DNK' => 'dk','DMA' => 'dm','DOM' => 'do','DZA' => 'dz','ECU' => 'ec','EST' => 'ee','EGY' => 'eg','ESH' => 'eh','ERI' => 'er','ESP' => 'es','ETH' => 'et','FIN' => 'fi','FJI' => 'fj','FLK' => 'fk','FSM' => 'fm','FRO' => 'fo','FRA' => 'fr','GAB' => 'ga','GBR' => 'gb','GRD' => 'gd','GEO' => 'ge','GUF' => 'gf','GGY' => 'gg','GHA' => 'gh','GIB' => 'gi','GRL' => 'gl','GMB' => 'gm','GIN' => 'gn','GLP' => 'gp','GNQ' => 'gq','GRC' => 'gr','SGS' => 'gs','GTM' => 'gt','GUM' => 'gu','GNB' => 'gw','GUY' => 'gy','HKG' => 'hk','HMD' => 'hm','HND' => 'hn','HRV' => 'hr','HTI' => 'ht','HUN' => 'hu','IDN' => 'id','IRL' => 'ie','ISR' => 'il','IMN' => 'im','IND' => 'in','IOT' => 'io','IRQ' => 'iq','IRN' => 'ir','ISL' => 'is','ITA' => 'it','JEY' => 'je','JAM' => 'jm','JOR' => 'jo','JPN' => 'jp','KEN' => 'ke','KGZ' => 'kg','KHM' => 'kh','KIR' => 'ki','COM' => 'km','KNA' => 'kn','PRK' => 'kp','KOR' => 'kr','KWT' => 'kw','CYM' => 'ky','KAZ' => 'kz','LAO' => 'la','LBN' => 'lb','LCA' => 'lc','LIE' => 'li','LKA' => 'lk','LBR' => 'lr','LSO' => 'ls','LTU' => 'lt','LUX' => 'lu','LVA' => 'lv','LBY' => 'ly','MAR' => 'ma','MCO' => 'mc','MDA' => 'md','MNE' => 'me','MAF' => 'mf','MDG' => 'mg','MHL' => 'mh','MKD' => 'mk','MLI' => 'ml','MMR' => 'mm','MNG' => 'mn','MAC' => 'mo','MNP' => 'mp','MTQ' => 'mq','MRT' => 'mr','MSR' => 'ms','MLT' => 'mt','MUS' => 'mu','MDV' => 'mv','MWI' => 'mw','MEX' => 'mx','MYS' => 'my','MOZ' => 'mz','NAM' => 'na','NCL' => 'nc','NER' => 'ne','NFK' => 'nf','NGA' => 'ng','NIC' => 'ni','NLD' => 'nl','NOR' => 'no','NPL' => 'np','NRU' => 'nr','NIU' => 'nu','NZL' => 'nz','OMN' => 'om','PAN' => 'pa','PER' => 'pe','PYF' => 'pf','PNG' => 'pg','PHL' => 'ph','PAK' => 'pk','POL' => 'pl','SPM' => 'pm','PCN' => 'pn','PRI' => 'pr','PSE' => 'ps','PRT' => 'pt','PLW' => 'pw','PRY' => 'py','QAT' => 'qa','REU' => 're','ROU' => 'ro','SRB' => 'rs','RUS' => 'ru','RWA' => 'rw','SAU' => 'sa','SLB' => 'sb','SYC' => 'sc','SDN' => 'sd','SWE' => 'se','SGP' => 'sg','SHN' => 'sh','SVN' => 'si','SJM' => 'sj','SVK' => 'sk','SLE' => 'sl','SMR' => 'sm','SEN' => 'sn','SOM' => 'so','SUR' => 'sr','SSD' => 'ss','STP' => 'st','SLV' => 'sv','SXM' => 'sx','SYR' => 'sy','SWZ' => 'sz','TCA' => 'tc','TCD' => 'td','ATF' => 'tf','TGO' => 'tg','THA' => 'th','TJK' => 'tj','TKL' => 'tk','TLS' => 'tl','TKM' => 'tm','TUN' => 'tn','TON' => 'to','TUR' => 'tr','TTO' => 'tt','TUV' => 'tv','TWN' => 'tw','TZA' => 'tz','UKR' => 'ua','UGA' => 'ug','UMI' => 'um','USA' => 'us','URY' => 'uy','UZB' => 'uz','VAT' => 'va','VCT' => 'vc','VEN' => 've','VGB' => 'vg','VIR' => 'vi','VNM' => 'vn','VUT' => 'vu','WLF' => 'wf','WSM' => 'ws','YEM' => 'ye','MYT' => 'yt','ZAF' => 'za','ZMB' => 'zm','ZWE' => 'zw'];
-    $i = 1;
 @endphp
 
 @section('content')
@@ -59,8 +58,7 @@
                         <table class="table table-sm table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">GGN</th>
+                                    <th scope="col">GGN ({{count($var['ggns'])}})</th>
                                     <th scope="col">Gruppen GGN</th>
                                     <th scope="col">Erzeuger</th>
                                     <th scope="col">Artikel</th>
@@ -71,7 +69,6 @@
                             <tbody>
                                 @foreach ($var['ggns'] as $ggn)
                                 <tr>
-                                    <td>{{$i++}}</td>
                                     <td>{{$ggn->ggn}}</td>
                                     <td>{{$ggn->groupggn}}</td>
                                     <td>{{$ggn->erzeuger}}</td>
