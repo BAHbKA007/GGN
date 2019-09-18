@@ -85,7 +85,6 @@ window.onload = function() {
     });
 
     $('.lodingButton').click(function(){
-        console.log($(this).find("#spinner"));
         $(this).find("#btn-txt").text('Lade...');
         $(this).find("#spinner").show();
         $(this).find("#lodingButton").attr("disabled", true);
