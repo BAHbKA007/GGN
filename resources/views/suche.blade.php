@@ -65,7 +65,7 @@
                                  @if (isset($item->groupggn)) | Gruppe: {{$item->groupggn}} @endif 
                             </span>
                             <div class="collapse" id="collapse{{$item->id}}">
-                                <table class="table table-bordered table-sm">
+                                <table class="table table-bordered table-sm" style="margin-top: 16px;">
                                     <thead>
                                         <tr>
                                             <th scope="col">Artikel</th>
