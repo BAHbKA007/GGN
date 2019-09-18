@@ -107,9 +107,11 @@ class KundeController extends Controller
     {
         $kunden = DB::select('SELECT * FROM kundes WHERE kundes.sperre = 0 ORDER BY kundes.name ASC');
         $kunden_edit = DB::select('select * from kundes where kundes.id = ?',[$id])[0];
+        $gesperrte = DB::select('SELECT * FROM kundes WHERE kundes.sperre = 1 ORDER BY kundes.name ASC');
         return view('kunden')->with('var', [
                 'kunden' => $kunden,
-                'kunden_edit' => $kunden_edit
+                'kunden_edit' => $kunden_edit,
+                'gesperrte' => $gesperrte
                 ]);
     }
 
