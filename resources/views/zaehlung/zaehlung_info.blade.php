@@ -14,7 +14,7 @@
 
         @foreach ($var['positionen'] as $item)
         @if ($var != $item->name )
-            <h4 style="margin-top:20px">{{$item->name}}:</h4>            
+            <li class="list-group-item" style="margin-top:20px"><h4 style="margin-bottom:0px">{{$item->name}}:</h4></li>     
         @endif
             <li class="list-group-item">
 
