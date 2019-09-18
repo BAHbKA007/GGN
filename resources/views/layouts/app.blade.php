@@ -47,7 +47,7 @@
     <title>{{ config('app.name', 'QM') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?v=0.8"></script>
+    <script src="{{ asset('js/app.js') }}?v=0.9"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}?v=0.7" rel="stylesheet">
 
@@ -161,14 +161,5 @@
     
 @endif
 
-<script>
-    $('#lodingButton').click(function(){
-        $('#btn-txt').text('Lade...');
-        $('#spinner').show();
-        $('#lodingButton').attr("disabled", true);
-        $('#'+$(this).data("form")).submit();
-    
-    });
-</script>
 </body>
 </html>

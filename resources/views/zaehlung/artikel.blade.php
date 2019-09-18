@@ -107,7 +107,7 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
             </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
-                    <button id="lodingButton" class="btn btn-primary" type="button" data-form="form_bearbeiten">
+                    <button id="lodingButton" class="btn btn-primary lodingButton" type="submit" data-form="form_bearbeiten">
                         <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
                         <span id="btn-txt">speichern</span>
                     </button>
@@ -142,7 +142,7 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                                 <input type="number" class="form-control" value="{{ old('menge') }}" name="menge" placeholder="Menge" required>
                             </div>
                         </div>
-                        <button id="lodingButton" class="btn btn-primary" type="button" data-form="ggn">
+                        <button id="lodingButton" class="btn btn-primary lodingButton" type="button" data-form="ggn">
                             <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
                             <span id="btn-txt">O.K.</span>
                         </button>

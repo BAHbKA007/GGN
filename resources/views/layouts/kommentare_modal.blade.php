@@ -26,7 +26,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
-                    <button class="btn btn-primary commentButton" id="lodingButton" type="submit" data-form="comment" disabled>
+                    <button class="btn btn-primary commentButton lodingButton" id="lodingButton" type="submit" data-form="comment" disabled>
                         <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
                         <span id="btn-txt">speichern</span>
                     </button>

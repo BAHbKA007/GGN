@@ -83,4 +83,12 @@ window.onload = function() {
             console.error('Async: Could not copy text: ', err);
         });
     });
+
+    $('.lodingButton').click(function(){
+        console.log($(this).find("#spinner"));
+        $(this).find("#btn-txt").text('Lade...');
+        $(this).find("#spinner").show();
+        $(this).find("#lodingButton").attr("disabled", true);
+        $('#'+$(this).data("form")).submit();
+    });
 };
