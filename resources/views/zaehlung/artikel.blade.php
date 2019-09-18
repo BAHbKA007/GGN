@@ -58,7 +58,7 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
 @section('content')
 @include('flash-message')
 
-<!-- Modal -->
+<!-- Modal löschen -->
 <div class="modal animated fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -78,6 +78,39 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
                     <button type="submit" class="btn btn-danger">löschen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal bearbeiten-->
+<div class="modal animated fade" id="Modal_bearbeiten" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">GGN <span style="font-weight: bold;" id="ggn_bearbeiten"></span> Bearbeiten</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form action="/zaehlposition" method="post" id="form_bearbeiten">
+                @csrf
+                <input id="id_bearbeiten" type="hidden" name="id" value="">
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Menge</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="menge_bearbeiten" name="menge" value="">
+                    </div>
+                </div>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
+                    <button id="lodingButton" class="btn btn-primary" type="button" data-form="form_bearbeiten">
+                        <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
+                        <span id="btn-txt">speichern</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -125,6 +158,9 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                         </span> {{$item->ggn}}
                         @if (strlen ($item->country) == 3) <small style="padding-left:25px"><span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> {{$item->country}}</small> @endif
                         <span style="float: right;">
+                            <a id="modal_button" href="#Modal_bearbeiten" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal_bearbeiten" style="margin-right:5px">
+                                <i class="material-icons" onclick="edit({{$item->id}},{{$item->menge}},{{$item->ggn}})" style="font-size:16px">create</i>
+                            </a>
                             <a id="modal_button" href="#Modal" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal">
                                 <i class="material-icons" onclick="del({{$item->id}})" style="font-size:16px">delete_outline</i>
                             </a>
@@ -142,6 +178,12 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
 
     function del(id) {
         $("#id").attr('value', id);
+    };
+
+    function edit(id,menge,ggn) {
+        $("#id_bearbeiten").attr('value', id);
+        $("#menge_bearbeiten").attr('value', menge);
+        $("#ggn_bearbeiten").text(ggn);
     };
 
     function autocomplete(inp, arr) {

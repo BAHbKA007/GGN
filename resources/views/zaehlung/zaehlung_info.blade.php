@@ -19,9 +19,16 @@
             <li class="list-group-item">
 
                 @php
-                    if( $item->grasp_status == NULL ){
+                    if( $item->grasp_status == NULL || $item->artikel_datum == NULL){
                         $farbe = 'warning';
-                    } elseif ( ( isset($item->grasp_valid_to_current) ) && ( strtotime($item->grasp_valid_to_current) < time() || strtotime($item->artikel_datum) < time() ) ) {
+                    } elseif    ( 
+                                    (isset($item->grasp_valid_to_current)) 
+                                    && 
+                                    ( strtotime($item->grasp_valid_to_current) < time() && strtotime($item->grasp_valid_to_next) < time() ) 
+                                    || 
+                                    ( ($item->artikel_datum != NULL && strtotime($item->artikel_datum) < time()) && ($item->artikel_datum_next != NULL && strtotime($item->artikel_datum_next) < time()) )
+                                ) 
+                        {
                         $farbe = 'danger';
 
                     } else {
@@ -54,7 +61,7 @@
                         </thead>
                         <tbody>
                             @foreach ($item->artikel as $artikel)
-                                <tr @if ( ($artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) || $artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) style="background-color:#FF6347" @endif>
+                                <tr @if ( ($artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) && ( $artikel->valid_to_next != NULL && strtotime($artikel->valid_to_next) < time() ) ) style="background-color:#FF6347" @endif>
                                     <td>{{$artikel->product_name}}</td>
                                     <td>{{$artikel->product_status}}</td>
                                     <td>@if ($artikel->valid_to_current != NULL) {{strftime("%d.%m.%Y", strtotime($artikel->valid_to_current))}} @endif</td>

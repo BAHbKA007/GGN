@@ -38,7 +38,17 @@ class SucheController extends Controller
                                                 ORDER BY
                                                     soap_artikels.valid_to_current ASC
                                                 LIMIT 1
-                                            ) AS artikel_datum 
+                                                ) AS artikel_datum,
+                                                ( SELECT
+                                                        valid_to_next
+                                                    FROM
+                                                        soap_artikels
+                                                    WHERE
+                                                        ggn_id = ggns.id AND valid_to_next IS NOT NULL
+                                                    ORDER BY
+                                                        soap_artikels.valid_to_next ASC
+                                                    LIMIT 1
+                                                ) AS artikel_datum_next
                                             FROM ggns WHERE ggns.ggn LIKE ? OR ggns.groupggn LIKE ? OR ggns.erzeuger LIKE ?',[$suche, $suche, $suche]);
 
         foreach ($positionen as $item) {

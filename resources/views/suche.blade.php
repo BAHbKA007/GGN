@@ -33,15 +33,23 @@
                         <li class="list-group-item">
             
                             @php
-                                if( $item->grasp_status == NULL ){
+                                if( $item->grasp_status == NULL || $item->artikel_datum == NULL){
                                     $farbe = 'warning';
-                                } elseif ( ( isset($item->grasp_valid_to_current) ) && ( strtotime($item->grasp_valid_to_current) < time() || strtotime($item->artikel_datum) < time() ) ) {
+                                } elseif    ( 
+                                                (isset($item->grasp_valid_to_current)) 
+                                                && 
+                                                ( strtotime($item->grasp_valid_to_current) < time() && strtotime($item->grasp_valid_to_next) < time() ) 
+                                                || 
+                                                ( ($item->artikel_datum != NULL && strtotime($item->artikel_datum) < time()) && ($item->artikel_datum_next != NULL && strtotime($item->artikel_datum_next) < time()) )
+                                            ) 
+                                    {
                                     $farbe = 'danger';
             
                                 } else {
                                     $farbe = 'success';
                                 }
                             @endphp
+
                             <button type="button" data-ggn="{{$item->ggn}}" class="btn btn-light copy float-left" style="margin-right: 10px"><i class="material-icons" style="font-size:16px;">file_copy</i></button>
                             <button class="btn btn-{{$farbe}}" type="button" data-toggle="collapse" data-target="#collapse{{$item->id}}" aria-expanded="false" aria-controls="collapse">
                                 @if (strlen ($item->country) == 3) <span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> @endif {{$item->ggn}}
@@ -68,7 +76,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($item->artikel as $artikel)
-                                            <tr @if ( ($artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) || $artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) style="background-color:#FF6347" @endif>
+                                            <tr @if ( ($artikel->valid_to_current != NULL && strtotime($artikel->valid_to_current) < time()) && ( $artikel->valid_to_next != NULL && strtotime($artikel->valid_to_next) < time() ) ) style="background-color:#FF6347" @endif>
                                                 <td>{{$artikel->product_name}}</td>
                                                 <td>{{$artikel->product_status}}</td>
                                                 <td>@if ($artikel->valid_to_current != NULL) {{strftime("%d.%m.%Y", strtotime($artikel->valid_to_current))}} @endif</td>

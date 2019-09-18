@@ -222,7 +222,7 @@ class ZaehlungpositionController extends Controller
      * @param  \App\Zaehlungposition  $zaehlungposition
      * @return \Illuminate\Http\Response
      */
-    public function edit(Zaehlungposition $zaehlungposition)
+    public function edit(Request $request)
     {
         //
     }
@@ -234,9 +234,19 @@ class ZaehlungpositionController extends Controller
      * @param  \App\Zaehlungposition  $zaehlungposition
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Zaehlungposition $zaehlungposition)
+    public function update(Request $request)
     {
-        //
+        if ($request->menge == NULL) {
+            return back()->with('status', ['error' => 'Menge darf nicht leer sein!']);
+        }
+
+        $pos = Zaehlungposition::find($request->id);
+        $pos->menge = $request->menge;
+        $pos->save();
+
+        return back()->with('status', [
+            'success' => "Menge erfolgreich zu $pos->menge geändert."
+        ]);
     }
 
     /**

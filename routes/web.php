@@ -92,6 +92,7 @@ Route::get('/zaehlung/info/{id}', 'ZaehlungController@info');
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}', 'ZaehlungpositionController@index');
 Route::get('/zaehlung/{zaehlung}/kunde/{kunde}/artikel/{artikel}', 'ZaehlungpositionController@show');
 Route::post('/zaehlung/artikel', 'ZaehlungpositionController@store');
+Route::post('/zaehlposition', 'ZaehlungpositionController@update');
 Route::delete('/zaehlposition', 'ZaehlungpositionController@destroy');
 
 Route::post('/comment', 'CommentController@store');
