@@ -262,7 +262,7 @@ class ZaehlungpositionController extends Controller
         }
 
         $pos = Zaehlungposition::find($request->id);
-        $pos->menge = $request->menge;
+        $pos->menge = ($request->menge == NULL || $request->menge == '') ? 0 : $request->menge;
         $pos->save();
 
         return back()->with('status', [
