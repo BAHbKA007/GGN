@@ -261,6 +261,10 @@ class ZaehlungpositionController extends Controller
             return back()->with('status', ['error' => 'Menge darf nicht leer sein!']);
         }
 
+        if ($request->menge < 0) {
+            return back()->with('status', ['error' => 'Ähm... Kollegah, negativ geht nix!']);
+        }
+
         $pos = Zaehlungposition::find($request->id);
         $pos->menge = ($request->menge == NULL || $request->menge == '') ? 0 : $request->menge;
         $pos->save();
