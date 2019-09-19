@@ -41,7 +41,7 @@ $wochentag = [
         </div>
         <div class="card-body">
             <p class="card-text">Hallo {{Auth::user()->name}},</p>
-            <p class="card-text">ab sofort können Mengen mit 0 erfasst werden. Alle Positionen mit Menge 0 werden gelb markiert.</p>
+            <p class="card-text">ab sofort können GGNs ohne Mengen erfasst werden. Alle Positionen ohne Menge werden mit 0 Kolli gespeichert und gelb markiert.</p>
             <p class="card-text">für Hamid gibt es einen eigenen Zugang: hamid@gemuesering.de PW: 123</p>
         </div>
     </div>
