@@ -37,11 +37,12 @@ $wochentag = [
     @if (Auth::user()->role == 1 )
     <div class="card">
         <div class="card-header" style="font-weight:bold">
-            Update 
+            Update 19.09.2019
         </div>
         <div class="card-body">
             <p class="card-text">Hallo {{Auth::user()->name}},</p>
             <p class="card-text">ab sofort können Mengen mit 0 erfasst werden. Alle Positionen mit Menge 0 werden gelb markiert.</p>
+            <p class="card-text">für Hamid gibt es einen eigenen Zugang: hamid@gemuesering.de PW: 123</p>
         </div>
     </div>
     @endif
