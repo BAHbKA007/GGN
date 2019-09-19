@@ -208,7 +208,7 @@ b.light-color{ color: #444; }
 			<div class="display-table-cell">
 				
                 <h1 class="title font-white"><b>419 Page expired...</b></h1><br>
-                <a class="notify-btn" href="{{Request::root()}}"><b> ( <span id="count">15s</span> ) zum Login</b></a>
+                <a class="notify-btn" href="{{Request::root()}}"><b> ( <span id="count">5s</span> ) zum Login</b></a>
 				<p class="desc font-white">Sie sehen die Seite weil Sie wohl versucht haben sich 2 mal mit dem selben Account an- oder abzumelden.
                     Falls Sie nicht automatisch weitergeleitet werden, bitte den Browserverlauf löschen.
                 </p>

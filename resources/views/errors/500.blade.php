@@ -208,7 +208,7 @@ b.light-color{ color: #444; }
 			<div class="display-table-cell">
 				
                 <h1 class="title font-white"><b>500 Server Error...</b></h1><br>
-                <a class="notify-btn" href="{{Request::root()}}"><b> ( <span id="count">15s</span> ) zum Login</b></a>
+                <a class="notify-btn" href="{{Request::root()}}"><b> ( <span id="count">5s</span> ) zum Login</b></a>
 				<p class="desc font-white">
 					Da hat etwas nicht so funktioniert wie es sollte... Der Fehler wurde dokumentiert.
                 </p>
