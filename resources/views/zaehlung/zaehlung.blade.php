@@ -7,7 +7,7 @@
     {{-- <p><a href="/zaehlung/{{$var['id']}}">{{$wochentag[strftime("%u", strtotime($var['zaehlung']->created_at))]}}</a> / <a href="#">?</a></p>  --}}
     <div class="list-group">
         @foreach ($var['kunden'] as $item)
-            <a id="{{$item->id}}" class="list-group-item list-group-item-action my-list-spinner"  style="padding-top: 12px;padding-bottom: 12px" href="/zaehlung/{{$var['zaehlung']->id}}/kunde/{{$item->id}}"> 
+            <a id="{{$item->id}}" class="list-group-item list-group-item-action my-list-spinner @if ($item->nullmenge != 0) bg-warning @endif"  style="padding-top: 12px;padding-bottom: 12px" href="/zaehlung/{{$var['zaehlung']->id}}/kunde/{{$item->id}}"> 
                 {{$item->name}} 
                 @if ($item->summe > 0)
                     <span class="badge badge-primary" style="margin-left:10px">{{$item->summe}} Kolli</span>

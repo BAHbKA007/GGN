@@ -40,13 +40,21 @@ class ZaehlungpositionController extends Controller
             programmkundes.kun_id,
             artikels.id,
             (
-            SELECT
-                SUM(zaehlungpositions.menge)
-            FROM
-                zaehlungpositions
-            WHERE
-                zaehlungpositions.art_id = artikels.id AND zaehlungpositions.kunde_id = programmkundes.kun_id AND zaehlungpositions.zaehlung_id = ?
-        ) AS summe
+                SELECT
+                    SUM(zaehlungpositions.menge)
+                FROM
+                    zaehlungpositions
+                WHERE
+                    zaehlungpositions.art_id = artikels.id AND zaehlungpositions.kunde_id = programmkundes.kun_id AND zaehlungpositions.zaehlung_id = ?
+            ) AS summe,
+            (
+                SELECT
+                    COUNT(zaehlungpositions.menge)
+                FROM
+                    zaehlungpositions
+                WHERE
+                    zaehlungpositions.menge = 0 AND zaehlungpositions.art_id = artikels.id AND zaehlungpositions.kunde_id = programmkundes.kun_id AND zaehlungpositions.zaehlung_id = ?
+            ) AS nullmenge
         FROM
             programmkundes
         JOIN programmkundeartikels ON programmkundeartikels.prokun_id = programmkundes.id
@@ -59,7 +67,7 @@ class ZaehlungpositionController extends Controller
                 zaehlungs
             WHERE
                 zaehlungs.id = ?
-        ) AND kun_id = ? ORDER BY bezeichnung ASC',[$zaehlung_id, $zaehlung_id, $kunde_id]);
+        ) AND kun_id = ? ORDER BY bezeichnung ASC',[$zaehlung_id, $zaehlung_id, $zaehlung_id, $kunde_id]);
 
         return view('zaehlung.zaehlung_artikel')->with('var', [
             'zaehlung' => $zaehlung,
@@ -90,10 +98,10 @@ class ZaehlungpositionController extends Controller
 
         if ($request->ggn == NULL) {
             return back()->with('status', ['error' => 'Das Feld "GGN" darf nicht leer sein!']);
-        } elseif ($request->menge == NULL) {
-            return back()->with('status', ['error' => 'Das Feld "Menge" darf nicht leer sein!']);
         } elseif (strlen($request->ggn) != 13) {
             return back()->with('status', ['error' => 'Eine GGN muss immer 13-stellig sein!']);
+        } elseif ($request->menge < 0) {
+            return back()->with('status', ['error' => 'Ähm... Kollegah, negativ geht nix!']);
         }
 
         function verheiraten() {
@@ -122,7 +130,7 @@ class ZaehlungpositionController extends Controller
                 $Zaehlungposition->kunde_id = $request->kunde_id;
                 $Zaehlungposition->art_id = $request->artikel_id;
                 $Zaehlungposition->ggn = $request->ggn;
-                $Zaehlungposition->menge = $request->menge;
+                $Zaehlungposition->menge = ($request->menge == NULL) ? 0 : $request->menge;
                 $Zaehlungposition->user = Auth::user()->name;
 
                 // GGN mit artikel verheiraten
@@ -130,7 +138,11 @@ class ZaehlungpositionController extends Controller
 
                 $Zaehlungposition->save();
                 
-                //return redirect('zaehlung/'.$request->zaehlung_id."/kunde/".$request->kunde_id);
+                // Wenn Menge = NULL
+                if ($request->menge == NULL) {
+                    return back()->with('status', ['warning' => 'GGN mit Menge 0 vorgemerkt.']);
+                }
+
                 return back()->with('status', ['success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt (neue GGN)']);
 
             } else {
@@ -146,7 +158,7 @@ class ZaehlungpositionController extends Controller
             $Zaehlungposition->kunde_id = $request->kunde_id;
             $Zaehlungposition->art_id = $request->artikel_id;
             $Zaehlungposition->ggn = $request->ggn;
-            $Zaehlungposition->menge = $request->menge;
+            $Zaehlungposition->menge = ($request->menge == NULL) ? 0 : $request->menge;
             $Zaehlungposition->user = Auth::user()->name;
 
             // GGN mit artikel verheiraten
@@ -154,9 +166,14 @@ class ZaehlungpositionController extends Controller
 
             $Zaehlungposition->save();
 
+            // Wenn Menge = NULL
+            if ($request->menge == NULL) {
+                return back()->with('status', ['warning' => 'GGN mit Menge 0 vorgemerkt.']);
+            }
+
             return back()->with('status', [
                 'success' => 'GGN <strong>'.$request->ggn.'</strong> erfolgreich hinzugefügt'
-                ]);
+            ]);
         }
     }
 
@@ -169,7 +186,11 @@ class ZaehlungpositionController extends Controller
     public function show($zaehlung_id, $kunde_id, $artikel_id)
     {
         $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
-        $artikel = DB::select('SELECT * FROM artikels LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id WHERE artikels.id = ? ORDER BY ggn',[$artikel_id]);
+        $artikel = DB::select(' SELECT * 
+                                FROM artikels 
+                                LEFT JOIN ggnsartikels ON ggnsartikels.artikel_id = artikels.id 
+                                WHERE artikels.id = ? 
+                                ORDER BY ggn',[$artikel_id]);
         $kommentar_artikel = DB::select('SELECT * FROM artikels WHERE artikels.id = ?', [$artikel_id])[0];
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$zaehlung_id])[0];
         $ggns = DB::select('SELECT ggn FROM ggnsartikels WHERE artikel_id = ? ORDER BY ggn', [$artikel_id]);

@@ -34,6 +34,17 @@ $wochentag = [
         {{ $var['alle_zaehlungen']->links() }}
         @endif
     </div>
+    @if (Auth::user()->role == 1 )
+    <div class="card">
+        <div class="card-header" style="font-weight:bold">
+            Update 
+        </div>
+        <div class="card-body">
+            <p class="card-text">Hallo {{Auth::user()->name}},</p>
+            <p class="card-text">ab sofort können Mengen mit 0 erfasst werden. Alle Positionen mit Menge 0 werden gelb markiert.</p>
+        </div>
+    </div>
+    @endif
 </div>
 
 @endsection

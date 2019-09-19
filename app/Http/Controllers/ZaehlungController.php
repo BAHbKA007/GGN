@@ -119,7 +119,15 @@ class ZaehlungController extends Controller
         $kunden = DB::select('SELECT
                                 kundes.id,
                                 kundes.name,
-                                (SELECT SUM(menge) FROM zaehlungpositions WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = kundes.id ) AS summe
+                                (SELECT SUM(menge) FROM zaehlungpositions WHERE zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = kundes.id ) AS summe,
+                                (
+                                    SELECT
+                                        COUNT(zaehlungpositions.menge)
+                                    FROM
+                                        zaehlungpositions
+                                    WHERE
+                                        zaehlungpositions.menge = 0 AND zaehlungpositions.kunde_id = kundes.id AND zaehlungpositions.zaehlung_id = ?
+                                ) AS nullmenge
                             FROM
                                 programmkundes
                             JOIN kundes ON kundes.id = programmkundes.kun_id
@@ -130,7 +138,7 @@ class ZaehlungController extends Controller
                                 FROM
                                     zaehlungs
                                 WHERE
-                                    zaehlungs.id = ?)',[$id,$id]);
+                                    zaehlungs.id = ?)',[$id,$id,$id]);
 
         $zaehlung = DB::select('SELECT zaehlungs.*, users.name FROM zaehlungs JOIN users ON zaehlungs.bearbeiter_id = users.id WHERE zaehlungs.id = ?',[$id])[0];
 

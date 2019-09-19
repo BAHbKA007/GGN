@@ -152,7 +152,7 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
 
             <ul class="list-group">
                 @foreach ($var['gezaehlte'] as $item)
-                    <li class="list-group-item">
+                    <li class="list-group-item @if ($item->menge == 0) bg-warning @endif" >
                         <span style="width: 60px;float: left;">
                             <strong>{{$item->menge}}x</strong>
                         </span> {{$item->ggn}}

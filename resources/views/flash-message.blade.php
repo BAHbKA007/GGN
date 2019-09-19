@@ -17,7 +17,7 @@
 @if (isset(session('status')['warning']) && session('status')['warning'] != NULL) 
 <div class="alert alert-warning alert-block fade show myAlert-bottom" style="display: none;">
 	<button type="button" class="close" data-dismiss="alert">×</button>	
-	<h4 class="alert-heading">{!! session('status')['warning'] !!}</h4>
+	{!! session('status')['warning'] !!}
 </div>
 @endif
 
