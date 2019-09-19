@@ -51,6 +51,11 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
         background-color: DodgerBlue !important; 
         color: #ffffff; 
     }
+
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+    }
 </style>
 
 @extends('layouts.app')
@@ -158,9 +163,7 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                         </span> {{$item->ggn}}
                         @if (strlen ($item->country) == 3) <small style="padding-left:25px"><span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> {{$item->country}}</small> @endif
                         <span style="float: right;">
-                            <a id="modal_button" href="#Modal_bearbeiten" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal_bearbeiten" style="margin-right:5px">
-                                <i class="material-icons" onclick="edit({{$item->id}},{{$item->menge}},{{$item->ggn}})" style="font-size:16px">create</i>
-                            </a>
+                            <a id="modal_button" href="#Modal_bearbeiten" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal_bearbeiten" style="margin-right:5px"><i class="material-icons" onclick="edit({{$item->id}},{{$item->menge}},{{$item->ggn}})" style="font-size:16px">create</i></a>
                             <a id="modal_button" href="#Modal" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal">
                                 <i class="material-icons" onclick="del({{$item->id}})" style="font-size:16px">delete_outline</i>
                             </a>
