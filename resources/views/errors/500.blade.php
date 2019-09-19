@@ -222,7 +222,7 @@ b.light-color{ color: #444; }
 	
 </body>
 <script>
-    var i = 15;
+    var i = 5;
     setInterval(function () {
         if (i == 0) {
             window.location = "{{Request::root()}}";
