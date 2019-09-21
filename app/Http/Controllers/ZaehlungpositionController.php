@@ -257,17 +257,15 @@ class ZaehlungpositionController extends Controller
      */
     public function update(Request $request)
     {
-        if ($request->menge == NULL) {
-            return back()->with('status', ['error' => 'Menge darf nicht leer sein!']);
-        }
-
-        if ($request->menge < 0) {
-            return back()->with('status', ['error' => 'Ähm... Kollegah, negativ geht nix!']);
-        }
-
+        
         $pos = Zaehlungposition::find($request->id);
         $pos->menge = ($request->menge == NULL || $request->menge == '') ? 0 : $request->menge;
         $pos->save();
+        
+        // Wenn Menge = NULL
+        if ($request->menge == NULL) {
+            return back()->with('status', ['warning' => 'GGN mit Menge 0 vorgemerkt.']);
+        }
 
         return back()->with('status', [
             'success' => "Menge erfolgreich zu $pos->menge geändert."
