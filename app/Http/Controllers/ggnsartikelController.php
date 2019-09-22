@@ -57,10 +57,13 @@ class ggnsartikelController extends Controller
      */
     public function store(Request $request, $art_id)
     {
-        $ggn = Ggn::find($request->ggn);
+        $ggn = Ggn::where('ggn', $request->ggn)->get();
 
-        if ($ggn == NULL) {
-            return redirect()->back()->with('status', ['error' => 'Die von Ihnen eingegebene GGN: '.$request->ggn.' existiert nicht in der Datenbank']);
+        // prüfen ob GGN mit Artikel bereits verknüpft
+        $exist = ggnsartikel::where('ggn', $request->ggn)->where('artikel_id', $art_id)->count();
+        
+        if ($exist > 0) {
+            return redirect()->back()->with('status', ['error' => 'GGN: '.$request->ggn.' ist bereits mit dem Artikel verknüpft.']);
         }
 
         $ggnsartikel = new ggnsartikel;
@@ -112,8 +115,9 @@ class ggnsartikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $ggnartikel = ggnsartikel::where('ggn', $request->ggn)->where('artikel_id', $request->id)->delete();
+        return redirect()->back()->with('status', ['success' => 'gelöscht']);
     }
 }

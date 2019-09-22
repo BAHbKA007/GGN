@@ -16,8 +16,9 @@
             <div class="modal-body">
                 Soll die GGN: <span id="modal-ggn"></span> wirklich gelöscht werden?
             </div>
-            <form action="/ggn/del" method="post">
+            <form action="/artikel/ggn" method="post">
                 @csrf
+                @method('delete')
                 <input id="id" type="hidden" name="id" value="">
                 <input id="ggn" type="hidden" name="ggn" value="">
                 <div class="modal-footer">
@@ -58,7 +59,7 @@
                         <div class="custom-control custom-checkbox">
                             {{$item->ggn}} <small>{{$item->erzeuger}}</small>
                             <div class="float-right">
-                                <a href="#Modal" data-toggle="modal" onclick="del({{$item->ggn}},{{$item->id}})" data-target="#Modal"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
+                                <a href="#Modal" data-toggle="modal" onclick="del({{$item->ggn}},{{$var['art_id']}})" data-target="#Modal"><i class="material-icons" style="font-size:16px">delete_outline</i></a>
                             </div>
                         </div>
                     </div>

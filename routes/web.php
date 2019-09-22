@@ -83,6 +83,7 @@ Route::delete('/programmkundeartikel', 'ProgrammkundeartikelController@destroy')
 
 Route::get('/artikel/{art_id}/ggn/', 'ggnsartikelController@index');
 Route::post('/artikel/{art_id}/ggn', 'ggnsartikelController@store');
+Route::delete('/artikel/ggn', 'ggnsartikelController@destroy');
 
 Route::get('/zaehlung', 'ZaehlungController@index');
 Route::post('/zaehlung/neu', 'ZaehlungController@store');
