@@ -23,7 +23,7 @@
 
         @include('zaehlung.include.qmlist')
         @if (Auth::user()->role > 1)
-        {{ $var['alle_zaehlungen']->links() }}
+        {{ $var['alle_zaehlungen']->onEachSide(2)->links() }}
         @endif
     </div>
 </div>
