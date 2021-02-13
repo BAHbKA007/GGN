@@ -55,7 +55,7 @@ class ZaehlungController extends Controller
 
             return view('zaehlung.home')->with('var', [
                 'zaehlungen' => $zaehlungen,
-                'alle_zaehlungen' => $alle_zaehlungen->paginate(6)
+                'alle_zaehlungen' => $alle_zaehlungen->paginate(50)
             ]);
 
         } else {
@@ -71,7 +71,7 @@ class ZaehlungController extends Controller
                 ->orderBy('id', 'desc');
 
             return view('zaehlung.erstellen')->with('var', [
-                'alle_zaehlungen' => $alle_zaehlungen->paginate(6)
+                'alle_zaehlungen' => $alle_zaehlungen->paginate(50)
             ]);
         }
     }

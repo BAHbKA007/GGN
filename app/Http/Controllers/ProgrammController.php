@@ -41,7 +41,7 @@ class ProgrammController extends Controller
             ->orderBy('programms.von', 'DESC');
         
         return view('programm_index')->with('var',[
-            'programm' => $programm->paginate(10)
+            'programm' => $programm->paginate(50)
         ]);
     }
 

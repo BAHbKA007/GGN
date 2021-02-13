@@ -138,17 +138,22 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                         <input name="kunde_id" value="{{$var['kunde_id']}}" hidden>
                         <input name="zaehlung_id" value="{{$var['zaehlung_id']}}" hidden>
                         <div class="form-row">
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-6">
                                 <label for="inputEmail4">GGN</label>
                                 <input id="focus" type="number" class="form-control" value="{{ old('ggn') }}" min="1000000000000" max="9999999999999" name="ggn" placeholder="GGN" required>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-2">
                                 <label for="inputPassword4">Menge</label>
                                 <input type="number" class="form-control" value="{{ old('menge') }}" name="menge" placeholder="Menge" required>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputPassword4">Kistenbezeichnung</label>
-                                <input type="number" class="form-control" value="{{ old('menge') }}" name="menge" placeholder="Menge" required>
+                                <label for="kisten">Kiste</label>
+                                <select class="form-control" name="kiste_id" id="kisten" required>
+                                    <option value="" selected disabled hidden>bitte auswählen...</option>
+                                    @foreach ($var['kisten'] as $kiste)
+                                        <option value="{{$kiste->id}}">{{$kiste->bezeichnung}}</option>
+                                    @endforeach
+                                  </select>
                             </div>
                         </div>
                         <button id="lodingButton" class="btn btn-primary lodingButton" type="button" data-form="ggn">
@@ -166,6 +171,7 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                             <strong>{{$item->menge}}x</strong>
                         </span> {{$item->ggn}}
                         @if (strlen ($item->country) == 3) <small style="padding-left:25px"><span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> {{$item->country}}</small> @endif
+                        <span style="padding-left:25px; font-weight: bold;">{{$item->bezeichnung}}</span>
                         <span style="float: right;">
                             <a id="modal_button" href="#Modal_bearbeiten" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal_bearbeiten" style="margin-right:5px"><i class="material-icons" onclick="edit({{$item->id}},{{$item->menge}},{{$item->ggn}})" style="font-size:16px">create</i></a>
                             <a id="modal_button" href="#Modal" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal">

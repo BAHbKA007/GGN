@@ -6,6 +6,7 @@ use App\Zaehlungposition;
 use App\Artikel;
 use App\Ggn;
 use App\ggnsartikel;
+use App\Kiste;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -132,6 +133,7 @@ class ZaehlungpositionController extends Controller
                 $Zaehlungposition->ggn = $request->ggn;
                 $Zaehlungposition->menge = ($request->menge == NULL) ? 0 : $request->menge;
                 $Zaehlungposition->user = Auth::user()->name;
+                $Zaehlungposition->kiste_id = $request->kiste_id;
 
                 // GGN mit artikel verheiraten
                 verheiraten();
@@ -160,6 +162,7 @@ class ZaehlungpositionController extends Controller
             $Zaehlungposition->ggn = $request->ggn;
             $Zaehlungposition->menge = ($request->menge == NULL) ? 0 : $request->menge;
             $Zaehlungposition->user = Auth::user()->name;
+            $Zaehlungposition->kiste_id = $request->kiste_id;
 
             // GGN mit artikel verheiraten
             verheiraten();
@@ -185,6 +188,7 @@ class ZaehlungpositionController extends Controller
      */
     public function show($zaehlung_id, $kunde_id, $artikel_id)
     {
+        $kisten = Kiste::all();
         $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $artikel = DB::select(' SELECT * 
                                 FROM artikels 
@@ -199,11 +203,13 @@ class ZaehlungpositionController extends Controller
                                         zaehlungpositions.id,
                                         zaehlungpositions.menge,
                                         zaehlungpositions.id AS zaehlpos_id,
+                                        kistes.bezeichnung,
                                         ggns.country
                                     FROM
                                         zaehlungpositions
                                     JOIN artikels ON artikels.id = zaehlungpositions.art_id
                                     LEFT JOIN ggns ON ggns.ggn = zaehlungpositions.ggn
+                                    LEFT JOIN kistes ON kistes.id = zaehlungpositions.kiste_id
                                     WHERE
                                         zaehlungpositions.zaehlung_id = ? AND zaehlungpositions.kunde_id = ? AND zaehlungpositions.art_id = ?',[$zaehlung_id, $kunde_id, $artikel_id]);
 
@@ -233,7 +239,8 @@ class ZaehlungpositionController extends Controller
             'ggns' => $ggns,
             'gezaehlte' => $gezaehlte,
             'comment' => $comment,
-            'kommentar_artikel' => $kommentar_artikel
+            'kommentar_artikel' => $kommentar_artikel,
+            'kisten' => $kisten
         ]);
     }
 
@@ -257,7 +264,7 @@ class ZaehlungpositionController extends Controller
      */
     public function update(Request $request)
     {
-        
+        #TODO Kiste muss editierbar sein
         $pos = Zaehlungposition::find($request->id);
         $pos->menge = ($request->menge == NULL || $request->menge == '') ? 0 : $request->menge;
         $pos->save();

@@ -40,7 +40,7 @@
                     <table class="table table-sm table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">ArtikelNummer</th>
+                                <th scope="col">Artikelnummer</th>
                                 <th scope="col">Bezeichnung</th>
                                 <th scope="col" style="text-align:right">Aktionen</th>
                             </tr>
