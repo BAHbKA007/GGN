@@ -46,6 +46,12 @@ Route::get('/artikel/{id}/edit', 'ArtikelController@edit');
 Route::put('/artikel/{id}', 'ArtikelController@update');
 Route::delete('/artikel', 'ArtikelController@destroy');
 
+Route::get('/kiste', 'KisteController@index');
+Route::post('/kiste', 'KisteController@store');
+Route::get('/kiste/{id}/edit', 'KisteController@edit');
+Route::put('/kiste/{id}', 'KisteController@update');
+Route::delete('/kiste', 'KisteController@destroy');
+
 Route::get('/benutzer', 'BenutzerController@index');
 Route::post('/benutzer', 'BenutzerController@store');
 Route::get('/benutzer/{id}/edit', 'BenutzerController@edit');

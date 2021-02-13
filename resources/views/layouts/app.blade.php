@@ -87,6 +87,7 @@
                                     <a class="dropdown-item" href="/artikel">Artikel</a>
                                     <a class="dropdown-item" href="/kunden">Kunden</a>
                                     <a class="dropdown-item" href="/ggn">GGNs</a>
+                                    <a class="dropdown-item" href="/kiste">Kiste</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/benutzer">Benutzer</a>
                                </div>
