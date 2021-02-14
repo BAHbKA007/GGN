@@ -17,5 +17,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(ArtikelsTableSeeder::class);
         // $this->call(KundesTableSeeder::class);
         // $this->call(SettingTableSeeder::class);
+        DB::table('users')->insert([
+            'name' => 'Johann Schneider',
+            'email' => 'j.schneider@gemuesering.de',
+            'password' => Hash::make('123'),
+        ]);
     }
 }
