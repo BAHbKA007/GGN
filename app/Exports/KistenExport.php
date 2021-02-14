@@ -16,7 +16,7 @@ class KistenExport implements FromCollection, ShouldAutoSize, WithColumnFormatti
     public function headings(): array
     {
         return [
-            'Aldi Gesellschaft',
+            'Aldi Lager',
             'Menge',
             'Leergutart'
         ];
