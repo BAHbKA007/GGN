@@ -15,27 +15,8 @@ Route::get('/soap', 'SoapController');
 
 Auth::routes(['register' => false]);
 
-// Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
-Route::get('/', function () {
-
-    if (Auth::check()) {
-
-        if (Auth::user()->role == 1) {
-            return redirect()->action('ZaehlungController@index');
-        } else {
-            return view('home')->with('var',[
-                'user' => Auth::user()->name
-            ]);
-        }
-
-    } else {
-
-        return redirect('login');
-
-    }
-
-});
 Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/aktivieren', 'AktivierenController');
@@ -118,10 +99,6 @@ Route::post('/suche', 'SucheController@suchrgebnis');
 
 Route::get('/python/check', 'PythonController@check');
 
-Route::get('419', function(){
-    return view('errors.419');
-});
+Route::get('419', 'ErrorController@Error419');
 
-Route::get('500', function(){
-    return view('errors.500');
-});
+Route::get('500', 'ErrorController@Error500');

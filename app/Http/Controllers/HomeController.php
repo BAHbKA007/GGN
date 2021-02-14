@@ -25,8 +25,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('var',[
-            'user' => Auth::user()->name
-        ]);    
+        return \Hash::make('123');
+        if (Auth::check()) {
+
+            if (Auth::user()->role == 1) {
+                return redirect()->action('ZaehlungController@index');
+            } else {
+                return view('home')->with('var',[
+                    'user' => Auth::user()->name
+                ]);
+            }
+
+        } else {
+
+            return redirect('login');
+
+        }
     }
 }

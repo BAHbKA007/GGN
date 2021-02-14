@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Johann Schneider',
             'email' => 'j.schneider@gemuesering.de',
-            'password' => Hash::make('123'),
+            'password' => '$2y$10$pnWpk6//tWQ7jJ2I4KZ2JOh0RRIi.7YARGqfkg1wkyA9FBNtdKPnO',
         ]);
     }
 }
