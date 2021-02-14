@@ -20,7 +20,6 @@ class CreateZaehlungpositionsTable extends Migration
             $table->unsignedBigInteger('art_id');
             $table->unsignedBigInteger('ggn');
             $table->unsignedBigInteger('menge');
-            $table->unsignedBigInteger('kiste_id')->nullable();
             $table->string('user')->nullable();
             $table->timestamps();
             $table->foreign('zaehlung_id')
