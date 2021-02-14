@@ -48,8 +48,24 @@ class SoapPythonImport extends Controller
                         // falls es sich um eine Änderung handelt, ersmal alle Artikel für die GGN löschen und neu befüllen
                         if ($item->attributes()->{'status'} == 'CHANGED') { SoapArtikel::where('ggn_id', $soap_artikel_ggn_id)->delete(); }
 
-                        $ggn_table = Ggn::find($item->organisationalData->bookmarkItemId);
-                        $ggn_table->erzeuger = $item->producerData->name->lastName;
+                        $ggn_table = Ggn::find($soap_artikel_ggn_id);
+
+                        // Fehlermeldung assignment on NULL
+                        if ($ggn_table == Null) {
+
+                            //checken ob die GGN bereits eingetragen ist, wenn nicht eintragen, wenn bereits vorhanden aus der GGN Datenbank löschen
+                            if (GGN::where('ggn', $item->producerData->ggn)->count() == 0) {
+                                $ggn_table = new GGN;
+                                $ggn_table->id = $item->organisationalData->bookmarkItemId;
+                                $ggn_table->ggn = $item->producerData->ggn;
+                                $ggn_table->user_name = 'XML Import';
+                            } else {
+                                $soap = new MySoap;
+                                $responsprop = $soap->bookmarkItemDelete($item->organisationalData->bookmarkItemId);
+                                continue;
+                            }
+                        }
+                        $ggn_table->erzeuger = ( $item->producerData->name->lastName == '' || empty($item->producerData->name->lastName) ) ? 'n/a' : $item->producerData->name->lastName;
                         $ggn_table->country = $item->producerData->country;
                         $ggn_table->company_type = $item->producerData->companyType;
                         
@@ -101,8 +117,10 @@ class SoapPythonImport extends Controller
 
                         $ggn_table->save();
 
+                    } elseif ($item->attributes()->{'status'} == 'DELETED') {
+                        SoapArtikel::where('ggn_id', $item->organisationalData->bookmarkItemId)->delete();
+                        GGN::where('id', $item->organisationalData->bookmarkItemId)->delete();
                     }
-
                 }
 
                 return 'Erfolgreich synchronisiert';
