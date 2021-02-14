@@ -25,7 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return \Hash::make('123');
         if (Auth::check()) {
 
             if (Auth::user()->role == 1) {
