@@ -12,6 +12,7 @@
                 @if (Auth::user()->role > 1)
                     <div class="float-right" style="padding-top: 3px">
                         <a class="btn btn-primary btn-sm my_button_zaehlung @if ($item->sum_erledigt > 0) disabled @endif" href="export/{{$item->id}}" role="button" @if ($item->sum_erledigt > 0) aria-disabled="true" @endif><i class="material-icons">description</i></a>
+                        <a class="btn btn-secondary btn-sm my_button_zaehlung @if ($item->sum_erledigt > 0) disabled @endif" href="kistenexport/{{$item->id}}" role="button" @if ($item->sum_erledigt > 0) aria-disabled="true" @endif><i class="material-icons">all_inbox</i></a>
                         <a class="btn btn-success btn-sm my_button_zaehlung" href="/zaehlung/info/{{$item->id}}" role="button"><i class="material-icons">info</i></a>
                     </div>
                 @endif

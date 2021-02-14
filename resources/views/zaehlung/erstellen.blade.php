@@ -37,12 +37,11 @@ $wochentag = [
     @if (Auth::user()->role == 1 )
     <div class="card">
         <div class="card-header" style="font-weight:bold">
-            Update 19.09.2019
+            Update 14.02.2021
         </div>
         <div class="card-body">
             <p class="card-text">Hallo {{Auth::user()->name}},</p>
-            <p class="card-text">ab sofort können GGNs ohne Mengen erfasst werden. Alle Positionen ohne Menge werden mit 0 Kolli gespeichert und gelb markiert.</p>
-            <p class="card-text">für Hamid gibt es einen eigenen Zugang: hamid@gemuesering.de PW: 123</p>
+            <p class="card-text">ab sofort können neben GGNs auch die Verschiedenen Leergutarten eingetragen werden</p>
         </div>
     </div>
     @endif

@@ -104,9 +104,20 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                 @csrf
                 <input id="id_bearbeiten" type="hidden" name="id" value="">
                 <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Menge</label>
+                    <label for="menge_bearbeiten" class="col-sm-2 col-form-label">Menge</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="menge_bearbeiten" name="menge" value="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="kiste_bearbeiten" class="col-sm-2 col-form-label">Kiste</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="kiste_id" id="kiste_bearbeiten">
+                            <option value="" disabled hidden>bitte auswählen...</option>
+                            @foreach ($var['kisten'] as $kiste)
+                                <option value="{{$kiste->id}}">{{$kiste->bezeichnung}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
@@ -151,9 +162,9 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                                 <select class="form-control" name="kiste_id" id="kisten" required>
                                     <option value="" selected disabled hidden>bitte auswählen...</option>
                                     @foreach ($var['kisten'] as $kiste)
-                                        <option value="{{$kiste->id}}">{{$kiste->bezeichnung}}</option>
+                                        <option value="{{$kiste->id}}" @if (old('kiste_id') == $kiste->id) selected @endif>{{$kiste->bezeichnung}}</option>
                                     @endforeach
-                                  </select>
+                                </select>
                             </div>
                         </div>
                         <button id="lodingButton" class="btn btn-primary lodingButton" type="button" data-form="ggn">
@@ -173,7 +184,7 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
                         @if (strlen ($item->country) == 3) <small style="padding-left:25px"><span style="font-size:20px" class="flag-icon flag-icon-{{$land[$item->country]}}"></span> {{$item->country}}</small> @endif
                         <span style="padding-left:25px; font-weight: bold;">{{$item->bezeichnung}}</span>
                         <span style="float: right;">
-                            <a id="modal_button" href="#Modal_bearbeiten" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal_bearbeiten" style="margin-right:5px"><i class="material-icons" onclick="edit({{$item->id}},{{$item->menge}},{{$item->ggn}})" style="font-size:16px">create</i></a>
+                            <a id="modal_button" href="#Modal_bearbeiten" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal_bearbeiten" style="margin-right:5px"><i class="material-icons" onclick="edit({{$item->id}},{{$item->menge}},{{$item->ggn}}, {{$item->kiste_id}})" style="font-size:16px">create</i></a>
                             <a id="modal_button" href="#Modal" data-toggle="modal" data-id="{{$item->id}}" data-target="#Modal">
                                 <i class="material-icons" onclick="del({{$item->id}})" style="font-size:16px">delete_outline</i>
                             </a>
@@ -193,10 +204,11 @@ $land = ['AND' => 'ad','ARE' => 'ae','AFG' => 'af','ATG' => 'ag','AIA' => 'ai','
         $("#id").attr('value', id);
     };
 
-    function edit(id,menge,ggn) {
+    function edit(id,menge,ggn,kiste_bearbeiten) {
         $("#id_bearbeiten").attr('value', id);
         $("#menge_bearbeiten").attr('value', menge);
         $("#ggn_bearbeiten").text(ggn);
+        $("#kiste_bearbeiten").val(kiste_bearbeiten);
     };
 
     function autocomplete(inp, arr) {

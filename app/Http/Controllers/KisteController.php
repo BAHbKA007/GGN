@@ -29,7 +29,7 @@ class KisteController extends Controller
     public function index()
     {
 
-        $kiste = Kiste::all();
+        $kiste = Kiste::orderBy('bezeichnung')->get();
 
         return view('kiste')->with('var', [
                 'kiste' => $kiste
@@ -125,10 +125,9 @@ class KisteController extends Controller
      */
     public function destroy(Request $request)
     {
-        $kiste = kiste::find($request->id);
-        $kiste->sperre = ($kiste->sperre == 1) ? 0 : 1;
-        $kiste->save();
+        $kiste = Kiste::find($request->id);
+        $kiste->delete();
 
-        return back()->with('status', ['success' => 'kiste <strong>'.$kiste->bezeichnung.'</strong> erfolgreich gesperrt']);
+        return back()->with('status', ['success' => 'Leergutart <strong>'.$kiste->bezeichnung.'</strong> erfolgreich gelöscht']);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Zaehlung;
 use App\Exports\ZaehlungpositionExport;
+use App\Exports\KistenExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -188,6 +189,17 @@ class ZaehlungController extends Controller
         $wochentag = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
         $datum = DB::select('SELECT DATE_FORMAT(zaehlungs.created_at, "%d.%m.%Y") datum, DATE_FORMAT(zaehlungs.created_at, "%w") wochentag FROM zaehlungs WHERE zaehlungs.id = ?',[$id])[0];
         $data = new ZaehlungpositionExport;
+        $data->id = $id;
+
+        // ACHTUNG !!! xlsx werden GGNs auf Alfahosting warum auch immer gerundet -> xls verwenden
+        return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".xls");
+    }
+
+    public function kistenexport($id) 
+    {
+        $wochentag = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+        $datum = DB::select('SELECT DATE_FORMAT(zaehlungs.created_at, "%d.%m.%Y") datum, DATE_FORMAT(zaehlungs.created_at, "%w") wochentag FROM zaehlungs WHERE zaehlungs.id = ?',[$id])[0];
+        $data = new KistenExport;
         $data->id = $id;
 
         // ACHTUNG !!! xlsx werden GGNs auf Alfahosting warum auch immer gerundet -> xls verwenden

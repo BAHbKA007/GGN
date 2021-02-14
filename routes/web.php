@@ -108,6 +108,7 @@ Route::post('/comment', 'CommentController@store');
 Route::post('/soap/python/import', 'SoapPythonImport');
 
 Route::get('/export/{id}', 'ZaehlungController@export')->name('export');
+Route::get('/kistenexport/{id}', 'ZaehlungController@kistenexport')->name('kistenexport');
 
 Route::get('/comment/{id}', 'CommentController@index');
 Route::post('/comment/erledigen', 'CommentController@erledigen');

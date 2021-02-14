@@ -96,14 +96,16 @@ class ZaehlungpositionController extends Controller
      */
     public function store(Request $request)
     {
-
         if ($request->ggn == NULL) {
-            return back()->with('status', ['error' => 'Das Feld "GGN" darf nicht leer sein!']);
+            return back()->with('status', ['error' => 'Das Feld "GGN" darf nicht leer sein!'])->withInput();
         } elseif (strlen($request->ggn) != 13) {
-            return back()->with('status', ['error' => 'Eine GGN muss immer 13-stellig sein!']);
+            return back()->with('status', ['error' => 'Eine GGN muss immer 13-stellig sein!'])->withInput();
         } elseif ($request->menge < 0) {
-            return back()->with('status', ['error' => 'Ähm... Kollegah, negativ geht nix!']);
+            return back()->with('status', ['error' => 'Ähm... negative Menge nicht erlaubt!'])->withInput();
+        } elseif ($request->kiste_id == NULL) {
+            return back()->with('status', ['error' => 'Eine Leergutart muss ausgewählt sein!'])->withInput();
         }
+
 
         function verheiraten() {
             global $request;
@@ -188,7 +190,7 @@ class ZaehlungpositionController extends Controller
      */
     public function show($zaehlung_id, $kunde_id, $artikel_id)
     {
-        $kisten = Kiste::all();
+        $kisten = Kiste::orderBy('bezeichnung')->get();
         $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $artikel = DB::select(' SELECT * 
                                 FROM artikels 
@@ -204,6 +206,7 @@ class ZaehlungpositionController extends Controller
                                         zaehlungpositions.menge,
                                         zaehlungpositions.id AS zaehlpos_id,
                                         kistes.bezeichnung,
+                                        kistes.id AS kiste_id,
                                         ggns.country
                                     FROM
                                         zaehlungpositions
@@ -264,9 +267,13 @@ class ZaehlungpositionController extends Controller
      */
     public function update(Request $request)
     {
-        #TODO Kiste muss editierbar sein
+        if ($request->menge < 0) {
+            return back()->with('status', ['error' => 'Ähm... negative Menge ist nicht erlaubt!'])->withInput();
+        }
+
         $pos = Zaehlungposition::find($request->id);
         $pos->menge = ($request->menge == NULL || $request->menge == '') ? 0 : $request->menge;
+        $pos->kiste_id = $request->kiste_id;
         $pos->save();
         
         // Wenn Menge = NULL
