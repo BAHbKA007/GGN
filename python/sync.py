@@ -28,7 +28,7 @@ while True:
     if time.strftime("%H:%M:%S") > '05:00:00' and time.strftime("%H:%M:%S") < '18:00:00':
 
         # checken ob unter qm. nicht aktuelle einträge existieren
-        # r = requests.get("https://qm.leichtbewaff.net/python/check", verify=False)
+        # r = requests.get("https://ggn.gemuesering.de/python/check", verify=False)
 
         #if r.text != '0' or i >= 60:
         if i >= 60:
@@ -55,8 +55,8 @@ while True:
             with io.open(filename, 'w', encoding='utf8') as f:
                 f.write(response)
                 
-            print("Request MySql Datenabnk")
-            r = requests.post("https://qm.leichtbewaff.net/soap/python/import", proxies=proxies, data={'xml': response}, verify=False)
+            print("Request MySql Datenabank")
+            r = requests.post("http://ggn.gemuesering.de/soap/python/import", proxies=proxies, data={'xml': response}, verify=False)
             print("\n\n" + datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
             print(r.status_code, r.reason)
             print(r.text)
@@ -74,12 +74,4 @@ while True:
     else:
         print('außerhalb der festgelegten Sync Zeit')
         time.sleep(3600)
-
-
-# while True:
     
-#     if time.strftime("%H:%M:%S") > '05:00:00' and time.strftime("%H:%M:%S") < '18:00:00':
-        
-
-
-
