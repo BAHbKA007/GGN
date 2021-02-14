@@ -203,7 +203,7 @@ class ZaehlungController extends Controller
         $data->id = $id;
 
         // ACHTUNG !!! xlsx werden GGNs auf Alfahosting warum auch immer gerundet -> xls verwenden
-        return Excel::download($data, $wochentag[$datum->wochentag]." ".$datum->datum.".xls");
+        return Excel::download($data, "Leergut ".$wochentag[$datum->wochentag]." ".$datum->datum.".xls");
     }
 
     public function info($id) 

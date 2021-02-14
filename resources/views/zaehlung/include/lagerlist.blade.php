@@ -8,13 +8,12 @@
                 </a>
             </div>
         @endif
-
         <a href="zaehlung/{{$item->id}}">Heute: {{$wochentag[strftime("%u", strtotime($item->created_at))]}} {{strftime("%d.%m.%Y", strtotime($item->created_at))}} <small>{{$item->name}}</small></a>
             @if (Auth::user()->role > 1)
                 <div class="float-right" style="padding-top: 3px">
-                    <a class="btn btn-primary btn-sm my_button_zaehlung @if ($item->sum_erledigt > 0) disabled @endif" href="export/{{$item->id}}" role="button" @if ($item->sum_erledigt > 0) aria-disabled="true" @endif><i class="material-icons">description</i></a>
-                    <a class="btn btn-secondary btn-sm my_button_zaehlung @if ($item->sum_erledigt > 0) disabled @endif" href="kistenexport/{{$item->id}}" role="button" @if ($item->sum_erledigt > 0) aria-disabled="true" @endif><i class="material-icons">all_inbox</i></a>
-                    <a class="btn btn-success btn-sm my_button_zaehlung" href="/zaehlung/info/{{$item->id}}" role="button"><i class="material-icons">info</i></a>
+                    <a class="btn btn-primary btn-sm my_button_zaehlung @if ($item->sum_erledigt > 0) disabled @endif" href="export/{{$item->id}}" role="button" @if ($item->sum_erledigt > 0) aria-disabled="true" @endif><i class="material-icons" data-toggle="tooltip" data-placement="top" title="GGN Liste downloaden">description</i></a>
+                    <a class="btn btn-secondary btn-sm my_button_zaehlung @if ($item->sum_erledigt > 0) disabled @endif" href="kistenexport/{{$item->id}}" role="button" @if ($item->sum_erledigt > 0) aria-disabled="true" @endif><i class="material-icons" data-toggle="tooltip" data-placement="top" title="Leergut Liste downloaden">inventory</i></a>
+                    <a class="btn btn-success btn-sm my_button_zaehlung" href="/zaehlung/info/{{$item->id}}" role="button"><i class="material-icons" data-toggle="tooltip" data-placement="top" title="Übersicht anzeigen">info</i></a>
                 </div>
             @endif
         <p style="margin-bottom:0;font-style:italic">
@@ -24,5 +23,9 @@
                 </small>
             @endif
         </p>
-    </div> <br>
+    </div>
+    {{-- Script für die TooltipBox --}}
+    <script>$(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })</script>
 @endforeach
