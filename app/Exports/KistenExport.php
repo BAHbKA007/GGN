@@ -40,8 +40,8 @@ class KistenExport implements FromCollection, ShouldAutoSize, WithColumnFormatti
     {
         $kisten = DB::select(
             "SELECT 
-                kundes.name,
-                zaehlungpositions.menge,
+                kundes.name AS Kunde,
+                SUM(zaehlungpositions.menge) AS Menge,
                 artikels.bezeichnung AS Artikel,
                 kistes.bezeichnung AS Kiste
             FROM `zaehlungpositions`
@@ -49,6 +49,7 @@ class KistenExport implements FromCollection, ShouldAutoSize, WithColumnFormatti
             JOIN kistes ON kistes.id = zaehlungpositions.kiste_id
             JOIN artikels ON artikels.id = zaehlungpositions.art_id
             WHERE zaehlungpositions.zaehlung_id = $this->id
+            GROUP BY Kunde, Artikel, Kiste
             ORDER BY 1" );
         
         return collect( $kisten );
