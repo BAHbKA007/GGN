@@ -18,6 +18,7 @@ class KistenExport implements FromCollection, ShouldAutoSize, WithColumnFormatti
         return [
             'Aldi Lager',
             'Menge',
+            'Artikel',
             'Leergutart'
         ];
     }
@@ -27,7 +28,8 @@ class KistenExport implements FromCollection, ShouldAutoSize, WithColumnFormatti
         return [
             'A' => NumberFormat::FORMAT_TEXT,
             'B' => NumberFormat::FORMAT_NUMBER,
-            'C' => NumberFormat::FORMAT_TEXT
+            'C' => NumberFormat::FORMAT_TEXT,
+            'D' => NumberFormat::FORMAT_TEXT
         ];
     }
 
@@ -39,13 +41,14 @@ class KistenExport implements FromCollection, ShouldAutoSize, WithColumnFormatti
         $kisten = DB::select(
             "SELECT 
                 kundes.name,
-                SUM(zaehlungpositions.menge),
-                kistes.bezeichnung
+                zaehlungpositions.menge,
+                artikels.bezeichnung AS Artikel,
+                kistes.bezeichnung AS Kiste
             FROM `zaehlungpositions`
             JOIN kundes ON kundes.id = zaehlungpositions.kunde_id
             JOIN kistes ON kistes.id = zaehlungpositions.kiste_id
+            JOIN artikels ON artikels.id = zaehlungpositions.art_id
             WHERE zaehlungpositions.zaehlung_id = $this->id
-            GROUP BY kundes.name, kistes.bezeichnung
             ORDER BY 1" );
         
         return collect( $kisten );
