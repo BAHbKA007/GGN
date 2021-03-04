@@ -52,7 +52,7 @@ class ZaehlungController extends Controller
                                     (SELECT user FROM zaehlungpositions WHERE zaehlungpositions.zaehlung_id = zaehlungs.id ORDER BY zaehlungpositions.created_at DESC LIMIT 1) AS user_aenderung'))
                 ->join('users', 'zaehlungs.bearbeiter_id', '=', 'users.id')
                 ->where('zaehlungs.id', '<>', $zaehlungen[0]->id)
-                ->orderBy('id', 'desc');
+                ->orderBy('created_at', 'desc');
 
             return view('zaehlung.home')->with('var', [
                 'zaehlungen' => $zaehlungen,
@@ -69,7 +69,7 @@ class ZaehlungController extends Controller
                                     (SELECT created_at FROM zaehlungpositions WHERE zaehlungpositions.zaehlung_id = zaehlungs.id ORDER BY zaehlungpositions.created_at DESC LIMIT 1) AS letze_aenderung,
                                     (SELECT user FROM zaehlungpositions WHERE zaehlungpositions.zaehlung_id = zaehlungs.id ORDER BY zaehlungpositions.created_at DESC LIMIT 1) AS user_aenderung'))
                 ->join('users', 'zaehlungs.bearbeiter_id', '=', 'users.id')
-                ->orderBy('id', 'desc');
+                ->orderBy('created_at', 'desc');
 
             return view('zaehlung.erstellen')->with('var', [
                 'alle_zaehlungen' => $alle_zaehlungen->paginate(50)
