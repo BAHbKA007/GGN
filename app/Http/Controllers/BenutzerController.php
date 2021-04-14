@@ -28,7 +28,7 @@ class BenutzerController extends Controller
      */
     public function index()
     {
-        $benutzer = DB::select('SELECT users.*, roles.name AS rolesname from users join roles on users.role = roles.id WHERE users.sperre = 0');
+        $benutzer = DB::select('SELECT users.*, roles.name AS rolesname FROM users JOIN roles ON users.role = roles.id WHERE users.sperre = 0');
         $roles = DB::select('SELECT * from roles');
 
         return view('benutzer')->with('var', [
@@ -61,6 +61,7 @@ class BenutzerController extends Controller
         $benutzer->email = $request->email;
         $benutzer->password = Hash::make($request->password);
         $benutzer->role = $request->role;
+        $benutzer->bestand = $request->is_bestand;
         $benutzer->save();
         return back()->with('status', ['success' => 'Benutzer erfolgreich hinzugefügt']);
     }
@@ -84,10 +85,10 @@ class BenutzerController extends Controller
      */
     public function edit($id)
     {
-        $benutzer = DB::select('select users.*, roles.name AS rolesname from users join roles on users.role = roles.id');
-        $roles = DB::select('select * from roles');
+        $benutzer = DB::select('SELECT users.*, roles.name AS rolesname FROM users JOIN roles ON users.role = roles.id WHERE users.sperre = 0');
+        $roles = DB::select('SELECT * FROM roles');
 
-        $user = DB::select('select users.*, roles.name AS rolesname, roles.id AS rolesid from users join roles on users.role = roles.id where users.id = ?',[$id])[0];
+        $user = DB::select('SELECT users.*, roles.name AS rolesname, roles.id AS rolesid FROM users JOIN roles ON users.role = roles.id WHERE users.id = ?',[$id])[0];
         return view('benutzer')->with('var', [
             'benutzer' => $benutzer,
             'roles' => $roles,
@@ -109,6 +110,7 @@ class BenutzerController extends Controller
         $user->email = $request->email;
         $user->role = $request->role;
         if ($request->password != NULL) { $user->password = Hash::make($request->password); };
+        (isset($request->is_bestand)) ? $user->bestand = 1 : $user->bestand = 0;
         $user->save();
         return redirect('/benutzer')->with('status', ['success' => 'Benutzer erfolgreich aktualiesiert']);
     }

@@ -102,3 +102,6 @@ Route::get('/python/check', 'PythonController@check');
 Route::get('419', 'ErrorController@Error419');
 
 Route::get('500', 'ErrorController@Error500');
+
+Route::get('/bestand', 'BestandController@index');
+Route::get('/show_bestand', 'BestandController@show');
