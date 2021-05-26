@@ -190,7 +190,7 @@ class ZaehlungpositionController extends Controller
      */
     public function show($zaehlung_id, $kunde_id, $artikel_id)
     {
-        $kisten = Kiste::orderBy('bezeichnung')->get();
+        $kisten = Kiste::orderByDesc('bezeichnung')->get();
         $comment = DB::select('SELECT * FROM comments WHERE kunde_id = ? AND zaehlung_id = ?',[$kunde_id,$zaehlung_id]);
         $artikel = DB::select(' SELECT * 
                                 FROM artikels 

@@ -86,7 +86,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-row">
+                            {{-- <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <div class="form-check">
                                         <input 
@@ -100,7 +100,7 @@
                                         </label>
                                       </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <button class="btn btn-primary btn-sm" type="submit"> @if (!isset($var['edit_benutzer'])) Benutzer hinzufügen @else Benutzer aktualisieren @endif </button>
                         </form>

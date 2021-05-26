@@ -19,9 +19,17 @@ $wochentag = [
     <div class="col-md-12 text-center"> 
         <form action="/zaehlung/neu" method="post" id="neue_zaehlung">
             @csrf
-            <button id="lodingButton" class="btn btn-primary lodingButton" type="button" data-form="neue_zaehlung">
+            <button id="lodingButton" class="btn btn-primary lodingButton" type="button" data-form="neue_zaehlung" onclick='this.disabled = true;'>
                 <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
-                <span id="btn-txt">Neue Zählung</span>
+                <span id="btn-txt">Neue leere Zählung</span>
+            </button>
+        </form>
+        <br>
+        <form action="/zaehlung/neu_vorbelegt" method="post" id="neue_zaehlung">
+            @csrf
+            <button id="lodingButton" class="btn btn-success lodingButton" type="button" data-form="neue_zaehlung" onclick='this.disabled = true;'>
+                <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
+                <span id="btn-txt">Neue Zählung mit vorbelegten Artikeln</span>
             </button>
         </form>
     </div>
