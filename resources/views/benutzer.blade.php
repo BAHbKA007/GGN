@@ -35,46 +35,20 @@
                 <div class="card" style="margin-bottom:20px">
                     <div class="card-body">
                         @if (isset($var['edit_benutzer']))
-                            <form 
-                                method="POST" 
-                                action="/benutzer/{{$var['edit_benutzer']->id}}"> 
-                            @method('put')
+                            <form method="POST" action="/benutzer/{{$var['edit_benutzer']->id}}" > @method('put')
                         @else
                             <form method="POST" action="/benutzer">
                         @endif
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <input 
-                                        type="text" 
-                                        class="form-control form-control-sm" 
-                                        @if (isset($var['edit_benutzer'])) value="{{$var['edit_benutzer']->name}}" @endif 
-                                        id="validationCustom03" 
-                                        name="name" 
-                                        placeholder="Name" 
-                                        required 
-                                        autocomplete="off">
+                                    <input type="text" class="form-control form-control-sm" @if (isset($var['edit_benutzer'])) value="{{$var['edit_benutzer']->name}}" @endif id="validationCustom03" name="name" placeholder="Name" required autocomplete="off">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <input 
-                                        type="email" 
-                                        class="form-control form-control-sm" 
-                                        @if (isset($var['edit_benutzer'])) value="{{$var['edit_benutzer']->email}}" @endif 
-                                        id="validationCustom04" 
-                                        name="email" 
-                                        placeholder="E-Mail" 
-                                        required 
-                                        autocomplete="off">
+                                    <input type="email" class="form-control form-control-sm" @if (isset($var['edit_benutzer'])) value="{{$var['edit_benutzer']->email}}" @endif id="validationCustom04" name="email" placeholder="E-Mail" required autocomplete="off">
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                    <input 
-                                        class="form-control form-control-sm" 
-                                        id="validationCustom05" 
-                                        name="password" 
-                                        placeholder="Passwort" 
-                                        type="password" 
-                                        @if (!isset($var['edit_benutzer'])) required @endif 
-                                        autocomplete="new-password">
+                                    <input class="form-control form-control-sm" id="validationCustom05" name="password" placeholder="Passwort" type="password" @if (!isset($var['edit_benutzer'])) required @endif autocomplete="new-password">
                                 </div>
                                 <div class="col-md-1 mb-3">
                                     <select class="form-control form-control-sm" name="role" >
@@ -83,22 +57,6 @@
                                             <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="col-md-12 mb-3">
-                                    <div class="form-check">
-                                        <input 
-                                            class="form-check-input" 
-                                            type="checkbox" 
-                                            name="is_bestand"
-                                            id="flexCheckDefault"
-                                            @if (isset($var['edit_benutzer']) and $var['edit_benutzer']->bestand == 1) checked @endif >
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Bestand
-                                        </label>
-                                      </div>
                                 </div>
                             </div>
 
@@ -119,7 +77,6 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">E-Mail</th>
                                     <th scope="col">Rolle</th>
-                                    <th scope="col">Bestand</th>
                                     <th scope="col" style="text-align:right">Aktionen</th>
                                 </tr>
                             </thead>
@@ -130,7 +87,6 @@
                                     <td>{{$benutzer->name}}</td>
                                     <td>{{$benutzer->email}}</td>
                                     <td>{{$benutzer->rolesname}}</td>
-                                    <td>@if ($benutzer->bestand == 1 ) Ja @else Nein @endif</td>
                                     <td style="text-align:right"> 
                                         <a href="/benutzer/{{$benutzer->id}}/edit"><i class="material-icons" style="font-size:16px">create</i></a> 
                                         <a href="#Modal" data-toggle="modal" data-target="#Modal" onclick="del('{{$benutzer->name}}',{{$benutzer->id}})"><i class="material-icons" style="font-size:16px">highlight_off</i></a>

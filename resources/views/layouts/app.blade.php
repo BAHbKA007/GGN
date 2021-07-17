@@ -74,14 +74,14 @@
 
                             <li class="nav-item dropdown">
                                 <a 
-                                    id="navbarDropdown" 
-                                    class="nav-link dropdown-toggle" 
-                                    href="#" 
-                                    role="button" 
-                                    data-toggle="dropdown" 
-                                    aria-haspopup="true" 
-                                    aria-expanded="false" 
-                                    v-pre>Stammdaten<span class="caret"></span>
+                                id="navbarDropdown" 
+                                class="nav-link dropdown-toggle" 
+                                href="#" 
+                                role="button" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false" 
+                                v-pre>Stammdaten<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/artikel">Artikel</a>
@@ -98,11 +98,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/zaehlung">Zählungen</a>
                             </li>
-                            @if (Auth::user()->bestand == 1)
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/bestand">Bestand</a>
-                                </li>
-                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="/suche">Suche</a>
                             </li>
