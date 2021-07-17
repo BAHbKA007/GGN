@@ -155,9 +155,7 @@ class GgnController extends Controller
             $soap = new MySoap;
             global $responsprop;
             $responsprop = $soap->bookmarkItemDelete($item);
-
-            return $responsprop->result;
-            
+           
             // wenn respons ok
             if ($responsprop->result == 'ok') {
                 Ggn::destroy($item);
