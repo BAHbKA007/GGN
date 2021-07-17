@@ -162,6 +162,7 @@ class GgnController extends Controller
             if ($responsprop->result == 'ok') {
                 Ggn::destroy($item);
                 echo "ok";
+                echo $item;
             }
         }
     }
