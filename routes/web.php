@@ -49,6 +49,7 @@ Route::get('/ggn', 'GgnController@index');
 Route::get('/ggn/{id}/edit', 'GgnController@edit');
 Route::post('/ggn', 'GgnController@store');
 Route::post('/ggn/del', 'GgnController@destroy');
+Route::get('/ggn/delete/{string}', 'GgnController@destroymany');
 
 Route::get('/programm', 'ProgrammController@index');
 Route::get('/programm/create', 'ProgrammController@create');
