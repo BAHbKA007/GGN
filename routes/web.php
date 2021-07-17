@@ -74,7 +74,6 @@ Route::delete('/artikel/ggn', 'ggnsartikelController@destroy');
 
 Route::get('/zaehlung', 'ZaehlungController@index');
 Route::post('/zaehlung/neu', 'ZaehlungController@store');
-Route::post('/zaehlung/neu_vorbelegt', 'ZaehlungController@store_vorbelegt');
 Route::get('/zaehlung/{id}', 'ZaehlungController@show');
 Route::get('/zaehlung/info/{id}', 'ZaehlungController@info');
 

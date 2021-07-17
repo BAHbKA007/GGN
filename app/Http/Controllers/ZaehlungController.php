@@ -109,24 +109,6 @@ class ZaehlungController extends Controller
         return redirect()->back()->with('status', ['success' => 'Eine neue Zählung hinzugefügt']);
     }
 
-    public function store_vorbelegt(Request $request)
-    {
-        $programm = DB::select('SELECT id FROM programms WHERE DATE(NOW()) BETWEEN programms.von AND programms.bis');
-
-        if (sizeof($programm) == 0)
-        {
-            return redirect()->back()->with('status', ['error' => 'Für heute existiert noch kein Programm']);
-        }
-
-        $zaehlung = new Zaehlung;
-        $zaehlung->bearbeiter_id = Auth::user()->id;
-        $zaehlung->pro_id = $programm[0]->id;
-        $zaehlung->save();
-
-        return redirect()->back()->with('status', ['success' => 'Eine neue Zählung hinzugefügt']);
-    }
-
-
     /**
      * Display the specified resource.
      *
