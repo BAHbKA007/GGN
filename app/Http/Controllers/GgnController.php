@@ -145,24 +145,4 @@ class GgnController extends Controller
             ]);
         } 
     }
-
-    public function destroymany(Request $request)
-    {
-        $array = explode(",", $request->string);
-
-        foreach ($array as $item) {
-            // Soap delete
-            $soap = new MySoap;
-            global $responsprop;
-            $responsprop = $soap->bookmarkItemDelete($item);
-
-            return $responsprop->result;
-            
-            // wenn respons ok
-            if ($responsprop->result == 'ok') {
-                Ggn::destroy($item);
-                return "ok";
-            }
-        }
-    }
 }
