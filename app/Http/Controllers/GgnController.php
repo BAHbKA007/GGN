@@ -149,20 +149,20 @@ class GgnController extends Controller
     public function destroymany(Request $request)
     {
         $array = explode(",", $request->string);
+        return var_dump($array);
+        // foreach ($array as $item) {
+        //     // Soap delete
+        //     $soap = new MySoap;
+        //     global $responsprop;
+        //     $responsprop = $soap->bookmarkItemDelete($item);
 
-        foreach ($array as $item) {
-            // Soap delete
-            $soap = new MySoap;
-            global $responsprop;
-            $responsprop = $soap->bookmarkItemDelete($item);
-
-            return $responsprop->result;
+        //     return $responsprop->result;
             
-            // wenn respons ok
-            if ($responsprop->result == 'ok') {
-                Ggn::destroy($item);
-                echo "ok";
-            }
-        }
+        //     // wenn respons ok
+        //     if ($responsprop->result == 'ok') {
+        //         Ggn::destroy($item);
+        //         echo "ok";
+        //     }
+        // }
     }
 }
